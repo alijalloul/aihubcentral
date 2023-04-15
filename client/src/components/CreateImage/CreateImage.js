@@ -6,7 +6,7 @@ import emptyImage from "../../img/empty.jpg";
 
 const CreateForm = () => {
   const BASE_URL = process.env.SERVER_URL || "http://localhost:5000";
-  console.log("server url", process.env.SERVER_URL)
+  console.log("server url", process.env)
   const [dalleForm, setDalleForm] = useState({
     name: "",
     prompt: "",
