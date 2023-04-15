@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import DotDotDot from './DotDotDot/DotDotDot';
 
 const ChatBot = () => {
+    const BASE_URL = process.env.SERVER_URL || "http://localhost:5000";
     const [responsePending, setResponsePending] = useState(false);
 
     const [message, setMessage] = useState({
@@ -27,7 +28,7 @@ const ChatBot = () => {
             try {
                 setResponsePending(true);
 
-                const res = await fetch("http://localhost:5000/api/openai/chatGPT", {
+                const res = await fetch(`${BASE_URL}/api/openai/chatGPT`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

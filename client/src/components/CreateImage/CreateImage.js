@@ -5,6 +5,7 @@ import {dalleSupriseMePrompts} from "../../constants/dallePrompts.js"
 import emptyImage from "../../img/empty.jpg";
 
 const CreateForm = () => {
+  const BASE_URL = process.env.SERVER_URL || "http://localhost:5000";
   const [dalleForm, setDalleForm] = useState({
     name: "",
     prompt: "",
@@ -22,7 +23,7 @@ const CreateForm = () => {
       setLoading(true);
 
       try {
-        const res = await fetch("http://localhost:5000/api/openai/dalle", {
+        const res = await fetch(`${BASE_URL}/api/openai/dalle`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
