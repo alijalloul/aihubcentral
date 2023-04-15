@@ -29,6 +29,7 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
+console.log(configuration);
 
 app.get("/", async (req, res) => {
     res.send("Server is RUNNING");
@@ -56,7 +57,6 @@ app.post("/api/openai/dalle", async (req, res) => {
 });
 
 app.post("/api/openai/chatGPT", async (req, res) => {
-    console.log(configuration);
     const {chat} = req.body;
 
     console.log(chat);
