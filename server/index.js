@@ -56,6 +56,7 @@ app.post("/api/openai/dalle", async (req, res) => {
 });
 
 app.post("/api/openai/chatGPT", async (req, res) => {
+    console.log(configuration);
     const {chat} = req.body;
 
     console.log(chat);
