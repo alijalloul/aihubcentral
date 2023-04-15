@@ -13,13 +13,16 @@ app.use(cors());
 app.use(express.json())
 
 const atlasURL = process.env.MONGODB_URL;    
+const APIKEY = process.env.OPENAI_API_KEY;
 const PORT = process.env.PORT || 5000;
+
+console.log("atlasURL", atlasURL);
+console.log("APIKEY", APIKEY);
 
 mongoose.connect(atlasURL)
     .then(() => app.listen(PORT, () => console.log(`Successfully connected to port ${PORT}`)))
     .catch(error => console.log("There was an error: ", error));
 
-const APIKEY = process.env.OPENAI_API_KEY;
 const configuration = new Configuration({
     organization: "org-r2BOPUThXA383fEqMcF3ClYY",
     apiKey: APIKEY,
