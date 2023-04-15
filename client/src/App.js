@@ -7,6 +7,9 @@ import ChatBot from "./components/ChatBot/ChatBot.js";
 import Posts from "./components/Posts/Posts.js";
 
 const App = () => {
+  console.log(process.env.REACT_APP_TEST);
+  console.log(process.env.REACT_APP_SERVER_URL);
+
   return (
     <BrowserRouter>
       <Nav />

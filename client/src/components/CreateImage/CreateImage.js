@@ -5,7 +5,7 @@ import {dalleSupriseMePrompts} from "../../constants/dallePrompts.js"
 import emptyImage from "../../img/empty.jpg";
 
 const CreateForm = () => {
-  const BASE_URL = process.env.SERVER_URL || "http://localhost:5000";
+  const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
   console.log("server url", process.env)
   const [dalleForm, setDalleForm] = useState({
     name: "",

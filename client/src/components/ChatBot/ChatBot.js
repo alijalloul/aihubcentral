@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import DotDotDot from './DotDotDot/DotDotDot';
 
 const ChatBot = () => {
-    const BASE_URL = process.env.SERVER_URL || "http://localhost:5000";
+    const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
     const [responsePending, setResponsePending] = useState(false);
 
     const [message, setMessage] = useState({
