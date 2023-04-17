@@ -6,7 +6,6 @@ import emptyImage from "../../img/empty.jpg";
 
 const CreateForm = () => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
-  console.log("server url", process.env)
   const [dalleForm, setDalleForm] = useState({
     name: "",
     prompt: "",
@@ -36,28 +35,48 @@ const CreateForm = () => {
 
         setDalleForm({ ...dalleForm, generatedImage: `data:image/jpeg;base64,${data.image}`});
       } catch (error) {
-        alert(error);
+        console.log(error);
         setLoading(false);
       } finally {
         setLoading(false);
       }
     }
-    
+  }
+
+  const handleSubmit = async () => {
+    if(dalleForm.generatedImage){
+      console.log(dalleForm);
+      try {
+        const res = await fetch(`${BASE_URL}/imageShowcase`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dalleForm),
+        }); 
+
+        const body = res.json();
+        console.log(body);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   const handleChange = (e) => {
     setDalleForm({ ...dalleForm, [e.target.name]: e.target.value });
   }
   return (
-    <div className='h-[calc(100vh-73px)] w-full px-10 flex min-h-fit bg-slate-50 justify-between'>
-      <div className='pl-10 h-full flex flex-col justify-center'>
-        <div className='h-fit'>
+    <div className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between max-sm:flex-col'>
+      <div className='pl-10 h-full flex flex-col justify-center max-sm:pl-0'>
+        <div className='h-full'>
           <h1 className='relative z-[1] text-4xl font-bold text-white' style={{WebkitTextStroke: "2px black", textShadow: "4px 4px black"}}>Draw Your Imagination</h1>
           <p className='py-10 px-3 mb-10 bg-[rgb(109,84,210)] text-gray-100 transform skew-y-3'>Create an imaginative and stunning image from prompts using DALLE-E2 AI!</p>
           <form className="mb-3">
             <div>
               <p>Your Name</p>
-              <input name="name" type="text" placeholder="John White" className="mb-5 p-2 w-full b rounded-sm border-solid border-2 border-gray-600"></input>
+              <input name="name" type="text" placeholder="John White" className="mb-5 p-2 w-full b rounded-sm border-solid border-2 border-gray-600" onChange={ handleChange }></input>
             </div>
 
             <div>
@@ -67,12 +86,13 @@ const CreateForm = () => {
             </div>
           </form>
 
-          <button onClick={handleGenerate} className=" py-2 w-full bg-yellow-500 rounded-md text-white">Generate</button>
+          <button onClick={handleGenerate} className="mb-2 py-2 w-full bg-yellow-500 rounded-md text-white hover:bg-yellow-600 transition ease-in-out duration-200">Generate</button>
+          <button onClick={handleSubmit} className=" py-2 w-full bg-green-600 rounded-md text-white hover:bg-green-700 transition ease-in-out duration-200">Submit</button>
         </div>
       </div>
       
-      <div className='w-[50vw] flex justify-center items-center'>
-        <div className='relative w-[35vw] aspect-square rounded-3xl overflow-hidden'>
+      <div className='w-[50vw] flex justify-center items-center max-sm:my-10 max-sm:w-full'>
+        <div className='relative w-[35vw] aspect-square rounded-3xl overflow-hidden max-sm:w-full'>
           {
             loading && (
               <Loader stylingT="absolute aspect-square absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>

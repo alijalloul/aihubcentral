@@ -1,0 +1,177 @@
+.formContainerContainer{
+    width: 100vw;
+    height: calc(100vh - 73px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(187,255,248);
+    background: linear-gradient(45deg, rgba(187,255,248,1) 0%, rgba(255,199,244,1) 100%); 
+}
+
+.formContainer{
+    width: 30vw;
+    min-width: fit-content;
+    height: fit-content;
+
+    padding: 25px;
+
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+.formContainer form input{
+    outline: none;
+    padding: 8px 15px;
+
+    transition: all .2s ease-in-out;
+}
+
+.authFormHeader{
+    margin-bottom: 20px;
+}
+
+.flName{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flName input{
+    width: 100%;
+}
+.email{
+    width: 100%;
+}
+
+.passwordContainer{
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    background-color: white;
+}
+.passwordContainer input{
+    border: none;
+
+    padding: 0;
+    width: 90%;
+}
+.passwordContainer button{
+    width: 25px;
+    aspect-ratio: 1;
+}
+.repassword{
+
+    width: 100%;
+}
+
+.signupinContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 12px;
+}
+.signupin{
+    width: 100%;
+    padding: 10px 0;
+
+    border: none;
+    background-color: rgb(90, 190, 255);
+    color: white;
+}
+
+.googleLogInContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 15px;
+}
+
+.switchContainer{
+    display: flex;
+    
+}
+
+.switchContainer button{
+    margin-left: 5px;
+    background-color: transparent;
+    border: none;
+
+    transition: all 0.1s ease-in-out;
+}
+
+.switchContainer button:hover{
+    color: rgb(90, 190, 255);
+}
+
+.error{
+    color: red;
+    font-size: .8vw;
+}
+.inputError{
+    position: relative;
+
+    margin-bottom: 12px;
+    border: 1px grey solid;
+    width: 100%;
+}
+
+.lableInput{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-weight: lighter;
+    font-size: 1vw;
+    opacity: 0.5;
+
+    background-color: white;
+
+    transition: all .2s ease-in-out;
+
+    pointer-events: none;
+}
+
+.formContainer form input:focus{
+    outline: skyblue;
+    padding: 10px 20px;
+}
+
+.inputError input:focus ~ .lableInput{
+    z-index: 1;
+    top: 0;
+    left: 1vw;
+    font-size: 0.8vw;
+    transform: translate(0, -50%);
+    
+    padding: 0 5px;
+    background-color: white;
+    opacity: 1;
+
+    pointer-events: auto;
+    width: fit-content;
+}
+
+
+
+@media only screen and (max-width: 500px) {    
+    .formContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .formContainer form{
+        height: 70%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -20,7 +20,8 @@ const Nav = () => {
 
         <div>
           <Link to="/createImage" className="mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md">Create</Link>
-          <Link to="/chatBot" className="font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
+          <Link to="/chatBot" className="mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
+          <Link to="auth" className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md">Login</Link>
         </div>
     </header>
   )

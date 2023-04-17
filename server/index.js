@@ -2,75 +2,80 @@ import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
-import { Configuration, OpenAIApi } from "openai";
 
-import dallePostSchema from "./schemas/dallePost.js";
+import fs from "fs";
+import path from "path";   
+
+import dalleImageSchema from "./schemas/dalleImages.js";
+
+import { dalle, chatGPT } from "./api/openai/openai.js";
+import { login, signup } from "./api/user/user.js";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(express.json())
+app.use(express.json({limit: '50mb'}));
 
 const atlasURL = process.env.MONGODB_URL;    
-const APIKEY = process.env.OPENAI_API_KEY;
 const PORT = process.env.PORT || 5000;
-
-console.log("atlasURL", atlasURL);
-console.log("APIKEY", APIKEY);
 
 mongoose.connect(atlasURL)
     .then(() => app.listen(PORT, () => console.log(`Successfully connected to port ${PORT}`)))
     .catch(error => console.log("There was an error: ", error));
 
-const configuration = new Configuration({
-    organization: "org-r2BOPUThXA383fEqMcF3ClYY",
-    apiKey: APIKEY,
-});
-
-const openai = new OpenAIApi(configuration);
-console.log(configuration);
-
 app.get("/", async (req, res) => {
     res.send("Server is RUNNING");
 })
 
-app.post("/api/openai/dalle", async (req, res) => {
-    const {prompt} = req.body;
+app.post("/api/openai/dalle", (req, res) => dalle(req, res));
+app.post("/api/openai/chatGPT", (req, res) => chatGPT(req, res));
 
-    console.log(prompt);
+app.get("/imageShowcase", async (req, res) => {
+    const images = await dalleImageSchema.find();
+
+    images.map(image => {
+        const imagePath = path.join("./images/dalle_images", image.generatedImage);
+
+        var base64Data;
+        if(fs.existsSync(imagePath)){
+            base64Data = fs.readFileSync(imagePath, { encoding: 'base64' });
+        }else {
+            base64Data = fs.readFileSync('./images/notfound.jpeg').toString("base64");
+        }
+
+
+
+        image.generatedImage = "data:image/png;base64," + base64Data;  
+    })
+    
+    res.json(images);
+})
+
+app.post("/imageShowcase", async (req, res) => {
+    const image = req.body;
+
+    const base64Image = image.generatedImage;
+
+    // Extract image type and base64 data
+    const fileExtension = base64Image.split(';')[0].split('/')[1];
+    const buffer = Buffer.from(base64Image.split(',')[1], 'base64');
+    
+    const filename = `image-${Date.now()}.${fileExtension}`;
+    fs.writeFileSync(path.join("./images/dalle_images", filename), buffer);
+
+    image.generatedImage = filename;    
+
+    console.log(image);
+
+    const newImage = new dalleImageSchema(image);
+
     try {
-        const dalleRes = await openai.createImage({
-            prompt: prompt,
-            n: 1,
-            size: "1024x1024",
-            response_format: "b64_json",
-        });
+        await newImage.save();
 
-        const image = dalleRes.data.data[0].b64_json;
-
-        res.status(200).json({ image: image });
+        res.status(200).json({message: "image submitted successfully!"});
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ message: error });
+        res.status(409).json({message: error});
     }
-});
-
-app.post("/api/openai/chatGPT", async (req, res) => {
-    const {chat} = req.body;
-
-    console.log(chat);
-    try {
-        const gptRes = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
-            messages: chat
-        });
-
-        const chatResponse = gptRes.data.choices[0].message.content;
-
-        res.status(200).json({ chatResponse: chatResponse });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ message: error });
-    }
-});
+  
+})

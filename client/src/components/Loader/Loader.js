@@ -3,7 +3,6 @@ import React from 'react'
 import "./Loader.css";
 
 const Loader = ( {stylingT} ) => {
-  console.log("stylingt: ", stylingT);
   return (
     <div className={`lds-ring ${stylingT}`}>
         <div></div>

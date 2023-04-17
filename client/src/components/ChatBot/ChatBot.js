@@ -42,7 +42,7 @@ const ChatBot = () => {
 
                 setResponsePending(false);
             } catch (error) {
-                alert(error);
+                console.log(error);
 
                 setResponsePending(false);
             } finally{
