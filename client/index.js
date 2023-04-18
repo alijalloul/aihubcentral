@@ -1,5 +1,5 @@
-import express from "express";
-import path from "path";
+const express = require("express");
+const path = require("path");
 
 const app = express();
 
@@ -7,6 +7,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Catch-all route for serving the same HTML file for all requests
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build/index.html'));
+  console.log("hello there")
 });
