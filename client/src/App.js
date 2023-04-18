@@ -10,15 +10,19 @@ import Auth from "./components/Auth/Auth.js";
 const App = () => {
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Nav />
       <Routes> 
         <Route path="/" element={ <DalleImages />} />
         <Route path="/createImage" element={ <CreateImage />} />
         <Route path="/chatBot" element={<ChatBot />} />
         <Route path="/auth" element={<Auth />} />
+
+        <Route path="https://aihubcentral.org/createImage" element={ <CreateImage />} />
+        <Route path="https://aihubcentral.org/chatBot" element={<ChatBot />} />
+        <Route path="https://aihubcentral.org/auth" element={<Auth />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
