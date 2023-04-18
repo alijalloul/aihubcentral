@@ -96,7 +96,7 @@ const Auth = () => {
                     console.log(formErrors);
                 }
             }else{
-                login(formData, navigate, dispatch)
+                login(formData, navigate, dispatch);
             }
         }else{
             console.log(formErrors);

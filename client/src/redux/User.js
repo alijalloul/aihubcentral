@@ -54,7 +54,6 @@ export const login = async (userInfo, navigate, dispatch) => {
         });
 
         const data = await res.json();
-        console.log();
         
         dispatch(userSlice.actions.loginSuccess(data));
 

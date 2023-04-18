@@ -27,12 +27,9 @@ const imagesSlice = createSlice({
 export const fetchImages = async (dispatch) => {
     dispatch(imagesSlice.actions.startAPI("fetchPosts"));
 
-    console.log("hihihoho");
     try {    
         const res = await fetch(`${BASE_URL}/imageShowcase`);
         const data = await res.json();
-
-        console.log(data);
 
         dispatch(imagesSlice.actions.fetchSuccess(data))
     } catch (error) {

@@ -21,8 +21,6 @@ const Posts = () => {
         setImages(imagesInfo);
     },[imagesInfo]);
 
-    console.log(images?.length);
-
     if(images?.length === 0){
             return <h1>Be the first to post!</h1>
     }

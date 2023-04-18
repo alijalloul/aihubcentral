@@ -6,10 +6,10 @@ import mongoose from "mongoose";
 import fs from "fs";
 import path from "path";   
 
-import dalleImageSchema from "./schemas/dalleImages.js";
+import dalleImageSchema from "./schemas/dalleImagesDB.js";
 
-import { dalle, chatGPT } from "./api/openai/openai.js";
-import { login, signup } from "./api/user/user.js";
+import { dalle, chatGPT } from "./api/openai.js";
+import { login, signup } from "./api/user.js";
 
 dotenv.config();
 
@@ -79,3 +79,6 @@ app.post("/imageShowcase", async (req, res) => {
     }
   
 })
+
+app.post("/users/login", (req, res) => login(req, res)); 
+app.post("/users/signup", (req, res) => signup(req, res));

@@ -1,7 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import decode from "jwt-decode";
+
+import { logout } from "../../redux/User.js"
 
 const Nav = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
+
+    useEffect(() => {
+        const token = user?.token;
+        if(token){
+            const decodedToken = decode(token);
+
+            if(decodedToken.exp * 1000 < new Date().getTime()) logout(navigate, dispatch);
+        }
+
+        setUser(JSON.parse(localStorage.getItem("profile")));
+    },[location]);
+
+    const handleLogout = () => {
+        logout(navigate, dispatch);
+        setUser(null);
+    }
+
   return (
     <header className='w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]'>
         <Link to="/"> 
@@ -18,10 +44,19 @@ const Nav = () => {
             </svg>
         </Link>
 
-        <div>
+        <div className='flex'>
           <Link to="/createImage" className="mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md">Create</Link>
           <Link to="/chatBot" className="mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
-          <Link to="auth" className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md">Login</Link>
+          {
+            (user) ? (
+              <div className="flex">
+                  <button onClick={ handleLogout } className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md mr-2">Logout</button>
+                  <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
+              </div>
+            ) : (
+              <Link to="auth" className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md">Login</Link>
+            )
+          }
         </div>
     </header>
   )
