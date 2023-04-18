@@ -58,7 +58,7 @@ const ChatBot = () => {
 
   return (
     <div className='h-[calc(100vh-73px)] w-full min-h-fit flex'>
-        <div className='float-left h-full bg-[#2c2d37] w-[20vw] shadow-xl shadow-[#10a37f] relative z-1 sm:hidden'>
+        <div className='float-left h-full bg-[#2c2d37] w-[20vw] shadow-xl shadow-[#10a37f] relative z-1 max-sm:hidden'>
             {
                 (userInfo) ? (
                     <div className='h-full px-5 flex justify-between items-center text-white'>
