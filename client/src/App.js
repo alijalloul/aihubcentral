@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom"
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom"
 
 import Nav from "./components/Nav/Nav.js";
 import CreateImage from "./components/CreateImage/CreateImage.js";
@@ -10,7 +10,7 @@ import Auth from "./components/Auth/Auth.js";
 const App = () => {
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Nav />
       <Routes> 
         <Route path="/" element={ <DalleImages />} />
@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/chatBot" element={<ChatBot />} />
         <Route path="/auth" element={<Auth />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
