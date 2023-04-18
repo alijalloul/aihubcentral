@@ -58,11 +58,11 @@ const ChatBot = () => {
 
   return (
     <div className='h-[calc(100vh-73px)] w-full min-h-fit flex'>
-        <div className='float-left h-full bg-[#2c2d37] w-[20vw] shadow-xl shadow-[#10a37f] relative z-1'>
+        <div className='float-left h-full bg-[#2c2d37] w-[20vw] shadow-xl shadow-[#10a37f] relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
                     <div className='h-full px-5 flex justify-between items-center text-white'>
-                        <div className='w-full h-[90%] flex items-center flex-col justify-between  overflow-scroll'>
+                        <div className='w-full h-[90%] flex items-center flex-col justify-between'>
                             <div className='w-full flex flex-col'>
                                 <button className='w-full mb-3 border-2 border-[#22232b] py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 1</button>
                                 <button className='w-full mb-3 border-2 border-[#22232b] py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 2</button>
