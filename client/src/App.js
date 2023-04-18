@@ -17,10 +17,6 @@ const App = () => {
         <Route path="/createImage" element={ <CreateImage />} />
         <Route path="/chatBot" element={<ChatBot />} />
         <Route path="/auth" element={<Auth />} />
-
-        <Route path="https://aihubcentral.org/createImage" element={ <CreateImage />} />
-        <Route path="https://aihubcentral.org/chatBot" element={<ChatBot />} />
-        <Route path="https://aihubcentral.org/auth" element={<Auth />} />
       </Routes>
     </BrowserRouter>
   );
