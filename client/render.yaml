@@ -1,5 +1,6 @@
 # render.yaml
 
 routes:
-  - source: /404.html
+  - type: redirect
+    source: /404.html
     destination: /index.html
