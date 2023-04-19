@@ -2,5 +2,5 @@
 
 routes:
   - type: redirect
-    source: /404.html
-    destination: /index.html
+    source: /public/404.html
+    destination: /public/index.html
