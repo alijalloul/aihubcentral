@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, HashRouter, Route, Routes, Navigate } from "react-router-dom"
 
 import Nav from "./components/Nav/Nav.js";
@@ -8,6 +8,7 @@ import DalleImages from "./components/DalleImages/DalleImages.js";
 import Auth from "./components/Auth/Auth.js";
 
 const App = () => {
+
   return (
     <BrowserRouter>
       <Nav />
@@ -17,7 +18,6 @@ const App = () => {
         <Route path="/chatBot" element={<ChatBot />} />
         <Route path="/auth" element={<Auth />} />
 
-        <Route path="/*" element={<Navigate to="/"/>} />
       </Routes>
     </BrowserRouter>
   );
