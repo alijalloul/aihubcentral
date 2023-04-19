@@ -8,18 +8,18 @@ import DalleImages from "./components/DalleImages/DalleImages.js";
 import Auth from "./components/Auth/Auth.js";
 
 const App = () => {
-
   return (
-    <BrowserRouter>
-      <Nav />
-      <Routes> 
-        <Route path="/" element={ <DalleImages />} />
-        <Route path="/createImage" element={ <CreateImage />} />
-        <Route path="/chatBot" element={<ChatBot />} />
-        <Route path="/auth" element={<Auth />} />
+      <BrowserRouter>
+        <Nav />
+        <Routes> 
+          <Route path="/" element={ <DalleImages />} />
+          <Route path="/createImage" element={ <CreateImage />} />
+          <Route path="/chatBot" element={<ChatBot />} />
+          <Route path="/auth" element={<Auth />} />
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+      
   );
 }
 
