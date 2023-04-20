@@ -11,6 +11,9 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+
+console.log(openai);
+
 export const dalle = async (req, res) => {
     const {prompt} = req.body;
 
