@@ -14,7 +14,7 @@ const imagesSlice = createSlice({
             state.pending = {...state.pending, [action.payload]: true};
         },
         fetchSuccess: (state, action) => {
-            state.pending = {...state.pending, fetchPosts: false};
+            state.pending = {...state.pending, fetchImages: false};
             state.imagesInfo = action.payload;
         },
         errorAPI: (state, action) => {
@@ -25,7 +25,7 @@ const imagesSlice = createSlice({
 });
 
 export const fetchImages = async (dispatch) => {
-    dispatch(imagesSlice.actions.startAPI("fetchPosts"));
+    dispatch(imagesSlice.actions.startAPI("fetchImages"));
 
     try {    
         const res = await fetch(`${BASE_URL}/imageShowcase`);

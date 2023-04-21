@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { motion } from 'framer-motion';
 
 import DotDotDot from './DotDotDot/DotDotDot';
 
@@ -57,23 +58,27 @@ const ChatBot = () => {
     },[chat]);
 
   return (
-    <div className='h-[calc(100vh-73px)] w-full min-h-fit flex'>
-        <div className='float-left h-full bg-[#2c2d37] w-[20vw] shadow-xl shadow-[#10a37f] relative z-1 max-sm:hidden'>
+    <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        exit={{ opacity: 0 }} 
+        className='h-[calc(100vh-73px)] w-full min-h-fit flex'>
+        <div className='float-left h-full bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 max-sm:hidden'>
             {
                 (userInfo) ? (
                     <div className='h-full px-5 flex justify-between items-center text-white'>
                         <div className='w-full h-[90%] flex items-center flex-col justify-between'>
                             <div className='w-full flex flex-col'>
-                                <button className='w-full mb-3 border-2 border-[#22232b] py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 1</button>
-                                <button className='w-full mb-3 border-2 border-[#22232b] py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 2</button>
-                                <button className='w-full mb-3 border-2 border-[#22232b] py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 3</button>
-                                <button className='w-full mb-3 border-2 border-[#22232b] py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 4</button>
+                                <button className='w-full mb-1 bg-[#343541] py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 1</button>
+                                <button className='w-full mb-1 py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 2</button>
+                                <button className='w-full mb-1 py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 3</button>
+                                <button className='w-full mb-1 py-3 rounded-lg hover:bg-[#454757] hover:bg-opacity-30 transition-all'>Chat 4</button>
                             </div>
 
                             <div className='w-full flex flex-col'>
-                                <button className='w-full mb-3 border-2 border-green-500 py-3 rounded-lg hover:bg-green-200 hover:bg-opacity-30 transition-all'>Create New Chat</button>
-                                <button className='w-full mb-3 border-2 border-red-500 py-3 rounded-lg hover:bg-red-200 hover:bg-opacity-30 transition-all'>Delete This Chat</button>
-                                <button className='w-full mb-3 border-2 border-yellow-500 py-3 rounded-lg hover:bg-yellow-200 hover:bg-opacity-30 transition-all'>Delete All Chats</button>
+                                <button className='w-full mb-3 text-black border-2 bg-green-300 border-green-500 py-3 rounded-lg hover:bg-green-400 hover:bg-opacity-30 transition-all'>Create New Chat</button>
+                                <button className='w-full mb-3 text-black border-2 bg-red-300 border-red-500 py-3 rounded-lg hover:bg-red-400 hover:bg-opacity-30 transition-all'>Delete This Chat</button>
+                                <button className='w-full mb-3 text-black border-2 bg-yellow-300 border-yellow-500 py-3 rounded-lg hover:bg-yellow-400 hover:bg-opacity-30 transition-all'>Delete All Chats</button>
                             </div>
                         </div>
                     </div>
@@ -85,17 +90,17 @@ const ChatBot = () => {
             }
         </div>
 
-        <div className='h-[calc(100vh-73px)] w-full min-h-fit bg-[#343541]'>
-            <div className='w-full h-[85%] px-20 py-10 flex flex-col overflow-y-scroll' style={{scrollbarWidth: "thin"}}>
+        <div className='h-[calc(100vh-73px)] w-full min-h-fit bg-white'>
+            <div className='w-full h-[80%] px-20 py-10 flex flex-col overflow-y-scroll' style={{scrollbarWidth: "thin"}}>
                 {
                     (chat.length > 0) && (
                         chat.map((message, index) => (
                             <div className='w-full h-fit mb-3' key={index} >
-                                <div style={{ float: 'left' }} className='bg-gray-100 w-fit px-5 py-3 rounded-r-lg rounded-t-lg'>
+                                <div style={{ float: 'left', boxShadow: "-5px 5px black" }} className='bg-gray-100 w-fit px-5 py-3 rounded-r-lg rounded-t-lg'>
                                     {message.content}
                                 </div>
 
-                                <div style={{ float: 'right' }} className='bg-[#10a37f] w-fit px-5 py-3 rounded-l-lg rounded-t-lg mt-10 break-words max-w-md'>
+                                <div style={{ float: 'right', boxShadow: "5px 5px black" }} className='bg-[#10a37f] text-white w-fit px-5 py-3 rounded-l-lg rounded-t-lg my-16   break-words max-w-md'>
                                     {
                                         (responsePending && chatResponses[index] === undefined) ? (
                                             console.log(chatResponses[index]),
@@ -111,11 +116,18 @@ const ChatBot = () => {
                 }
             </div>
 
-            <div className=' bg-[#33363f] w-full h-[15%] py-3 flex justify-center items-center border-t-[1px] border-[rgb(0,255,123)]'>
-                <input type="text" placeholder="ayo wassup ma home BOYY!!!" value={message.content} onChange={ handleChange } onKeyDown={ handleKeyDown } className='w-[80%] h-fit px-5 py-3 rounded-sm outline-1 bg-[#40414f] text-white focus:outline focus:outline-[rgb(0,255,123)] focus:shadow-[rgba(0,255,123,0.2)_0_0_5px_5px] transition-all duration-300'></input>
+            <div className='w-full h-[20%] py-3 flex justify-center items-center'>
+                <input 
+                    type="text" 
+                    placeholder="ayo wassup ma home BOYY!!!" 
+                    disabled={responsePending}
+                    value={message.content} 
+                    onChange={ handleChange } 
+                    onKeyDown={ handleKeyDown } 
+                    className='w-[60%] h-fit px-5 py-3 rounded-lg outline-none border-1 border-gray-300 text-black shadow-[rgba(0,0,0,0.05)_0_0_10px_10px] transition-all duration-300'></input>
             </div>
         </div>
-    </div>
+    </motion.div>
   )
 }
 

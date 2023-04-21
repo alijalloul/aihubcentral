@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion } from "framer-motion";
 
 import Loader from "../Loader/Loader.js";
 import {dalleSupriseMePrompts} from "../../constants/dallePrompts.js"
@@ -68,9 +69,13 @@ const CreateForm = () => {
     setDalleForm({ ...dalleForm, [e.target.name]: e.target.value });
   }
   return (
-    <div className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between max-sm:flex-col'>
-      <div className='pl-10 h-full flex flex-col justify-center max-sm:pl-0'>
-        <div className='h-full'>
+    <motion.div 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }} 
+                exit={{ opacity: 0 }}
+                className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between max-sm:flex-col'>
+      <div className='pl-10 flex flex-col justify-center max-sm:pl-0'>
+        <div className='h-fit'>
           <h1 className='relative z-[1] text-4xl font-bold text-white' style={{WebkitTextStroke: "2px black", textShadow: "4px 4px black"}}>Draw Your Imagination</h1>
           <p className='py-10 px-3 mb-10 bg-[rgb(109,84,210)] text-gray-100 transform skew-y-3'>Create an imaginative and stunning image from prompts using DALLE-E2 AI!</p>
           <form className="mb-3">
@@ -101,7 +106,7 @@ const CreateForm = () => {
           <img src={dalleForm.generatedImage ? dalleForm.generatedImage : emptyImage} alt="N/A" className={`w-full h-full object-contain ${loading && ("filter: opacity-20")}`}></img>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

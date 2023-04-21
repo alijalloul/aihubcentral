@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import jwt_decode from "jwt-decode";
 import { useDispatch } from 'react-redux';
 import { useNavigate  } from "react-router-dom"; 
+import { motion } from 'framer-motion';
 
 import { googleLogin, signup, login } from "../../redux/User.js";
 
@@ -114,7 +115,11 @@ const Auth = () => {
     }
     
   return (
-    <div className="formContainerContainer">
+    <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        exit={{ opacity: 0 }} 
+        className="formContainerContainer">
         <div className="formContainer">
             <h1 className="authFormHeader">{ isSignup ? "Sign Up" : "Log In"}</h1>
             <form>
@@ -194,7 +199,7 @@ const Auth = () => {
                 }
             </div>
         </div>
-    </div>
+    </motion.div>
 
 
   )

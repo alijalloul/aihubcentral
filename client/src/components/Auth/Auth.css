@@ -5,8 +5,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgb(187,255,248);
-    background: linear-gradient(45deg, rgba(187,255,248,1) 0%, rgba(255,199,244,1) 100%); 
 }
 
 .formContainer{
@@ -18,6 +16,8 @@
 
     background-color: white;
     border-radius: 10px;
+
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
 
 
