@@ -3,28 +3,50 @@ import fs from 'fs';
 import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
+import { configureStore } from "@reduxjs/toolkit";
 
-import Store from '../src/redux/Store.js';
-import App from '../src/App.js';
-import Test from '../src/Test.js';
+import Images from "../src/redux/Images.js";
+import User from "../src/redux/User.js";
+
+import App from '../src/App';
 
 const PORT = 3000;
 const app = express();
 
-//app.get(express.static(path.resolve('./build/index.html')));
+app.use(express.static('build', { index: false }));
 
 app.get("/*", (req, res, next) => {
+    const Store = configureStore({
+      reducer: {
+          images: Images,
+          user: User
+      }
+  });
+
+  const context = {};
+
+  const html = ReactDOMServer.renderToString(
+    <Provider store = { Store }>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>
+  );
+  
+  const preloadedState = Store.getState();
+
   fs.readFile(path.resolve('./build/index.html'), 'utf8', (err, data) => {
     if (err) {
-      console.error(err);
+      console.error("read file error: ", err);
       return res.status(500).send('An error occurred');
     }
 
-    const html = ReactDOMServer.renderToString(<App />);
-    console.log("html:",html);
-    console.log("heyyo")
-    return res.send(data.replace('<div id="root"></div>',`<div id="root">${<Test />}</div>`));
+    //return res.status(200);
+    return res.send(data
+                    .replace('<div id="root"></div>',`<div id="root">${html}</div>`)
+                    .replace('__PRELOADED_STATE__', JSON.stringify(preloadedState)));
   });
 })
 

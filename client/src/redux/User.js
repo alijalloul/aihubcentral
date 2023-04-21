@@ -15,13 +15,17 @@ const userSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             state.pending = false;
-            localStorage.setItem('profile', JSON.stringify({ ...action?.payload}));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('profile', JSON.stringify({ ...action?.payload}))
+            };
             state.userInfo = action?.payload.result;
         },
         logoutSuccess: (state) => {
             state.pending = false;
             state.userInfo = null;
-            localStorage.clear();
+            if (typeof window !== 'undefined') {
+                localStorage.clear();
+            }
         },
         errorAPI: (state) => {
             state.pending = null;
