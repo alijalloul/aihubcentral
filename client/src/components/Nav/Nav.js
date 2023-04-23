@@ -51,6 +51,7 @@ const Nav = () => {
           <Link to="/chatBot" className="mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
           <Link to="/TSST" className="mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md">Text-To-Speech &lt;-&gt; </Link>
           <Link to="/summarizeURL" className="mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md">Summarize</Link>
+          <Link to="/translator" className="mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md">Translate</Link>
           {
             (user) ? (
               <div className="flex">

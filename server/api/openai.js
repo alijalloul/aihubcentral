@@ -101,3 +101,23 @@ export const summarize = async (req, res) => {
         res.status(500).json({ message: error });
     }
 }
+
+export const translate = async (req, res) => {
+    const {langFrom, langTo, text} = req.body;
+    const chat = [{role: "user", content: `Translte ${text} from ${langFrom} to ${langTo}`}];
+    console.log(chat);
+
+    try {
+        const gptRes = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: chat
+        });
+
+        const chatResponse = gptRes.data.choices[0].message.content;
+
+        res.status(200).json(chatResponse);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error });
+    }
+}
