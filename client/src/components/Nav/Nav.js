@@ -49,10 +49,12 @@ const Nav = () => {
         <div className='flex'>
           <Link to="/createImage" className="mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md">Create</Link>
           <Link to="/chatBot" className="mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
+          <Link to="/TSST" className="mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md">Text-To-Speech &lt;-&gt; </Link>
+          <Link to="/summarizeURL" className="mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md">Summarize</Link>
           {
             (user) ? (
               <div className="flex">
-                  <button onClick={ handleLogout } className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md mr-2">Logout</button>
+                  <button onClick={ handleLogout } className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md mr-2"></button>
                   <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
               </div>
             ) : (

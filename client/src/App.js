@@ -7,6 +7,9 @@ import CreateImage from "./components/CreateImage/CreateImage.js";
 import ChatBot from "./components/ChatBot/ChatBot.js";
 import DalleImages from "./components/DalleImages/DalleImages.js";
 import Auth from "./components/Auth/Auth.js";
+import TSST from "./components/TSST/TSST.js";
+import SummarizeURL from "./components/SummarizeURL/SummarizeURL.js";
+import Translator from "./components/Translator/Translator.js";
 
 const App = () => {
   const location = useLocation();
@@ -19,6 +22,9 @@ const App = () => {
             <Route path="/" element={ <DalleImages />} />
             <Route path="/createImage" element={ <CreateImage />} />
             <Route path="/chatBot" element={<ChatBot />} />
+            <Route path="/TSST" element={<TSST />} />
+            <Route path="/summarizeURL" element={<SummarizeURL />} />
+            <Route path="/translator" element={<Translator />} /> 
             <Route path="/auth" element={<Auth />} />
           </Routes>
         </AnimatePresence>

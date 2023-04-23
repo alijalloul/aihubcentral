@@ -3,12 +3,8 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 
-import fs from "fs";
-import path from "path";   
-
-import dalleImageSchema from "./schemas/dalleImagesDB.js";
-
-import { dalle, chatGPT } from "./api/openai.js";
+import { dalle, chatGPT, summarize } from "./api/openai.js";
+import { getImages, postImage } from "./api/imageShowcase.js";
 import { login, signup } from "./api/user.js";
 
 dotenv.config();
@@ -30,55 +26,10 @@ app.get("/", async (req, res) => {
 
 app.post("/api/openai/dalle", (req, res) => dalle(req, res));
 app.post("/api/openai/chatGPT", (req, res) => chatGPT(req, res));
+app.post("/api/openai/summarize", (req, res) => summarize(req, res));
 
-app.get("/imageShowcase", async (req, res) => {
-    const images = await dalleImageSchema.find();
-
-    images.map(image => {
-        const imagePath = path.join("./images/dalle_images", image.generatedImage);
-
-        var base64Data;
-        if(fs.existsSync(imagePath)){
-            base64Data = fs.readFileSync(imagePath, { encoding: 'base64' });
-        }else {
-            base64Data = fs.readFileSync('./images/notfound.jpeg').toString("base64");
-        }
-
-
-
-        image.generatedImage = "data:image/png;base64," + base64Data;  
-    })
-    
-    res.json(images);
-})
-
-app.post("/imageShowcase", async (req, res) => {
-    const image = req.body;
-
-    const base64Image = image.generatedImage;
-
-    // Extract image type and base64 data
-    const fileExtension = base64Image.split(';')[0].split('/')[1];
-    const buffer = Buffer.from(base64Image.split(',')[1], 'base64');
-    
-    const filename = `image-${Date.now()}.${fileExtension}`;
-    fs.writeFileSync(path.join("./images/dalle_images", filename), buffer);
-
-    image.generatedImage = filename;    
-
-    console.log(image);
-
-    const newImage = new dalleImageSchema(image);
-
-    try {
-        await newImage.save();
-
-        res.status(200).json({message: "image submitted successfully!"});
-    } catch (error) {
-        res.status(409).json({message: error});
-    }
-  
-})
+app.get("/imageShowcase", (req, res) => getImages(req, res))
+app.post("/imageShowcase", (req, res) => postImage(req, res))
 
 app.post("/users/login", (req, res) => login(req, res)); 
 app.post("/users/signup", (req, res) => signup(req, res));
