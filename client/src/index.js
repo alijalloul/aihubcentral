@@ -8,18 +8,21 @@ import Store from './redux/Store';
 
 import "./index.css"
 
-/*ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store = { Store }> 
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-);*/
-
-ReactDOM.hydrateRoot(document.getElementById('root'),
+if(process.env.REACT_APP_SERVER_URL){
+  ReactDOM.hydrateRoot(document.getElementById('root'),
   <Provider store = { Store }> 
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
-);
+  </Provider>  
+  )
+}else{
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <Provider store = { Store }> 
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+  );
+}
+
