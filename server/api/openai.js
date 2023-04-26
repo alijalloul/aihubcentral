@@ -2,8 +2,13 @@ import { Configuration, OpenAIApi } from "openai";
 import * as dotenv from "dotenv";
 import https from "https";
 import * as cheerio from 'cheerio';
+import { Readable } from "stream";
 
-import fs from "fs";
+import axios from "axios"
+import FormData from "form-data"
+
+import fs, { read } from "fs";
+
 
 dotenv.config();
 
@@ -120,4 +125,54 @@ export const translate = async (req, res) => {
         console.log(error.message);
         res.status(500).json({ message: error });
     }
+}
+
+export const transcribe = async (req, res) => {
+    const { audioBuffer, lang} = req.body;
+
+    const fileName = "recording.wav"
+    const folderPath = "./audio";
+    const filePath = `${folderPath}/${fileName}`;
+
+    const audioBufferBase64 = Buffer.from(audioBuffer, 'base64');
+
+    const writableStream = fs.createWriteStream(filePath);
+    writableStream.write(audioBufferBase64);
+    writableStream.end();
+
+    
+
+    writableStream.on('finish', async () => {
+
+        fs.readFile('./audio/recording.wav', (err, data) => {
+            if (err) {
+              console.error('Error occurred while reading file:', err);
+            } else {
+              // Process data with CT() function
+              console.log(data);
+            }
+          });
+
+        const readStream = fs.createReadStream(filePath);
+
+        // console.log(fs.createReadStream("./audio/test.wav"));
+        // console.log("\n\n NEXT STREAM \n\n");
+        // console.log(readStream);
+
+        try {
+            const whisperRes = await openai.createTranscription(
+                readStream,
+                "whisper-1",
+            )
+    
+            console.log(whisperRes);
+            const chatResponse = whisperRes.data.text;
+            console.log(chatResponse)
+    
+            res.status(200).json({ chatResponse: chatResponse });            
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+        }
+    });
 }

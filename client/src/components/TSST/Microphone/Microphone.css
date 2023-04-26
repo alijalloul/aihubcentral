@@ -31,7 +31,7 @@
     background-image: none;
 }
 
-.btn[active=false]{
+.btn[active="false"]{
     background: rgb(215, 215, 215);
 }
 
