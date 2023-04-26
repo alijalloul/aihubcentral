@@ -14,10 +14,9 @@ const SummarizeURL = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setLoadingDots(prevDots => {
-        // Update the number of dots in the loading animation
         return prevDots === '...' ? '' : prevDots + '.';
       });
-    }, 500); // Change the interval time to control the animation speed
+    }, 500);
 
     return () => {
       clearInterval(interval);

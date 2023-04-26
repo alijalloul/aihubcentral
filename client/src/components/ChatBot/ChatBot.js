@@ -6,9 +6,9 @@ import DotDotDot from './DotDotDot/DotDotDot';
 
 const ChatBot = () => {
     const userInfo = useSelector(state => state?.user?.userInfo);
-    console.log(userInfo);
     const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
     const [responsePending, setResponsePending] = useState(false);
+    const [loadingDots, setLoadingDots] = useState('');
 
     const [message, setMessage] = useState({
         role: "",
@@ -57,6 +57,18 @@ const ChatBot = () => {
         if(chat.length > 0) {post();}
     },[chat]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setLoadingDots(prevDots => {
+            return prevDots === '...' ? '' : prevDots + '.';
+          });
+        }, 500);
+    
+        return () => {
+          clearInterval(interval);
+        };
+      }, []);
+
   return (
     <motion.div 
         initial={{ opacity: 0 }} 
@@ -100,11 +112,12 @@ const ChatBot = () => {
                                     {message.content}
                                 </div>
 
-                                <div style={{ float: 'right', boxShadow: "5px 5px black" }} className='bg-[#10a37f] text-white w-fit px-5 py-3 rounded-l-lg rounded-t-lg my-16   break-words max-w-md'>
+                                <div style={{ float: 'right', boxShadow: "5px 5px black" }} className='bg-[#10a37f] text-white w-fit min-w-30px px-5 py-3 rounded-l-lg rounded-t-lg my-16   break-words max-w-md'>
                                     {
                                         (responsePending && chatResponses[index] === undefined) ? (
-                                            console.log(chatResponses[index]),
-                                            <DotDotDot />
+                                            <div className=' text-3xl tracking-widest'>
+                                                {loadingDots}
+                                            </div>
                                         ) : (
                                             chatResponses[index]
                                         )
