@@ -22,19 +22,27 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export const dalle = async (req, res) => {
-    const {prompt} = req.body;
+    const {prompt, nbImages, resolution} = req.body;
+    
+    console.log(req.body)
 
     try {
         const dalleRes = await openai.createImage({
             prompt: prompt,
-            n: 1,
-            size: "1024x1024",
+            n: parseInt(nbImages),
+            size: `${resolution}x${resolution}`,
             response_format: "b64_json",
         });
+        console.log(dalleRes.data.data.length);
 
-        const image = dalleRes.data.data[0].b64_json;
+        const images = [];
+        dalleRes.data.data.forEach(image => {
+            images.push(`data:image/jpeg;base64,${image.b64_json}`);
+        });
 
-        res.status(200).json({ image: image });
+        console.log(images);
+
+        res.status(200).json({ images: images });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error });
@@ -139,8 +147,6 @@ export const transcribe = async (req, res) => {
     const writableStream = fs.createWriteStream(filePath);
     writableStream.write(audioBufferBase64);
     writableStream.end();
-
-    
 
     writableStream.on('finish', async () => {
 

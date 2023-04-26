@@ -10,9 +10,12 @@ const CreateForm = () => {
   const [dalleForm, setDalleForm] = useState({
     name: "",
     prompt: "",
-    generatedImage: ""
+    nbImages: 1,
+    generatedImages: []
   });
   const[loading, setLoading] = useState(false);
+  const [imagePos, setImagePos] = useState(0);
+  const [resolution, setResolution] = useState(512);
 
   const handleSupriseMe = (e) => {
     e.preventDefault();
@@ -29,12 +32,12 @@ const CreateForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ prompt: dalleForm.prompt }),
+          body: JSON.stringify({ prompt: dalleForm.prompt, nbImages: dalleForm.nbImages, resolution: resolution }),
         });
         
         const data = await res.json();
 
-        setDalleForm({ ...dalleForm, generatedImage: `data:image/jpeg;base64,${data.image}`});
+        setDalleForm({ ...dalleForm, generatedImages: data.images});
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -45,7 +48,7 @@ const CreateForm = () => {
   }
 
   const handleSubmit = async () => {
-    if(dalleForm.generatedImage){
+    if(dalleForm.generatedImages.length > 0){
       console.log(dalleForm);
       try {
         const res = await fetch(`${BASE_URL}/imageShowcase`, {
@@ -81,12 +84,22 @@ const CreateForm = () => {
           <form className="mb-3">
             <div>
               <p>Your Name</p>
-              <input name="name" type="text" placeholder="John White" className="mb-5 p-2 w-full b rounded-sm border-solid border-2 border-gray-600" onChange={ handleChange }></input>
+              <input name="name" type="text" placeholder="John White" className="mb-5 p-2 w-full rounded-sm border-solid border-2 border-gray-600" onChange={ handleChange }></input>
+            </div>
+
+            <div className='w-fit flex rounded-md border-2 border-black'>
+              <button onClick={(e) => {e.preventDefault(); setResolution(256) }} className={`px-5 py-3 ${(resolution === 256) && "bg-[rgb(109,84,210)] text-white"}`}>256</button> 
+              <button onClick={(e) => {e.preventDefault(); setResolution(512) }} className={`px-5 py-3 border-x-2 border-black ${(resolution === 512) && "bg-[rgb(109,84,210)] text-white"}`}>512</button>
+              <button onClick={(e) => {e.preventDefault(); setResolution(1024)}} className={`px-5 py-3 ${(resolution === 1024) && "bg-[rgb(109,84,210)] text-white"}`}>1024</button>
             </div>
 
             <div>
+              <p>Number of Images</p>
+              <input name="nbImages" type="text" value={dalleForm.nbImages} onChange={ handleChange } className="mb-2 p-2 w-[10%] text-center rounded-sm border-solid border-2 border-gray-600"/>
+            </div>
+            <div>
               <p>Prompt</p>
-              <input name="prompt" type="text" placeholder="A pizza wearing glasses eating a pizza" value={dalleForm.prompt} onChange={ handleChange } className="mb-2 p-2 w-full b rounded-sm border-solid border-2 border-gray-600"></input>
+              <input name="prompt" type="text" placeholder="A pizza wearing glasses eating a pizza" value={dalleForm.prompt} onChange={ handleChange } className="mb-2 p-2 w-full rounded-sm border-solid border-2 border-gray-600"></input>
               <button onClick={ handleSupriseMe } className="px-2 py-3 bg-[rgb(109,84,210)] text-white rounded-md hover:bg-[rgb(77,56,158)] transition-all ease-in-out duration-200">Suprise Me</button>
             </div>
           </form>
@@ -97,14 +110,28 @@ const CreateForm = () => {
       </div>
       
       <div className='w-[50vw] flex justify-center items-center max-sm:my-10 max-sm:w-full'>
-        <div className='relative w-[35vw] aspect-square rounded-3xl overflow-hidden max-sm:w-full'>
+        <button onClick={() => setImagePos((imagePos > 0) &&imagePos - 1)} className='p-5 flex items-center justify-center bg-gray-200 w-fit aspect-square rounded-full'>&lt;</button>
+
+        <div className='relative w-[35vw] mx-5 aspect-square rounded-3xl overflow-hidden max-sm:w-full'>
           {
             loading && (
               <Loader stylingT="absolute aspect-square absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
             )
           }
-          <img src={dalleForm.generatedImage ? dalleForm.generatedImage : emptyImage} alt="N/A" className={`w-full h-full object-contain ${loading && ("filter: opacity-20")}`}></img>
-        </div>
+          <div className={`relative flex w-max h-full transition-all ease-in-out`} style={{left: `${(-1)*imagePos*100}%`}}>
+            {
+              (dalleForm?.generatedImages?.length > 0) ? (
+                dalleForm?.generatedImages?.map((generatedImage, index) => (
+                  <img key={index} src={generatedImage} alt="N/A" className={`w-[35vw] aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
+                ))
+              ) : (
+                <img src={emptyImage} alt="N/A" className={`w-[35vw] aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
+              )
+            }
+          </div>
+        </div>  
+
+        <button onClick={ () => {(imagePos < (dalleForm?.generatedImages?.length - 1)) && setImagePos(imagePos + 1); console.log(imagePos,":",`left-[-${imagePos*100}%]`)}} className='p-5 flex items-center justify-center bg-gray-200 w-fit aspect-square rounded-full'>&gt;</button>
       </div>
     </motion.div>
   )
