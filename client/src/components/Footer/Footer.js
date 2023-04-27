@@ -14,6 +14,7 @@ const Footer = () => {
             <ul className="text-gray-400">
               <li>Email: business.ali.z.jalloul@gmail.com</li>
               <li><a href="https://github.com/alijalloul" target='_blank'>Github: @alijalloul</a></li>
+              <li><a href="https://www.youtube.com/@JackTrade-om3pv" target='_blank'>YouTube: @JackTrade</a></li>
             </ul>
           </div>
         </div>

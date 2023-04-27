@@ -160,7 +160,23 @@
 
 
 
-@media only screen and (max-width: 500px) {    
+@media only screen and (max-width: 639px) {   
+    .inputError input:focus ~ .lableInput{
+        z-index: 1;
+        top: 0;
+        left: 1vw;
+        font-size: 2vw;
+        transform: translate(0, -50%);
+        
+        padding: 0;
+        background-color: white;
+        opacity: 1;
+    
+        pointer-events: auto;
+        height: min-content;
+        width: fit-content;
+    }
+    
     .formContainer{
         display: flex;
         flex-direction: column;
