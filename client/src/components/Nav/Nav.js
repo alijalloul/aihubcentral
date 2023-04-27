@@ -46,12 +46,12 @@ const Nav = () => {
             </svg>
         </Link>
 
-        <div className='flex'>
-          <Link to="/createImage" className="mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md">Create</Link>
-          <Link to="/chatBot" className="mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
-          <Link to="/TSST" className="mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md">Text-To-Speech &lt;-&gt; </Link>
-          <Link to="/summarizeURL" className="mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md">Summarize</Link>
-          <Link to="/translator" className="mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md">Translate</Link>
+        <div className=' w-[80%] flex justify-center items-center sm:grid sm:grid-cols-3 sm:gap-y-2'>
+          <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md">Create</Link>
+          <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
+          <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md">TSST</Link>
+          <Link to="/summarizeURL" className="h-fit mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md">Summarize</Link>
+          <Link to="/translator" className="h-fit mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md">Translate</Link>
           {
             (user) ? (
               <div className="flex">

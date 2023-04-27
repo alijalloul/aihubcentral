@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion';
 
-import DotDotDot from './DotDotDot/DotDotDot';
+import "./ChatBot.css";
 
 const ChatBot = () => {
     const userInfo = useSelector(state => state?.user?.userInfo);
@@ -74,8 +74,8 @@ const ChatBot = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
-        className='h-[calc(100vh-73px)] w-full min-h-fit flex'>
-        <div className='float-left h-full bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 max-sm:hidden'>
+        className='h-[calc(100vh-73px)] w-full min-h-fit flex bg-slate-50'>
+        <div className='float-left h-full bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
                     <div className='h-full px-5 flex justify-between items-center text-white'>
@@ -102,17 +102,17 @@ const ChatBot = () => {
             }
         </div>
 
-        <div className='h-[calc(100vh-73px)] w-full min-h-fit bg-white'>
+        <div className='h-[calc(100vh-73px)] w-full min-h-fit'>
             <div className='w-full h-[80%] px-20 py-10 flex flex-col overflow-y-scroll' style={{scrollbarWidth: "thin"}}>
                 {
                     (chat.length > 0) && (
                         chat.map((message, index) => (
                             <div className='w-full h-fit mb-3' key={index} >
-                                <div style={{ float: 'left', boxShadow: "-5px 5px black" }} className='bg-gray-100 w-fit px-5 py-3 rounded-r-lg rounded-t-lg'>
+                                <div className='userMessages float-left bg-white w-fit px-5 py-3 rounded-r-lg rounded-t-lg sm:w-full sm:rounded-lg'>
                                     {message.content}
                                 </div>
 
-                                <div style={{ float: 'right', boxShadow: "5px 5px black" }} className='bg-[#10a37f] text-white w-fit min-w-30px px-5 py-3 rounded-l-lg rounded-t-lg my-16   break-words max-w-md'>
+                                <div className='gptMessages float-right bg-[#10a37f] text-white w-fit min-w-30px px-5 py-3 rounded-l-lg rounded-t-lg my-16 break-words max-w-md sm:w-full sm:rounded-lg'>
                                     {
                                         (responsePending && chatResponses[index] === undefined) ? (
                                             <div className=' text-3xl tracking-widest'>

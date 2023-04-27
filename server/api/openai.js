@@ -79,8 +79,12 @@ export const summarize = async (req, res) => {
                 });
                 response.on('end', () => {
                     const $ = cheerio.load(html);
-                    $('style, script').remove();
+                    
+                    $('style, link, img').remove();
+                    console.log($.html())
+
                     const textContent = $('body').text().replace(/\n|\t/g, '').trim();
+                    //console.log(textContent);
                     resolve(textContent);
                 });
             }).on('error', (error) => {

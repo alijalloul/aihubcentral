@@ -47,7 +47,7 @@ const Posts = () => {
                     animate={{ opacity: 1 }} 
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.75}}
-                    className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between max-sm:flex-col'>
+                    className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
 
                     <div className='mt-10 grid grid-cols-[repeat(5,19%)] gap-y-5 gap-x-5'>
                     {

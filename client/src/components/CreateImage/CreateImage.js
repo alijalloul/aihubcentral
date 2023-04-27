@@ -38,6 +38,7 @@ const CreateForm = () => {
         const data = await res.json();
 
         setDalleForm({ ...dalleForm, generatedImages: data.images});
+        setImagePos(0);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -76,8 +77,8 @@ const CreateForm = () => {
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
                 exit={{ opacity: 0 }}
-                className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between max-sm:flex-col'>
-      <div className='pl-10 flex flex-col justify-center max-sm:pl-0'>
+                className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
+      <div className='pl-10 flex flex-col justify-center sm:pl-0'>
         <div className='h-fit'>
           <h1 className='relative z-[1] text-4xl font-bold text-white' style={{WebkitTextStroke: "2px black", textShadow: "4px 4px black"}}>Draw Your Imagination</h1>
           <p className='py-10 px-3 mb-10 bg-[rgb(109,84,210)] text-gray-100 transform skew-y-3'>Create an imaginative and stunning image from prompts using DALLE-E2 AI!</p>
@@ -109,10 +110,10 @@ const CreateForm = () => {
         </div>
       </div>
       
-      <div className='w-[50vw] flex justify-center items-center max-sm:my-10 max-sm:w-full'>
-        <button onClick={() => setImagePos((imagePos > 0) &&imagePos - 1)} className='p-5 flex items-center justify-center bg-gray-200 w-fit aspect-square rounded-full'>&lt;</button>
+      <div className='w-[50vw] flex justify-center items-center sm:my-10 sm:w-full sm:h-[42vh] sm:aspect-square'>
+        <button onClick={() => setImagePos((imagePos > 0) &&imagePos - 1)} className='h-[35vw] w-10 rounded-l-lg flex items-center justify-center bg-gray-400 hover:bg-gray-300 active:bg-gray-200 transition-all ease-in-out duration-200 sm:h-full'></button>
 
-        <div className='relative w-[35vw] mx-5 aspect-square rounded-3xl overflow-hidden max-sm:w-full'>
+        <div className='relative h-[35vw] aspect-square overflow-hidden sm:h-full'>
           {
             loading && (
               <Loader stylingT="absolute aspect-square absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
@@ -122,16 +123,16 @@ const CreateForm = () => {
             {
               (dalleForm?.generatedImages?.length > 0) ? (
                 dalleForm?.generatedImages?.map((generatedImage, index) => (
-                  <img key={index} src={generatedImage} alt="N/A" className={`w-[35vw] aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
+                  <img key={index} src={generatedImage} alt="N/A" className={`h-full aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
                 ))
               ) : (
-                <img src={emptyImage} alt="N/A" className={`w-[35vw] aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
+                <img src={emptyImage} alt="N/A" className={`h-full aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
               )
             }
           </div>
         </div>  
 
-        <button onClick={ () => {(imagePos < (dalleForm?.generatedImages?.length - 1)) && setImagePos(imagePos + 1); console.log(imagePos,":",`left-[-${imagePos*100}%]`)}} className='p-5 flex items-center justify-center bg-gray-200 w-fit aspect-square rounded-full'>&gt;</button>
+        <button onClick={ () => {(imagePos < (dalleForm?.generatedImages?.length - 1)) && setImagePos(imagePos + 1); console.log(imagePos,":",`left-[-${imagePos*100}%]`)}} className='h-[35vw] w-10 rounded-r-lg flex items-center justify-center bg-gray-400 hover:bg-gray-300 active:bg-gray-200 transition-all ease-in-out duration-200 sm:h-full'></button>
       </div>
     </motion.div>
   )
