@@ -11,6 +11,7 @@ import TSST from "./components/TSST/TSST.js";
 import SummarizeURL from "./components/SummarizeURL/SummarizeURL.js";
 import Translator from "./components/Translator/Translator.js";
 import Main from "./components/Main/Main.js";
+import Footer from "./components/Footer/Footer.js";
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/auth" element={<Auth />} />
           </Routes>
         </AnimatePresence>
+        <Footer />
     </>  
   );
 }

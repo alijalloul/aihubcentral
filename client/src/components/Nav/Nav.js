@@ -46,7 +46,7 @@ const Nav = () => {
             </svg>
         </Link>
 
-        <div className=' w-[80%] flex justify-center items-center sm:grid sm:grid-cols-3 sm:gap-y-2'>
+        <div className=' w-fit flex justify-center items-center sm:grid sm:grid-cols-3 sm:gap-y-2'>
           <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md">Create</Link>
           <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
           <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md">TSST</Link>
