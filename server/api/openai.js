@@ -87,10 +87,16 @@ export const summarize = async (req, res) => {
                     $('video').remove();
                     $('audio').remove();
                     $('use').remove();
-                    console.log($.html())
+                    $('input').remove();
+                    $('meta').remove();
+                    $('link').remove();
+                    $('style').remove();
+                    $('a').remove();
+                    $('head').remove();
+                    //console.log($.html().toString().substring(0,3000));
 
                     const textContent = $('body').text().replace(/\n|\t/g, '').trim();
-                    //console.log(textContent);
+                    console.log(textContent.split(" ").length);
                     resolve(textContent);
                 });
             }).on('error', (error) => {
@@ -102,11 +108,11 @@ export const summarize = async (req, res) => {
 
     let chat;
     if((url.includes("wikipedia.org") || url.includes("openai.com")) && url.includes("http")){
-        chat = [{role: "user", content: `Summarize: "${url}`}]
-    } else if(url.includes("http")) {
-        chat = [{role: "user", content: `Summarize: "${await fetchTextContentFromUrl(url)}"`}]
-    } else {
         chat = [{role: "user", content: `Summarize: "${url}"`}]
+    } else if(url.includes("http")) {
+        chat = [{role: "user", content: `Summarize: "${await fetchTextContentFromUrl(url)}" in the same language`}]
+    } else {
+        chat = [{role: "user", content: `Summarize: "${url}" in the same language`}]
     }
 
     try {
