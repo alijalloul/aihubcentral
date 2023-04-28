@@ -31,7 +31,7 @@ const Nav = () => {
     }
 
   return (
-    <header className='w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]'>
+    <header className='w-full flex justify-between items-center bg-white px-4 py-4 border-b border-b-[#e6ebf4] sm:px-4'>
         <Link to="/"> 
             <svg fill="#000000" viewBox="0 0 24 24" className='w-[40px] aspect-square'>
                 <g id="SVGRepo_bgCarrier" strokeWidth="0">

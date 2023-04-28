@@ -80,7 +80,13 @@ export const summarize = async (req, res) => {
                 response.on('end', () => {
                     const $ = cheerio.load(html);
                     
-                    $('style, link, img').remove();
+                    $('script').remove();
+                    $('noscript').remove();
+                    $('img').remove();
+                    $('svg').remove();
+                    $('video').remove();
+                    $('audio').remove();
+                    $('use').remove();
                     console.log($.html())
 
                     const textContent = $('body').text().replace(/\n|\t/g, '').trim();

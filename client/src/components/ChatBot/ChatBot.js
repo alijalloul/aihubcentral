@@ -74,7 +74,7 @@ const ChatBot = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
-        className='h-[calc(100vh-73px)] w-full min-h-fit flex bg-slate-50'>
+        className='h-[calc(100vh-73px)] w-full min-h-fit flex bg-slate-50 sm:h-[calc(100vh-173px)'>
         <div className='float-left h-full bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
@@ -102,8 +102,8 @@ const ChatBot = () => {
             }
         </div>
 
-        <div className='h-[calc(100vh-73px)] w-full min-h-fit'>
-            <div className='w-full h-[80%] px-20 py-10 flex flex-col overflow-y-scroll' style={{scrollbarWidth: "thin"}}>
+        <div className='h-full w-full'>
+            <div className='w-full h-[80%] px-20 py-10 flex flex-col overflow-y-scroll sm:px-5' style={{scrollbarWidth: "thin"}}>
                 {
                     (chat.length > 0) && (
                         chat.map((message, index) => (
@@ -137,7 +137,7 @@ const ChatBot = () => {
                     value={message.content} 
                     onChange={ handleChange } 
                     onKeyDown={ handleKeyDown } 
-                    className='w-[60%] h-fit px-5 py-3 rounded-lg outline-none border-1 border-gray-300 text-black shadow-[rgba(0,0,0,0.05)_0_0_10px_10px] transition-all duration-300'></input>
+                    className='w-[60%] h-fit px-5 py-3 rounded-lg outline-none border-1 border-gray-300 text-black shadow-[rgba(0,0,0,0.05)_0_0_10px_10px] transition-all duration-300 sm:w-[80%]'></input>
             </div>
         </div>
     </motion.div>
