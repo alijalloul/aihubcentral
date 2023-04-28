@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const Main = () => {
   return (
     <div className='min-h-[calc(100vh-73px)] flex flex-col justify-center items-center mx-10'>
-        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[60vh]'>
+        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[45vh]'>
             <div className='w-[60%] sm:w-full sm:mb-16'>
-                <h1 className=' text-9xl sm:text-7xl'>Create Images From Prompts With DALLE-E</h1>
+                <h1 className=' text-9xl sm:text-5xl'>Create Images From Prompts With DALLE-E</h1>
             </div>
 
             <div className='w-[25%] float-right flex justify-center items-center sm:w-full sm:absolute sm:bottom-0'>
@@ -17,9 +17,9 @@ const Main = () => {
             </div>
         </div>
 
-        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[60vh]'>
+        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[45vh]'>
             <div className='w-[60%] float-right sm:w-full sm:mb-5'>
-                <h1 className=' text-9xl sm:text-7xl'>Chat with CHAT-GPT 3.5 NOW</h1>
+                <h1 className=' text-9xl sm:text-5xl'>Chat with CHAT-GPT 3.5 NOW</h1>
             </div>  
             
             <div className='w-[25vw]  flex  justify-center items-center sm:w-full sm:absolute sm:bottom-0'>
@@ -30,9 +30,9 @@ const Main = () => {
             </div>
         </div>
 
-        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[60vh]'>
+        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[45vh]'>
             <div className='w-[60%] sm:w-full sm:mb-16'>
-                <h1 className=' text-9xl sm:text-7xl'>Summarize any Online Article OR Text</h1>
+                <h1 className=' text-9xl sm:text-5xl'>Summarize any Online Article OR Text</h1>
             </div>
             
             <div className='w-[25vw] float-right h-[10vw] flex justify-center items-center sm:w-full sm:absolute sm:bottom-0'>
@@ -43,9 +43,9 @@ const Main = () => {
             </div>
         </div>
 
-        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[60vh]'>            
+        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[45vh]'>            
             <div className='w-[60%] float-right sm:w-full sm:mb-5'>
-                <h1 className=' text-9xl sm:text-7xl'>Translate To And From Over 50+ Languages</h1>
+                <h1 className=' text-9xl sm:text-5xl'>Translate To And From Over 50+ Languages</h1>
             </div>
 
             <div className='w-[25vw]  flex  justify-center items-center sm:w-full sm:absolute sm:bottom-0'>
@@ -56,9 +56,9 @@ const Main = () => {
             </div>
         </div>
 
-        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[60vh]'>
+        <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[45vh]'>
             <div className='w-[60%] sm:w-full sm:mb-16'>
-                <h1 className=' text-9xl sm:text-7xl'>Transcribe Any Audio Using WHISPER AI</h1>
+                <h1 className=' text-9xl sm:text-5xl'>Transcribe Any Audio Using WHISPER AI</h1>
             </div>
 
             <div className='w-[25vw] float-right flex  justify-center items-center sm:w-full sm:absolute sm:bottom-0'>

@@ -47,11 +47,11 @@ const Nav = () => {
         </Link>
 
         <div className=' w-fit flex justify-center items-center sm:grid sm:grid-cols-3 sm:gap-y-2'>
-          <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md">Create</Link>
-          <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md">Chat</Link>
-          <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md">TSST</Link>
-          <Link to="/summarizeURL" className="h-fit mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md">Summarize</Link>
-          <Link to="/translator" className="h-fit mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md">Translate</Link>
+          <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Create</Link>
+          <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Chat</Link>
+          <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">TSST</Link>
+          <Link to="/summarizeURL" className="h-fit mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Summarize</Link>
+          <Link to="/translator" className="h-fit mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Translate</Link>
           {
             (user) ? (
               <div className="flex">
@@ -59,7 +59,7 @@ const Nav = () => {
                   <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
               </div>
             ) : (
-              <Link to="auth" className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md">Login</Link>
+              <Link to="auth" className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md sm:textext-center t-sm sm:px-2 sm:py-1 w-fit">Login</Link>
             )
           }
         </div>
