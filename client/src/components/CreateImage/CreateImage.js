@@ -110,27 +110,29 @@ const CreateForm = () => {
         </div>
       </div>
       
-      <div className='w-[50vw] flex justify-center items-center sm:my-10 sm:w-full sm:h-[42vh] sm:aspect-square'>
+      <div className='relative  w-[50vw] flex justify-center items-center sm:my-10 sm:w-full sm:h-[35vh]'>
         <button onClick={() => setImagePos((imagePos > 0) &&imagePos - 1)} className='h-[35vw] w-10 rounded-l-lg flex items-center justify-center bg-gray-400 hover:bg-gray-300 active:bg-gray-200 transition-all ease-in-out duration-200 sm:h-full'></button>
-
-        <div className='relative h-[35vw] aspect-square overflow-hidden sm:h-full'>
-          {
-            loading && (
-              <Loader stylingT="absolute aspect-square absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
-            )
-          }
-          <div className={`relative flex w-max h-full transition-all ease-in-out`} style={{left: `${(-1)*imagePos*100}%`}}>
+        
+        <div className=' sm:h-[35vh] sm:aspect-square'>
+          <div className='relative h-[35vw] aspect-square overflow-hidden sm:h-full'>
             {
-              (dalleForm?.generatedImages?.length > 0) ? (
-                dalleForm?.generatedImages?.map((generatedImage, index) => (
-                  <img key={index} src={generatedImage} alt="N/A" className={`h-full aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
-                ))
-              ) : (
-                <img src={emptyImage} alt="N/A" className={`h-full aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
+              loading && (
+                <Loader stylingT="absolute aspect-square absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
               )
             }
-          </div>
-        </div>  
+            <div className={`relative flex w-max h-full transition-all ease-in-out`} style={{left: `${(-1)*imagePos*100}%`}}>
+              {
+                (dalleForm?.generatedImages?.length > 0) ? (
+                  dalleForm?.generatedImages?.map((generatedImage, index) => (
+                    <img key={index} src={generatedImage} alt="N/A" className={`h-full aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
+                  ))
+                ) : (
+                  <img src={emptyImage} alt="N/A" className={`h-full aspect-square object-contain ${loading && ("filter: opacity-20")}`}></img>
+                )
+              }
+            </div>
+          </div>  
+        </div>
 
         <button onClick={ () => {(imagePos < (dalleForm?.generatedImages?.length - 1)) && setImagePos(imagePos + 1); console.log(imagePos,":",`left-[-${imagePos*100}%]`)}} className='h-[35vw] w-10 rounded-r-lg flex items-center justify-center bg-gray-400 hover:bg-gray-300 active:bg-gray-200 transition-all ease-in-out duration-200 sm:h-full'></button>
       </div>
