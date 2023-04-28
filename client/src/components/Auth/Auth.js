@@ -120,8 +120,8 @@ const Auth = () => {
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
         className="formContainerContainer">
-        <div className="formContainer sm:h-[80vh]">
-            <h1 className="authFormHeader">{ isSignup ? "Sign Up" : "Log In"}</h1>
+        <div className="formContainer sm:h-[80vh] sm:shadow-none">
+            <h1 className="authFormHeader sm:text-2xl">{ isSignup ? "Sign Up" : "Log In"}</h1>
             <form>
                 {
                     isSignup && (<div className="flName">
