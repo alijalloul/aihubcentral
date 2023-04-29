@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
-import http from 'http';
+import https from 'https';
 
 import { dalle, chatGPT, summarize, translate, transcribe } from "./api/openai.js";
 import { getImages, postImage } from "./api/imageShowcase.js";
@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 if(process.env.PORT){
   console.log("PORT EXISTS");
     function pingWebsite() {
-        http.get('https://aihubcentral-server.onrender.com/', (res) => {
+        https.get('https://aihubcentral-server.onrender.com/', (res) => {
           console.log('Website pinged successfully');
         }).on('error', (err) => {
           console.error('Error while pinging website:', err);

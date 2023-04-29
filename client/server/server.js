@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import express from 'express';
 import React from 'react';
-import http from 'http';
+import https from 'https';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
@@ -19,19 +19,17 @@ const app = express();
 app.use(express.static('build', { index: false }));
 
 
-if(process.env.PORT){
-  console.log("PORT EXISTS");
-  function pingWebsite() {
-      http.get('https://aihubcentra.org/', (res) => {
-        console.log('Website pinged successfully');
-      }).on('error', (err) => {
-        console.error('Error while pinging website:', err);
-      });
-    }
-    
-    // Ping website every 14 minutes (840000 milliseconds)
-    setInterval(pingWebsite, 840000);
-}
+console.log("PORT EXISTS");
+function pingWebsite() {
+    https.get('https://aihubcentral.org', (res) => {
+      console.log('Website pinged successfully');
+    }).on('error', (err) => {
+      console.error('Error while pinging website:', err);
+    });
+  }
+  
+  // Ping website every 14 minutes (840000 milliseconds)
+  setInterval(pingWebsite, 840000);
 
 app.get("/*", (req, res, next) => {
     const Store = configureStore({
