@@ -119,8 +119,8 @@ const Auth = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
-        className="formContainerContainer h-fit min-h-[clac(100vh-73px)]">
-        <div className="formContainer sm:h-[80vh] sm:shadow-none">
+        className="formContainerContainer h-fit min-h-[calc(100vh-73px)]">
+        <div className="formContainer sm:h-fit sm:min-h-[80vh] sm:shadow-none">
             <h1 className="authFormHeader sm:text-2xl">{ isSignup ? "Sign Up" : "Log In"}</h1>
             <form>
                 {
