@@ -31,7 +31,7 @@ const Nav = () => {
     }
 
   return (
-    <header className='w-full flex justify-between items-center bg-white px-4 py-4 border-b border-b-[#e6ebf4] sm:px-4'>
+    <header className='w-full flex justify-between items-center bg-white px-4 py-4 border-b border-b-[#e6ebf4] sm:px-2'>
         <Link to="/"> 
             <svg fill="#000000" viewBox="0 0 24 24" className='w-[40px] aspect-square'>
                 <g id="SVGRepo_bgCarrier" strokeWidth="0">
@@ -46,12 +46,12 @@ const Nav = () => {
             </svg>
         </Link>
 
-        <div className=' w-fit flex justify-center items-center sm:grid sm:grid-cols-3 sm:gap-y-2'>
-          <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Create</Link>
-          <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Chat</Link>
-          <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">TSST</Link>
-          <Link to="/summarizeURL" className="h-fit mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Summarize</Link>
-          <Link to="/translator" className="h-fit mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1">Translate</Link>
+        <div className=' w-fit flex justify-center items-center sm:justify-between sm:grid sm:grid-cols-3 sm:gap-y-2'>
+          <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Create</Link>
+          <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Chat</Link>
+          <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">TSST</Link>
+          <Link to="/summarizeURL" className="h-fit mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Summarize</Link>
+          <Link to="/translator" className="h-fit mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Translate</Link>
           {
             (user) ? (
               <div className="flex">
