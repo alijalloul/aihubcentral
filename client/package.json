@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "ssr": "npm -s run build && nodemon server/index.js"
+    "ssr": "npm -s run build && node server/index.js"
   },
   "babel": {
     "presets": [
