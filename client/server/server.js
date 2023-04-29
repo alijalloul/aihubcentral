@@ -12,7 +12,7 @@ import User from "../src/redux/User.js";
 
 import App from '../src/App';
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.static('build', { index: false }));
