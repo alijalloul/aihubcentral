@@ -22,7 +22,7 @@ const atlasURL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(atlasURL)
-    .then(() => app.listen(PORT, () => console.log(`Successfully connected to port ${PORT}`)))
+    .then(() => app.listen(PORT, "0.0.0.0",() => console.log(`Successfully connected to port ${PORT}`)))
     .catch(error => console.log("There was an error: ", error));
 
 app.get("/", async (req, res) => {
