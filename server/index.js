@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
-import multer from "multer";
+import http from 'http';
 
 import { dalle, chatGPT, summarize, translate, transcribe } from "./api/openai.js";
 import { getImages, postImage } from "./api/imageShowcase.js";
@@ -11,15 +11,25 @@ import { login, signup } from "./api/user.js";
 dotenv.config();
 
 const app = express();
-const upload = multer();
-const storage = multer.memoryStorage();
-const uploadMiddleware = multer({ storage: storage });
 
 app.use(cors());
 app.use(express.json({limit: '50mb'}));
 
 const atlasURL = process.env.MONGODB_URL;    
 const PORT = process.env.PORT || 5000;
+
+if(process.env.PORT){
+    function pingWebsite() {
+        http.get('https://aihubcentral-server.onrender.com/', (res) => {
+          console.log('Website pinged successfully');
+        }).on('error', (err) => {
+          console.error('Error while pinging website:', err);
+        });
+      }
+      
+      // Ping website every 14 minutes (840000 milliseconds)
+      setInterval(pingWebsite, 840000);
+}
 
 mongoose.connect(atlasURL)
     .then(() => app.listen(PORT, "0.0.0.0",() => console.log(`Successfully connected to port ${PORT}`)))
