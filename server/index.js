@@ -19,6 +19,7 @@ const atlasURL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 5000;
 
 if(process.env.PORT){
+  console.log("PORT EXISTS");
     function pingWebsite() {
         http.get('https://aihubcentral-server.onrender.com/', (res) => {
           console.log('Website pinged successfully');

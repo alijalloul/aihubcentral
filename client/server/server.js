@@ -20,8 +20,9 @@ app.use(express.static('build', { index: false }));
 
 
 if(process.env.PORT){
+  console.log("PORT EXISTS");
   function pingWebsite() {
-      http.get('https://aihubcentral-server.onrender.com/', (res) => {
+      http.get('https://aihubcentra.org/', (res) => {
         console.log('Website pinged successfully');
       }).on('error', (err) => {
         console.error('Error while pinging website:', err);
