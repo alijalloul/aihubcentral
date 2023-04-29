@@ -74,8 +74,8 @@ const ChatBot = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
-        className='h-[calc(100vh-73px)] w-full min-h-fit flex bg-slate-50 sm:h-[calc(100vh-173px)'>
-        <div className='float-left h-full bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
+        className='h-fit min-h-[calc(100vh-73px)] w-full flex bg-slate-50 sm:min-h-[calc(100vh-150px)]'>
+        <div className='float-left bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
                     <div className='h-full px-5 flex justify-between items-center text-white'>
@@ -102,7 +102,7 @@ const ChatBot = () => {
             }
         </div>
 
-        <div className='h-full w-full'>
+        <div className='w-full'>
             <div className='w-full h-[80%] px-20 py-10 flex flex-col overflow-y-scroll sm:px-5' style={{scrollbarWidth: "thin"}}>
                 {
                     (chat.length > 0) && (

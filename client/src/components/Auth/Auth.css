@@ -1,6 +1,5 @@
 .formContainerContainer{
     width: 100vw;
-    height: calc(100vh - 73px);
 
     display: flex;
     justify-content: center;
@@ -165,7 +164,7 @@
         z-index: 1;
         top: 0;
         left: 1vw;
-        font-size: 2vw;
+        font-size: 3vw;
         transform: translate(0, -50%);
         
         padding: 0;
