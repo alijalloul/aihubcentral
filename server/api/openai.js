@@ -59,6 +59,7 @@ export const chatGPT = async (req, res) => {
         });
 
         const chatResponse = gptRes.data.choices[0].message.content;
+        console.log(chatResponse);
 
         res.status(200).json({ chatResponse: chatResponse });
     } catch (error) {

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion';
 
-import "./ChatBot.css";
+import { CodeEditor } from '../CodeEditor/CodeEditor';
+import LoadingDots from '../LoadingDots/LoadingDots';
 
 const ChatBot = () => {
     const userInfo = useSelector(state => state?.user?.userInfo);
     const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
     const [responsePending, setResponsePending] = useState(false);
     const [loadingDots, setLoadingDots] = useState('');
+    const [isCode, setIsCode] = useState(false);
 
     const [message, setMessage] = useState({
         role: "",
@@ -43,6 +45,7 @@ const ChatBot = () => {
                 const data = await res.json();
 
                 setChatResponses([...chatResponses, data.chatResponse]);
+                
 
                 setResponsePending(false);
             } catch (error) {
@@ -57,24 +60,12 @@ const ChatBot = () => {
         if(chat.length > 0) {post();}
     },[chat]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-          setLoadingDots(prevDots => {
-            return prevDots === '...' ? '' : prevDots + '.';
-          });
-        }, 500);
-    
-        return () => {
-          clearInterval(interval);
-        };
-      }, []);
-
   return (
     <motion.div 
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }} 
-        className='h-[calc(100vh-73px)] mb-10 w-full flex bg-slate-50 sm:h-[calc(100vh-150px)]'>
+        className='h-[calc(100vh-73px)] w-full flex bg-slate-50 sm:h-[calc(100vh-150px)]'>
         <div className='float-left bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
@@ -103,23 +94,37 @@ const ChatBot = () => {
         </div>
 
         <div className='w-full'>
-            <div className='w-full h-[80%] px-20 py-10 flex flex-col overflow-y-scroll sm:px-5' style={{scrollbarWidth: "thin"}}>
+            <div className='w-full h-[80%] flex flex-col overflow-y-scroll' style={{scrollbarWidth: "thin"}}>
                 {
                     (chat.length > 0) && (
-                        chat.map((message, index) => (
-                            <div className='w-full h-fit mb-3' key={index} >
-                                <div className='userMessages float-left bg-white w-fit px-5 py-3 rounded-r-lg rounded-t-lg sm:w-full sm:rounded-lg'>
+                        chat.map((message, index1) => (
+                            <div className='w-full h-fit' key={index1} >
+                                <div className='userMessages px-48 bg-white w-full py-8 border-y-2 border-gray-300 sm:px-10'>
                                     {message.content}
                                 </div>
 
-                                <div className='gptMessages float-right bg-[#10a37f] text-white w-fit min-w-30px px-5 py-3 rounded-l-lg rounded-t-lg my-16 break-words max-w-md sm:w-full sm:rounded-lg'>
+                                <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 sm:px-10'>
                                     {
-                                        (responsePending && chatResponses[index] === undefined) ? (
+                                        (responsePending && chatResponses[index1] === undefined) ? (
                                             <div className=' text-3xl tracking-widest'>
-                                                {loadingDots}
+                                                <LoadingDots />
                                             </div>
                                         ) : (
-                                            chatResponses[index]
+                                            /(["'])|\`\`\`/g.test(chatResponses[index1]) ? (
+                                                console.log(chatResponses[index1].split('```')),
+                                                chatResponses[index1].split('```').map((e, index2) => {
+                                                    console.log(e);
+                                                    return (
+                                                        (index2 % 2 === 0) ? (
+                                                            e
+                                                        ) : (
+                                                            <CodeEditor code={e} language="javascript"  />
+                                                        )
+                                                    )
+                                                })
+                                            ) : (
+                                                chatResponses[index1]
+                                            )
                                         )
                                     }
                                 </div>

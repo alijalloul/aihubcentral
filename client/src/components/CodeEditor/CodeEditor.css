@@ -1,0 +1,6 @@
+.cm-scroller{
+    overflow-x: hidden !important;
+}
+.cm-gutters{
+    display: none !important;
+}

@@ -26,6 +26,7 @@ const createHash = require("./util/createHash");
 /** @typedef {import("./NormalModule")} NormalModule */
 /** @typedef {import("./RuntimeTemplate")} RuntimeTemplate */
 /** @typedef {import("./javascript/JavascriptParser")} JavascriptParser */
+/** @typedef {import("./logging/Logger").Logger} Logger */
 
 /** @typedef {null|undefined|RegExp|Function|string|number|boolean|bigint|undefined} CodeValuePrimitive */
 /** @typedef {RecursiveArrayOrRecord<CodeValuePrimitive|RuntimeValue>} CodeValue */
@@ -117,7 +118,9 @@ class RuntimeValue {
  * @param {Map<string, string | Set<string>>} valueCacheVersions valueCacheVersions
  * @param {string} key the defined key
  * @param {RuntimeTemplate} runtimeTemplate the runtime template
+ * @param {Logger} logger the logger object
  * @param {boolean|undefined|null=} asiSafe asi safe (undefined: unknown, null: unneeded)
+ * @param {Set<string>|undefined=} objKeys used keys
  * @returns {string} code converted to string that evaluates
  */
 const stringifyObj = (
@@ -126,24 +129,47 @@ const stringifyObj = (
 	valueCacheVersions,
 	key,
 	runtimeTemplate,
-	asiSafe
+	logger,
+	asiSafe,
+	objKeys
 ) => {
 	let code;
 	let arr = Array.isArray(obj);
 	if (arr) {
 		code = `[${obj
 			.map(code =>
-				toCode(code, parser, valueCacheVersions, key, runtimeTemplate, null)
+				toCode(
+					code,
+					parser,
+					valueCacheVersions,
+					key,
+					runtimeTemplate,
+					logger,
+					null
+				)
 			)
 			.join(",")}]`;
 	} else {
-		code = `{${Object.keys(obj)
+		let keys = Object.keys(obj);
+		if (objKeys) {
+			if (objKeys.size === 0) keys = [];
+			else keys = keys.filter(k => objKeys.has(k));
+		}
+		code = `{${keys
 			.map(key => {
 				const code = obj[key];
 				return (
 					JSON.stringify(key) +
 					":" +
-					toCode(code, parser, valueCacheVersions, key, runtimeTemplate, null)
+					toCode(
+						code,
+						parser,
+						valueCacheVersions,
+						key,
+						runtimeTemplate,
+						logger,
+						null
+					)
 				);
 			})
 			.join(",")}}`;
@@ -168,7 +194,9 @@ const stringifyObj = (
  * @param {Map<string, string | Set<string>>} valueCacheVersions valueCacheVersions
  * @param {string} key the defined key
  * @param {RuntimeTemplate} runtimeTemplate the runtime template
+ * @param {Logger} logger the logger object
  * @param {boolean|undefined|null=} asiSafe asi safe (undefined: unknown, null: unneeded)
+ * @param {Set<string>|undefined=} objKeys used keys
  * @returns {string} code converted to string that evaluates
  */
 const toCode = (
@@ -177,49 +205,62 @@ const toCode = (
 	valueCacheVersions,
 	key,
 	runtimeTemplate,
-	asiSafe
+	logger,
+	asiSafe,
+	objKeys
 ) => {
-	if (code === null) {
-		return "null";
-	}
-	if (code === undefined) {
-		return "undefined";
-	}
-	if (Object.is(code, -0)) {
-		return "-0";
-	}
-	if (code instanceof RuntimeValue) {
-		return toCode(
-			code.exec(parser, valueCacheVersions, key),
-			parser,
-			valueCacheVersions,
-			key,
-			runtimeTemplate,
-			asiSafe
-		);
-	}
-	if (code instanceof RegExp && code.toString) {
-		return code.toString();
-	}
-	if (typeof code === "function" && code.toString) {
-		return "(" + code.toString() + ")";
-	}
-	if (typeof code === "object") {
-		return stringifyObj(
-			code,
-			parser,
-			valueCacheVersions,
-			key,
-			runtimeTemplate,
-			asiSafe
-		);
-	}
-	if (typeof code === "bigint") {
-		return runtimeTemplate.supportsBigIntLiteral()
-			? `${code}n`
-			: `BigInt("${code}")`;
-	}
-	return code + "";
+	const transformToCode = () => {
+		if (code === null) {
+			return "null";
+		}
+		if (code === undefined) {
+			return "undefined";
+		}
+		if (Object.is(code, -0)) {
+			return "-0";
+		}
+		if (code instanceof RuntimeValue) {
+			return toCode(
+				code.exec(parser, valueCacheVersions, key),
+				parser,
+				valueCacheVersions,
+				key,
+				runtimeTemplate,
+				logger,
+				asiSafe
+			);
+		}
+		if (code instanceof RegExp && code.toString) {
+			return code.toString();
+		}
+		if (typeof code === "function" && code.toString) {
+			return "(" + code.toString() + ")";
+		}
+		if (typeof code === "object") {
+			return stringifyObj(
+				code,
+				parser,
+				valueCacheVersions,
+				key,
+				runtimeTemplate,
+				logger,
+				asiSafe,
+				objKeys
+			);
+		}
+		if (typeof code === "bigint") {
+			return runtimeTemplate.supportsBigIntLiteral()
+				? `${code}n`
+				: `BigInt("${code}")`;
+		}
+		return code + "";
+	};
+
+	const strCode = transformToCode();
+
+	logger.log(`Replaced "${key}" with "${strCode}"`);
+
+	return strCode;
 };
 
 const toCacheVersion = code => {
@@ -290,6 +331,7 @@ class DefinePlugin {
 		compiler.hooks.compilation.tap(
 			PLUGIN_NAME,
 			(compilation, { normalModuleFactory }) => {
+				const logger = compilation.getLogger("webpack.DefinePlugin");
 				compilation.dependencyTemplates.set(
 					ConstDependency,
 					new ConstDependency.Template()
@@ -411,6 +453,7 @@ class DefinePlugin {
 											compilation.valueCacheVersions,
 											key,
 											runtimeTemplate,
+											logger,
 											null
 										)
 									);
@@ -426,7 +469,9 @@ class DefinePlugin {
 									compilation.valueCacheVersions,
 									originalKey,
 									runtimeTemplate,
-									!parser.isAsiPosition(expr.range[0])
+									logger,
+									!parser.isAsiPosition(expr.range[0]),
+									parser.destructuringAssignmentPropertiesFor(expr)
 								);
 								if (WEBPACK_REQUIRE_FUNCTION_REGEXP.test(strCode)) {
 									return toConstantDependency(parser, strCode, [
@@ -459,6 +504,7 @@ class DefinePlugin {
 								compilation.valueCacheVersions,
 								originalKey,
 								runtimeTemplate,
+								logger,
 								null
 							);
 							const typeofCode = isTypeof
@@ -477,6 +523,7 @@ class DefinePlugin {
 								compilation.valueCacheVersions,
 								originalKey,
 								runtimeTemplate,
+								logger,
 								null
 							);
 							const typeofCode = isTypeof
@@ -523,7 +570,9 @@ class DefinePlugin {
 								compilation.valueCacheVersions,
 								key,
 								runtimeTemplate,
-								!parser.isAsiPosition(expr.range[0])
+								logger,
+								!parser.isAsiPosition(expr.range[0]),
+								parser.destructuringAssignmentPropertiesFor(expr)
 							);
 
 							if (WEBPACK_REQUIRE_FUNCTION_REGEXP.test(strCode)) {
