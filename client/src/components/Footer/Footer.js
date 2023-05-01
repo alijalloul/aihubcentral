@@ -13,8 +13,8 @@ const Footer = () => {
             <h3 className="text-2xl font-bold text-white mb-2">Contact Us</h3>
             <ul className="text-gray-400">
               <li>Email: business.ali.z.jalloul@gmail.com</li>
-              <li><a href="https://github.com/alijalloul" target='_blank'>Github: @alijalloul</a></li>
-              <li><a href="https://www.youtube.com/@JackTrade-om3pv" target='_blank'>YouTube: @JackTrade</a></li>
+              <li><a href="https://github.com/alijalloul" target='_blank' rel="noreferrer">Github: @alijalloul</a></li>
+              <li><a href="https://www.youtube.com/@JackTrade-om3pv" target='_blank' rel="noreferrer">YouTube: @JackTrade</a></li>
             </ul>
           </div>
         </div>

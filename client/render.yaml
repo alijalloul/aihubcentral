@@ -1,6 +1,0 @@
-# render.yaml
-
-routes:
-  - type: redirect
-    source: /public/404.html
-    destination: /public/index.html

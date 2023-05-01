@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import LoadingDots from "../LoadingDots/LoadingDots.js"
+
 const SummarizeURL = () => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
   const MAX_WORDS = 4000;
@@ -8,20 +10,6 @@ const SummarizeURL = () => {
   const [summary, setSummary] = useState("");
   const [words, setWords] = useState(0);
   const [loading, setLoading] = useState(false);
-
-  const [loadingDots, setLoadingDots] = useState('');
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLoadingDots(prevDots => {
-        return prevDots === '...' ? '' : prevDots + '.';
-      });
-    }, 500);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   const handleChange = (e) => {
     setUrl(e.target.value);
@@ -82,7 +70,7 @@ const SummarizeURL = () => {
               loading ? (
                 <div>
                   <span>Summarizing Article</span>
-                  {loadingDots}
+                  <LoadingDots />
                 </div>
               ) : (
                 <div className='ml-4'>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import LoadingDots from '../LoadingDots/LoadingDots';
 import { languages } from '../../constants/languages';
 
 const Translator = () => {
@@ -18,20 +19,6 @@ const Translator = () => {
     const[textTo, setTextTo] = useState("");
 
     const [loading, setLoading] = useState(false);
-
-    const [loadingDots, setLoadingDots] = useState('');
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-        setLoadingDots(prevDots => {
-            return prevDots === '...' ? '' : prevDots + '.';
-        });
-        }, 500);
-
-        return () => {
-        clearInterval(interval);
-        };
-    }, []);
 
     const switchStateFrom = () => {
         if(selectLanguageFrom === true){
@@ -173,7 +160,7 @@ const Translator = () => {
                             <div className='w-full h-[80%]'> 
                                 {
                                     loading ? (
-                                        <div className='ml-5 text-3xl'>{loadingDots}</div>
+                                        <div className='ml-5 text-3xl'><LoadingDots /></div>
                                     ) : (
                                         <textarea dir={languageTo.direction} readOnly value={textTo} className='w-full h-full p-5 outline-none resize-none '></textarea>
                                     )

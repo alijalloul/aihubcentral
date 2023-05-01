@@ -23,6 +23,8 @@ const Nav = () => {
         if (typeof window !== 'undefined') {
           setUser(JSON.parse(localStorage.getItem("profile")))
         };
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[location]);
 
     const handleLogout = () => {

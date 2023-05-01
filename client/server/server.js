@@ -9,6 +9,11 @@ import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
 import { configureStore } from "@reduxjs/toolkit";
 
+import heapdump from 'heapdump';
+heapdump.writeSnapshot(function(err, filename) {
+  console.log('dump written to', filename);
+});
+
 import Images from "../src/redux/Images.js";
 import User from "../src/redux/User.js";
 

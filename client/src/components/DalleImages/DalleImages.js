@@ -14,10 +14,12 @@ const Posts = () => {
 
     useEffect(() => {
         fetchImages(dispatch);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     useEffect(() => {
         setLoading(fetchImagesPending);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchImagesPending])
 
     
