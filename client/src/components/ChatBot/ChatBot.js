@@ -110,7 +110,6 @@ const ChatBot = () => {
                                             </div>
                                         ) : (
                                             chatResponses[index1].includes('```') ? (
-                                                console.log(chatResponses[index1].split('```')),
                                                 chatResponses[index1].split('```').map((e, index2) => {
                                                     return (
                                                         (index2 % 2 === 0) ? (
