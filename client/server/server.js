@@ -3,6 +3,7 @@ import fs from 'fs';
 import express from 'express';
 import React from 'react';
 import https from 'https';
+import * as dotenv from "dotenv";
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
@@ -13,6 +14,7 @@ import User from "../src/redux/User.js";
 
 import App from '../src/App';
 
+dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 

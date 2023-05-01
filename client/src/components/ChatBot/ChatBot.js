@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion';
 
 import { CodeEditor } from '../CodeEditor/CodeEditor';
@@ -9,15 +9,12 @@ const ChatBot = () => {
     const userInfo = useSelector(state => state?.user?.userInfo);
     const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
     const [responsePending, setResponsePending] = useState(false);
-    const [loadingDots, setLoadingDots] = useState('');
-    const [isCode, setIsCode] = useState(false);
-
+    const [chat, setChat] = useState([]);
+    const [chatResponses, setChatResponses]= useState([]);
     const [message, setMessage] = useState({
         role: "",
         content: ""
     });
-    const [chat, setChat] = useState([]);
-    const [chatResponses, setChatResponses]= useState([]);
     
     const handleChange = (e) => {
         setMessage({role:"user", content:e.target.value});
@@ -58,6 +55,8 @@ const ChatBot = () => {
         }
 
         if(chat.length > 0) {post();}
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[chat]);
 
   return (
@@ -105,12 +104,12 @@ const ChatBot = () => {
 
                                 <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 sm:px-10'>
                                     {
-                                        (responsePending && chatResponses[index1] === undefined) ? (
+                                        (responsePending || chatResponses[index1] === undefined) ? (
                                             <div className=' text-3xl tracking-widest'>
                                                 <LoadingDots />
                                             </div>
                                         ) : (
-                                            /(["'])|\`\`\`/g.test(chatResponses[index1]) ? (
+                                            chatResponses[index1].includes('```') ? (
                                                 console.log(chatResponses[index1].split('```')),
                                                 chatResponses[index1].split('```').map((e, index2) => {
                                                     console.log(e);
