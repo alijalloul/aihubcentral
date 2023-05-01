@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from "react";
-import {basicSetup, EditorView} from "codemirror"
+import {basicSetup} from "codemirror"
+import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 
 import "./CodeEditor.css";
 
-export const CodeEditor = (props) => {
+export const CodeEditor = ({ code }) => {
   const editorRef = useRef(null);
 
   useEffect(() => {
     const view = new EditorView({
-      doc: props.code,
+      doc: code,
       extensions: [basicSetup, javascript()],
       parent: editorRef.current,
     });
@@ -17,7 +18,13 @@ export const CodeEditor = (props) => {
     return () => {
       view.destroy();
     };
-  }, [props.code]);
+  }, [code]);
 
-  return <div className="bg-gray-900" />;
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.editor.setValue(code);
+    }
+  }, [code]);
+
+  return <div className=" bg-gray-900" ref={editorRef} />;
 };
