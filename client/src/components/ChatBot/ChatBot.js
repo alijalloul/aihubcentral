@@ -113,8 +113,7 @@ const ChatBot = () => {
                                                 chatResponses[index1].split('```').map((e, index2) => {
                                                     return (
                                                         (index2 % 2 === 0) ? (
-                                                           // {e}
-                                                           null
+                                                            {e}
                                                         ) : (
                                                             //<CodeEditor code={e} language="javascript"  />
                                                             null
