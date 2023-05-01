@@ -112,12 +112,13 @@ const ChatBot = () => {
                                             chatResponses[index1].includes('```') ? (
                                                 console.log(chatResponses[index1].split('```')),
                                                 chatResponses[index1].split('```').map((e, index2) => {
-                                                    console.log(e);
                                                     return (
                                                         (index2 % 2 === 0) ? (
-                                                            {e}
+                                                           // {e}
+                                                           null
                                                         ) : (
-                                                            <CodeEditor code={e} language="javascript"  />
+                                                            //<CodeEditor code={e} language="javascript"  />
+                                                            null
                                                         )
                                                     )
                                                 })
