@@ -19,11 +19,11 @@ export const CodeEditor = (props) => {
   //   };
   // }, [props.code]);
 
-  // const view = new EditorView({
-  //   doc: props.code,
-  //   extensions: [basicSetup, javascript()],
-  //   parent: editorRef.current,
-  // });
+  EditorView({
+    doc: props.code,
+    extensions: [basicSetup, javascript()],
+    parent: editorRef.current,
+  });
 
   return <div className="bg-gray-900" ref={editorRef} />;
 };
