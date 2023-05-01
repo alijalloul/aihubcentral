@@ -20,6 +20,7 @@
     "ignore-styles": "^5.0.1",
     "jwt-decode": "^3.1.2",
     "nodemon": "^2.0.22",
+    "pidusage": "^3.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -32,7 +33,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "ssr": "npm -s run build && node server/index.js"
+    "ssr": "npm -s run build && node server/index.js",
+    "devssr": "npm -s run build && nodemon server/index.js"
   },
   "eslintConfig": {
     "extends": [

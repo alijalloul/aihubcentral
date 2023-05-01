@@ -104,27 +104,28 @@ const ChatBot = () => {
 
                                 <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 sm:px-10'>
                                     {
-                                        (responsePending || chatResponses[index1] === undefined) ? (
-                                            <div className=' text-3xl tracking-widest'>
-                                                <LoadingDots />
-                                            </div>
-                                        ) : (
-                                            chatResponses[index1].includes('```') ? (
-                                                console.log(chatResponses[index1].split('```')),
-                                                chatResponses[index1].split('```').map((e, index2) => {
-                                                    console.log(e);
-                                                    return (
-                                                        (index2 % 2 === 0) ? (
-                                                            e
-                                                        ) : (
-                                                            <CodeEditor code={e} language="javascript"  />
-                                                        )
-                                                    )
-                                                })
-                                            ) : (
-                                                chatResponses[index1]
-                                            )
-                                        )
+                                        // (responsePending || chatResponses[index1] === undefined) ? (
+                                        //     <div className=' text-3xl tracking-widest'>
+                                        //         <LoadingDots />
+                                        //     </div>
+                                        // ) : (
+                                        //     chatResponses[index1].includes('```') ? (
+                                        //         console.log(chatResponses[index1].split('```')),
+                                        //         chatResponses[index1].split('```').map((e, index2) => {
+                                        //             console.log(e);
+                                        //             return (
+                                        //                 (index2 % 2 === 0) ? (
+                                        //                     e
+                                        //                 ) : (
+                                        //                     <CodeEditor code={e} language="javascript"  />
+                                        //                 )
+                                        //             )
+                                        //         })
+                                        //     ) : (
+                                        //         chatResponses[index1]
+                                        //     )
+                                        // )
+                                        chatResponses[index1]
                                     }
                                 </div>
                             </div>
