@@ -8,7 +8,7 @@ import Store from './redux/Store';
 
 import "./index.css"
 
-if(!process.env.REACT_APP_SERVER_URL){
+if(process.env.REACT_APP_SERVER_URL){
   ReactDOM.hydrateRoot(document.getElementById('root'),
   <Provider store = { Store }> 
     <BrowserRouter>
