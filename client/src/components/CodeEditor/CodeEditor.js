@@ -8,24 +8,24 @@ import "./CodeEditor.css";
 export const CodeEditor = ({ code }) => {
   const editorRef = useRef(null);
 
-  useEffect(() => {
-    const view = new EditorView({
-      doc: code,
-      extensions: [basicSetup, javascript()],
-      parent: editorRef.current,
-    });
+  // useEffect(() => {
+  //   const view = new EditorView({
+  //     doc: code,
+  //     extensions: [basicSetup, javascript()],
+  //     parent: editorRef.current,
+  //   });
 
-    return () => {
-      view.destroy();
-    };
-    console.log("hello")
-  }, [code]);
+  //   return () => {
+  //     view.destroy();
+  //   };
+  //   console.log("hello")
+  // }, [code]);
 
-  useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.editor.setValue(code);
-    }
-  }, [code]);
+  // useEffect(() => {
+  //   if (editorRef.current) {
+  //     editorRef.current.editor.setValue(code);
+  //   }
+  // }, [code]);
 
   return <div className=" bg-gray-900" ref={editorRef} />;
 };
