@@ -18,6 +18,7 @@ export const CodeEditor = ({ code }) => {
     return () => {
       view.destroy();
     };
+    console.log("hello")
   }, [code]);
 
   useEffect(() => {

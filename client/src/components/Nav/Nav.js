@@ -10,6 +10,7 @@ const Nav = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const[showWarning, setShowWarning] = useState(true);
     const [ user, setUser ] = useState((typeof window !== 'undefined') && JSON.parse(localStorage.getItem('profile')));
 
     useEffect(() => {
@@ -33,8 +34,9 @@ const Nav = () => {
     }
 
   return (
-    <header className='w-full h-fit min-h-[73px] flex justify-between items-center bg-white px-4 py-4 border-b border-b-[#e6ebf4] sm:px-2 sm:min-h-[120px]'>
-        <Link to="/"> 
+    <header className='w-full h-fit min-h-[73px] flex justify-between items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[120px]'>
+        <div className='w-full h-fit px-4 py-4 flex justify-between items-center   sm:px-2'>
+          <Link to="/"> 
             <svg fill="#000000" viewBox="0 0 24 24" className='w-[40px] aspect-square'>
                 <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 </g>
@@ -46,24 +48,30 @@ const Nav = () => {
                     </path>
                 </g>
             </svg>
-        </Link>
+          </Link>
 
-        <div className=' w-fit flex justify-center items-center sm:justify-between sm:grid sm:grid-cols-3 sm:gap-y-2'>
-          <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Create</Link>
-          <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Chat</Link>
-          <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">TSST</Link>
-          <Link to="/summarizeURL" className="h-fit mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Summarize</Link>
-          <Link to="/translator" className="h-fit mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Translate</Link>
-          {
-            (user) ? (
-              <div className="flex">
-                  <button onClick={ handleLogout } className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md mr-2"></button>
-                  <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
-              </div>
-            ) : (
-              <Link to="auth" className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md sm:textext-center t-sm sm:px-2 sm:py-1 w-fit">Login</Link>
-            )
-          }
+          <div className=' w-fit flex justify-center items-center sm:justify-between sm:grid sm:grid-cols-3 sm:gap-y-2'>
+            <Link to="/createImage" className="h-fit mr-5 font-medium bg-[rgb(109,84,210)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Create</Link>
+            <Link to="/chatBot" className="h-fit mr-5 font-medium bg-[rgb(84,210,116)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Chat</Link>
+            <Link to="/TSST" className="h-fit mr-5 font-medium bg-[rgb(226,188,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">TSST</Link>
+            <Link to="/summarizeURL" className="h-fit mr-5 font-medium bg-[rgb(37,97,226)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Summarize</Link>
+            <Link to="/translator" className="h-fit mr-5 font-medium bg-[rgb(226,37,37)] text-white px-4 py-2 rounded-md text-center sm:text-sm sm:px-2 sm:py-1 sm:mr-2">Translate</Link>
+            {
+              (user) ? (
+                <div className="flex">
+                    <button onClick={ handleLogout } className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md mr-2"></button>
+                    <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
+                </div>
+              ) : (
+                <Link to="auth" className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md sm:textext-center t-sm sm:px-2 sm:py-1 w-fit">Login</Link>
+              )
+            }
+          </div>
+        </div>
+
+        <div className='relative w-ful px-40 bg-yellow-100 sm:px-10 sm:py-2' style={{display: showWarning ? "static" : "none"}}>
+            <button onClick={() => setShowWarning(false)} className='absolute right-0 mr-5'>x</button>
+            <p className=' opacity-75'>Hello and welcome to aihubcentral.org. Thanks for taking interest in this project. This website utilizes the free tier of the openAI API and the Render server deployment, therefore you might expreience some prolonged loading screens because of the limited API requests available as of now. Please try again at a later time. Thanks.</p>
         </div>
     </header>
   )
