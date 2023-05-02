@@ -12,7 +12,7 @@ import fs, { read } from "fs";
 
 dotenv.config();
 
-const APIKEY = process.env.OPENAI_API_KEY;
+const APIKEY = process.env.OPENAI_API_KEY2;
 
 const configuration = new Configuration({
     organization: "org-r2BOPUThXA383fEqMcF3ClYY",
