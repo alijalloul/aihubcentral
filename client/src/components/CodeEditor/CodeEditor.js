@@ -5,7 +5,7 @@ import { javascript } from "@codemirror/lang-javascript";
 
 import "./CodeEditor.css";
 
-export const CodeEditor = ({ code }) => {
+const CodeEditor = ({ code }) => {
   const editorRef = useRef(null);
 
   // useEffect(() => {
@@ -29,3 +29,5 @@ export const CodeEditor = ({ code }) => {
 
   return <div className=" bg-gray-900" ref={editorRef} />;
 };
+
+export default CodeEditor;

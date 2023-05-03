@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion';
 
-import { CodeEditor } from '../CodeEditor/CodeEditor';
+import CodeEditor from '../CodeEditor/CodeEditor';
 import LoadingDots from '../LoadingDots/LoadingDots';
 
 const ChatBot = () => {
@@ -104,7 +104,7 @@ const ChatBot = () => {
 
                                 <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 sm:px-10'>
                                     {
-                                        (responsePending || chatResponses[index1] === undefined) ? (
+                                        (!chatResponses[index1]) ? (
                                             <div className=' text-3xl tracking-widest'>
                                                 <LoadingDots />
                                             </div>
@@ -133,7 +133,7 @@ const ChatBot = () => {
             <div className='w-full h-[20%] py-3 flex justify-center items-center'>
                 <input 
                     type="text" 
-                    placeholder="ayo wassup ma home BOYY!!!" 
+                    placeholder="Start Chatting" 
                     disabled={responsePending}
                     value={message.content} 
                     onChange={ handleChange } 

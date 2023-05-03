@@ -79,9 +79,9 @@ const Translator = () => {
     }
 
     const handleTranslate = async () => {
-        setLoading(true);
-
         try {
+            setLoading(true);
+
             const res = await fetch(`${BASE_URL}/api/openai/translator`, {
                 method: "POST",
                 headers: {

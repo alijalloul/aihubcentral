@@ -2,17 +2,13 @@ import { Configuration, OpenAIApi } from "openai";
 import * as dotenv from "dotenv";
 import https from "https";
 import * as cheerio from 'cheerio';
-import { Readable } from "stream";
 
-import axios from "axios"
-import FormData from "form-data"
-
-import fs, { read } from "fs";
+import fs from "fs";
 
 
 dotenv.config();
 
-const APIKEY = process.env.OPENAI_API_KEY2;
+const APIKEY = process.env.OPENAI_API_KEY;
 
 const configuration = new Configuration({
     organization: "org-r2BOPUThXA383fEqMcF3ClYY",
@@ -39,8 +35,6 @@ export const dalle = async (req, res) => {
         dalleRes.data.data.forEach(image => {
             images.push(`data:image/jpeg;base64,${image.b64_json}`);
         });
-
-        console.log(images);
 
         res.status(200).json({ images: images });
     } catch (error) {
