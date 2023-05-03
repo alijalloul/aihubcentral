@@ -240,7 +240,7 @@ const Main = () => {
                 }
             </div>
 
-            <div className='absolute w-full h-12 flex justify-center items-center sm:w-[90%] sm:left-[50%] sm:transform sm:translate-x-[-50%]'>
+            <div className='w-full h-12 flex justify-center items-center sm:absolute sm:w-[90%] sm:left-[50%] sm:transform sm:translate-x-[-50%]'>
                 <div ref={excludedDivRef} className='relative w-[20%] h-full mr-5 sm:w-[40%]'>
                     <div className='absolute border-2  w-full flex flex-col justify-center items-center bottom-0 overflow-hidden rounded-xl'>
                         <div ref={selectionRef} style={{height: expandFunctions ? `${selectionHeight}px` : "0px"}} className={`w-full transition-height ease-in-out duration-200`}>
