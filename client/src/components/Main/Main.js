@@ -197,6 +197,7 @@ const Main = () => {
       }, [expandFunctions]);
   return (
     <div className='min-h-[calc(100vh-73px)] flex flex-col justify-center items-center mx-10'>
+        <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="alizjalloul" data-description="Support me on Buy me a coffee!" data-message="To support this project, buy me a coffee!" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
         <div className='w-full h-[calc(100vh-160px)] px-48 sm:h-[calc(100vh-150px)] sm:px-0'>
             <div style={{scrollbarWidth: "none"}} className='w-full h-[80%] overflow-y-scroll'>
             {

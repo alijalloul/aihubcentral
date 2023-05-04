@@ -10,7 +10,7 @@ const Nav = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const[showWarning, setShowWarning] = useState(true);
+    const[showWarning, setShowWarning] = useState(false);
     const [ user, setUser ] = useState((typeof window !== 'undefined') && JSON.parse(localStorage.getItem('profile')));
 
     useEffect(() => {
