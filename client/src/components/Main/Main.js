@@ -198,8 +198,7 @@ const Main = () => {
   return (
     <div className='min-h-[calc(100vh-73px)] flex flex-col justify-center items-center mx-10'>
         <div className='w-full h-[calc(100vh-90px)] px-48 sm:h-[calc(100vh-120px)] sm:px-0'>
-        <a target="_blank" href="https://www.amazon.com/b?_encoding=UTF8&tag=jackofallt000-20&linkCode=ur2&linkId=7b0bf85a455c0b2ceeb7ada389ab52fd&camp=1789&creative=9325&node=2335752011">CellAccessories</a>
-            <div style={{scrollbarWidth: "none"}} className='w-full h-[80%] overflow-y-scroll'>
+             <div style={{scrollbarWidth: "none"}} className='w-full h-[80%] overflow-y-scroll'>
             {
                     (chat.length > 0) && (
                         chat.map((message, index1) => (
