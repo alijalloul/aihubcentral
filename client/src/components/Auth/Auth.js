@@ -121,7 +121,7 @@ const Auth = () => {
         exit={{ opacity: 0 }} 
         className="formContainerContainer h-fit min-h-[calc(100vh-73px)]">
         <div className="formContainer sm:h-fit sm:min-h-[80vh] sm:shadow-none">
-            <h1 className="authFormHeader sm:text-2xl">{ isSignup ? "Sign Up" : "Log In"}</h1>
+            <h2 className="authFormHeader sm:text-2xl">{ isSignup ? "Sign Up" : "Log In"}</h2>
             <form>
                 {
                     isSignup && (<div className="flName">

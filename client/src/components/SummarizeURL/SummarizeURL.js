@@ -57,7 +57,7 @@ const SummarizeURL = () => {
                 <div className='absolute bottom-0 right-0 mr-2 mb-2 opacity-50'>{words}/{MAX_WORDS}</div>
             </div>
             <div onClick={ handleSummarize } className=' relative w-fit h-full px-4 py-3 rounded-md font-bold text-gray-50 overflow-hidden flex justify-center items-center cursor-pointer'>
-              <h1 className='relative z-[1] pointer-events-none'>Summarize</h1>
+              <h2 className='relative z-[1] pointer-events-none'>Summarize</h2>
               <div className='absolute w-[110%] aspect-square top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[rgb(234,121,0)] bg-[linear-gradient(45deg,rgba(234,121,0,1)_0%,rgba(236,199,0,1)_34%,rgba(201,0,255,1)_66%,rgba(0,87,255,1)_100%)] bg-[length:300%_300%] bg-left  hover:bg-right hover:rotate-180 transition-all ease-in-out duration-500'></div>
             </div>
           </div>

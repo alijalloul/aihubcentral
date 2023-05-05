@@ -37,12 +37,12 @@ const Posts = () => {
             <div className='w-full h-[calc(100vh-73px)] flex justify-center items-center'>
                 <div className='flex flex-col justify-center items-center'>
                     <Loader />
-                    <h1 className='mt-5'>Fetching Data...</h1>
+                    <h2 className='mt-5'>Fetching Data...</h2>
                 </div>
             </div>
         ) : (
             (images?.length === 0) ? (
-                <h1>Be the first to post!</h1>
+                <h2>Be the first to post!</h2>
             ) : (
                 <motion.div 
                     initial={{ opacity: 0 }} 
