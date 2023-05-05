@@ -64,7 +64,6 @@ const Main = () => {
             try {
                 setLoading(true);
 
-                console.log(message)
                 const res = await fetch(`${BASE_URL}/api/openai/dalle`, {
                   method: "POST",
                   headers: {
@@ -74,9 +73,7 @@ const Main = () => {
                 });
                 
                 const data = await res.json();
-        
-                console.log(data.images[0])
-                
+                        
                 setChatResponses([...chatResponses, data.images[0]]);
                 chat[chat.length - 1].content = `[Create Image]: ${chat[chat.length - 1].content}`;
 
@@ -160,7 +157,6 @@ const Main = () => {
             }
         }
 
-        console.log(message)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[chat]);
 
@@ -181,7 +177,6 @@ const Main = () => {
         function handleClickOutside(event) {
             if (excludedDivRef.current && !excludedDivRef.current.contains(event.target)) {
                 setExpandFunctions(false);
-                console.log("cat")
             }
         }
     
@@ -196,7 +191,7 @@ const Main = () => {
         };
       }, [expandFunctions]);
   return (
-    <div className='min-h-[calc(100vh-73px)] flex flex-col justify-center items-center mx-10'>
+    <div className='min-h-[calc(100vh-100px)] flex flex-col justify-center items-center mx-10'>
         <div className='w-full h-[calc(100vh-90px)] px-48 sm:h-[calc(100vh-120px)] sm:px-0'>
              <div style={{scrollbarWidth: "none"}} className='w-full h-[80%] overflow-y-scroll'>
             {
@@ -257,7 +252,7 @@ const Main = () => {
                 <input onChange={ handleChange } onKeyDown={handleKeyDown} value={message.content}  disabled={loading} className='w-[75%] h-full px-3 py-3 shadow-lg shadow-gray-400 border-2 bg-gray-50 rounded-lg focus:outline-none sm:w-[60%]'></input>
             </div> 
         </div>
-        <div className='min-h-[calc(100vh-73px)] flex flex-col justify-center items-center mx-10'>
+        <div className='min-h-[calc(100vh-100px)] flex flex-col justify-center items-center mx-10'>
             <div className='relative h-fit min-h-[70vh] border-b-2 border-black my-10 py-10 sm:flex-col sm:w-fit sm:h-fit sm:min-h-[45vh]'>
                 <div className='w-[60%] sm:w-full sm:mb-16'>
                     <h2 className=' text-9xl sm:text-5xl'>Create Images From Prompts With DALLE-E</h2>

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom"
 import { AnimatePresence } from "framer-motion";
 
-import Nav from "./components/Nav/Nav.js";
+import Header from "./components/Header/Header.js";
 import CreateImage from "./components/CreateImage/CreateImage.js";
 import ChatBot from "./components/ChatBot/ChatBot.js";
 import DalleImages from "./components/DalleImages/DalleImages.js";
@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <>
-        <Nav />
+        <Header />
         <AnimatePresence>
           <Routes location={location} key={location.pathname}> 
             <Route path="/" element={ <Main />} />

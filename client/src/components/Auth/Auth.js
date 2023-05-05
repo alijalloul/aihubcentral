@@ -15,7 +15,7 @@ const Auth = () => {
     const CLIENT_ID = "18229699408-lt9gun1vb3r6moqak9fs3oh21sugscb1.apps.googleusercontent.com";
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const Headerigate = useNavigate();
 
     const [ isSignup, setIsSignup ] = useState(true);
     const [ passVisible, setPassVisible] = useState(false);
@@ -50,7 +50,7 @@ const Auth = () => {
     const handleCallbackResponse = (res) => {
         googleLogin({result: jwt_decode(res.credential), token: res.credential}, dispatch);
 
-        navigate("/");
+        Headerigate("/");
     }
     useEffect(() => {
         /* global google */
@@ -89,7 +89,7 @@ const Auth = () => {
 
         if(!hasError){
             if(isSignup){
-                const res = await signup(formData, navigate, dispatch);
+                const res = await signup(formData, Headerigate, dispatch);
                 
                 if(res.message === "Account already exists."){
                     setFormErrors((prevFormErrors) => ({...prevFormErrors,  accountExists: res.message}));
@@ -97,7 +97,7 @@ const Auth = () => {
                     console.log(formErrors);
                 }
             }else{
-                login(formData, navigate, dispatch);
+                login(formData, Headerigate, dispatch);
             }
         }else{
             console.log(formErrors);
@@ -119,7 +119,7 @@ const Auth = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
-        className="formContainerContainer h-fit min-h-[calc(100vh-73px)]">
+        className="formContainerContainer h-fit min-h-[calc(100vh-100px)]">
         <div className="formContainer sm:h-fit sm:min-h-[80vh] sm:shadow-none">
             <h2 className="authFormHeader sm:text-2xl">{ isSignup ? "Sign Up" : "Log In"}</h2>
             <form>

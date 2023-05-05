@@ -44,7 +44,7 @@ export const googleLogin = (userInfo, dispatch) => {
         console.log("error: ", error);
     }
 }
-export const login = async (userInfo, navigate, dispatch) => {
+export const login = async (userInfo, Headerigate, dispatch) => {
     dispatch(userSlice.actions.startAPI());
 
     try {
@@ -61,13 +61,13 @@ export const login = async (userInfo, navigate, dispatch) => {
         
         dispatch(userSlice.actions.loginSuccess(data));
 
-        navigate("/");
+        Headerigate("/");
     } catch (error) {
         dispatch(userSlice.actions.errorAPI());
         console.log("error: ", error);
     }
 }
-export const signup = async (userInfo, navigate, dispatch) => {
+export const signup = async (userInfo, Headerigate, dispatch) => {
     dispatch(userSlice.actions.startAPI());
 
     try {
@@ -87,19 +87,19 @@ export const signup = async (userInfo, navigate, dispatch) => {
         }
 
         dispatch(userSlice.actions.loginSuccess(data));
-        navigate("/");
+        Headerigate("/");
     } catch (error) {
         dispatch(userSlice.actions.errorAPI());
         console.log("error: ", error);
     }
 }
-export const logout = (navigate, dispatch) => {
+export const logout = (Headerigate, dispatch) => {
     dispatch(userSlice.actions.startAPI());
 
     try {
         dispatch(userSlice.actions.logoutSuccess());
 
-        navigate("/");
+        Headerigate("/");
     } catch (error) {
         dispatch(userSlice.actions.errorAPI());
         console.log("error: ", error);
