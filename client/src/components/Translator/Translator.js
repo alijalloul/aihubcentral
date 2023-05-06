@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import LoadingDots from '../LoadingDots/LoadingDots';
 import { languages } from '../../constants/languages';
@@ -105,7 +105,8 @@ const Translator = () => {
         }
     };
   return (
-    <motion.div 
+    <LazyMotion features={domAnimation}> 
+      <m.div  
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }}  
@@ -176,7 +177,8 @@ const Translator = () => {
             }
             </div>
         </div>
-    </motion.div>
+        </m.div >
+    </LazyMotion> 
   )
 }
 

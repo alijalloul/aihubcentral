@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import LoadingDots from '../LoadingDots/LoadingDots';
 import CodeEditor from '../CodeEditor/CodeEditor';
@@ -14,14 +14,12 @@ const Main = () => {
     const summarizeRef = useRef(null);
     const translateRef = useRef(null);
     const textToSpeechRef = useRef(null);
-    const speechToTextRef = useRef(null);
 
     const [isChatVisible, setIsChatVisible] = useState(null);
     const [isCreateImageVisible, setIsCreateImageVisible] = useState(null);
     const [isSummarizeVisible, setIsSummarizeVisible] = useState(null);
     const [isTranslateVisible, setisTranslateVisible] = useState(null);
     const [isTextToSpeechVisible, setIsTextToSpeechVisible] = useState(null);
-    const [isSpeechToTextVisible, setIsSpeechToTextVisible] = useState(null);
 
     useIsVisible(chatRef, setIsChatVisible);
     useIsVisible(createImageRef, setIsCreateImageVisible);
@@ -231,7 +229,8 @@ const Main = () => {
       }, [expandFunctions]);
 
   return (
-    <motion.div 
+    <LazyMotion features={domAnimation}> 
+      <m.div  
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
                 exit={{ opacity: 0 }} 
@@ -362,7 +361,8 @@ const Main = () => {
                 </div>
             </div>
         </div>
-    </motion.div>
+    </m.div >
+    </LazyMotion>
   )
 }
 

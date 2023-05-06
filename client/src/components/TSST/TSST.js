@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import Microphone from "./Microphone/Microphone";
 const TSST = () => {
@@ -90,7 +91,12 @@ const TSST = () => {
   }
 
     return (
-      <div className="h-[calc(100vh-73px)] flex justify-center items-center">
+      <LazyMotion features={domAnimation}> 
+      <m.div  
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }} 
+                exit={{ opacity: 0 }} 
+                className="h-[calc(100vh-73px)] flex justify-center items-center">
         <div className="w-[40%] flex justify-between items-center">
           <div className="flex flex-col">
             <Microphone startFunction={ handleStartRecording } stopFunction={ handleStopRecording } />
@@ -109,7 +115,8 @@ const TSST = () => {
         <div className="w-[40%] flex justify-center items-center">
           <textarea value={transcribtion} readOnly className="w-[60%] aspect-square resize-none shadow-lg shadow-black"></textarea>
         </div>
-      </div>
+        </m.div >
+    </LazyMotion> 
     );
 };
 export default TSST;

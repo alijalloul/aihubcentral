@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import LoadingDots from "../LoadingDots/LoadingDots.js"
 
@@ -44,7 +44,8 @@ const SummarizeURL = () => {
   }
 
   return (
-    <motion.div 
+    <LazyMotion features={domAnimation}> 
+      <m.div  
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
                 exit={{ opacity: 0 }} className='w-full h-fit min-h-[calc(100vh-73px)] flex justify-center'>
@@ -87,7 +88,8 @@ const SummarizeURL = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+      </m.div >
+    </LazyMotion> 
   )
 }
 

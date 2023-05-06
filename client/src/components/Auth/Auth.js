@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import jwt_decode from "jwt-decode";
 import { useDispatch } from 'react-redux';
 import { useNavigate  } from "react-router-dom"; 
-import { motion } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import { googleLogin, signup, login } from "../../redux/User.js";
 
@@ -115,7 +115,8 @@ const Auth = () => {
     }
     
   return (
-    <motion.div 
+    <LazyMotion features={domAnimation}> 
+      <m.div  
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
@@ -199,9 +200,8 @@ const Auth = () => {
                 }
             </div>
         </div>
-    </motion.div>
-
-
+        </m.div >
+    </LazyMotion>
   )
 }
 

@@ -30,7 +30,7 @@ export const dalleSupriseMePrompts = [
     "Design a surreal landscape inspired by dreams and the subconscious mind.",
     "Paint a portrait of a person with a fierce determination and passion.",
     "Illustrate a fantastical world with mythical creatures and magical spells.",
-    "Create a sculpture of a person with a complex emotional inner world.",
+    "Create a sculpture of a person with a complex emal inner world.",
     "Depict a serene beach with turquoise waters and palm trees.",
     "Design an intricate pattern inspired by the natural world.",
     "Paint a landscape of a peaceful countryside with rolling hills and a babbling brook.",

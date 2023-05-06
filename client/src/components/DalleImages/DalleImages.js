@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { motion } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import { fetchImages } from '../../redux/Images';
 import Image from './DalleImage/DalleImage';
@@ -44,7 +44,8 @@ const Posts = () => {
             (images?.length === 0) ? (
                 <h2>Be the first to post!</h2>
             ) : (
-                <motion.div 
+                <LazyMotion features={domAnimation}> 
+                    <m.div  
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     exit={{ opacity: 0 }}
@@ -60,7 +61,8 @@ const Posts = () => {
                         ))
                     }
                     </div>
-                </motion.div>
+                        </m.div >
+                </LazyMotion>
             )
         )
   );

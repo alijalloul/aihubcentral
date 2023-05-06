@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { motion } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import CodeEditor from '../CodeEditor/CodeEditor';
 import LoadingDots from '../LoadingDots/LoadingDots';
@@ -93,7 +93,8 @@ const ChatBot = () => {
         }        
     };
   return (
-    <motion.div 
+    <LazyMotion features={domAnimation}> 
+      <m.div  
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }} 
@@ -128,7 +129,7 @@ const ChatBot = () => {
                                                         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                                                         <g id="SVGRepo_iconCarrier"> 
                                                             <g id="Edit / Edit_Pencil_Line_02"> 
-                                                                <path id="Vector" d="M4 20.0001H20M4 20.0001V16.0001L14.8686 5.13146L14.8704 5.12976C15.2652 4.73488 15.463 4.53709 15.691 4.46301C15.8919 4.39775 16.1082 4.39775 16.3091 4.46301C16.5369 4.53704 16.7345 4.7346 17.1288 5.12892L18.8686 6.86872C19.2646 7.26474 19.4627 7.46284 19.5369 7.69117C19.6022 7.89201 19.6021 8.10835 19.5369 8.3092C19.4628 8.53736 19.265 8.73516 18.8695 9.13061L18.8686 9.13146L8 20.0001L4 20.0001Z" sstrokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> 
+                                                                <path id="Vector" d="M4 20.0001H20M4 20.0001V16.0001L14.8686 5.13146L14.8704 5.12976C15.2652 4.73488 15.463 4.53709 15.691 4.46301C15.8919 4.39775 16.1082 4.39775 16.3091 4.46301C16.5369 4.53704 16.7345 4.7346 17.1288 5.12892L18.8686 6.86872C19.2646 7.26474 19.4627 7.46284 19.5369 7.69117C19.6022 7.89201 19.6021 8.10835 19.5369 8.3092C19.4628 8.53736 19.265 8.73516 18.8695 9.13061L18.8686 9.13146L8 20.0001L4 20.0001Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> 
                                                             </g> 
                                                         </g>
                                                     </svg>
@@ -260,7 +261,8 @@ const ChatBot = () => {
                     className='w-[60%] h-fit px-5 py-3 rounded-lg outline-none border-1 border-gray-300 text-black shadow-[rgba(0,0,0,0.05)_0_0_10px_10px] transition-all duration-300 sm:w-[80%]'></input>
             </div>
         </div>
-    </motion.div>
+        </m.div >
+    </LazyMotion> 
   )
 }
 
