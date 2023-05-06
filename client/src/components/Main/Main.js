@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LoadingDots from '../LoadingDots/LoadingDots';
 import CodeEditor from '../CodeEditor/CodeEditor';
 
-import useIsVisible from '../../functions/useIsVisible.js';
+import useIsVisible from '../../functions/useIsVisible';
 
 const Main = () => {
 
