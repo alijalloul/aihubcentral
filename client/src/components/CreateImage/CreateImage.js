@@ -29,7 +29,7 @@ const CreateForm = () => {
 
   const handleGenerate = async () => {
     let isError=false;
-    if(dalleForm.nbImages < 1){
+    if(dalleForm.nbImages < 1 || dalleForm.nbImages > 5){
       setErrors({...errors, nbImagesEmpty: true});
       isError = true;
     } 
@@ -96,7 +96,7 @@ const CreateForm = () => {
               <div>
                 <p style={{color: errors.nbImagesEmpty && "red"}}>Number of Images</p>
                 <input name="nbImages" type="text" value={dalleForm.nbImages} onChange={ (e) => {handleChange(e); setErrors({ ...errors, nbImagesEmpty: false})}} style={{borderColor: `${ errors.nbImagesEmpty ? "red" : "black" }`}} className={`outline-none ${errors.nbImagesEmpty ? "mb-0" : "mb-2"} p-2 w-[10%] text-center rounded-sm border-solid border-2 border-gray-600`}/>
-                <p className={`${!errors.nbImagesEmpty && "hidden"} text-red-600 italic mb-2`}>The number of images should be at least 1 </p>
+                <p className={`${!errors.nbImagesEmpty && "hidden"} text-red-600 italic mb-2`}>The number of images should be between 1 and 5 </p>
               </div>
               <div>
                 <p style={{color: errors.promptEmpty && "red"}}>Prompt</p>
