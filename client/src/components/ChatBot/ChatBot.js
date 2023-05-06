@@ -18,6 +18,7 @@ const ChatBot = () => {
     const [chatsName, setChatsNames] = useState(["Chat 1"]);
     const [changeNameState, setChangeNameState] = useState(false);
     const [newName, setNewName] = useState("");
+    const [nameChangeIndex, setChangeNameIndex] = useState(null);
 
     const [chats, setChats] = useState([[]]);
     const [chatsResponses, setChatsResponses]= useState([[]]);
@@ -106,22 +107,22 @@ const ChatBot = () => {
                                 {
                                     chats.map((_, index1) => (
                                         <div key={index1} className={`flex items-center w-full h-12 mb-1 px-2 rounded-lg ${(selectedChat===index1 ) && "bg-[#454757]" } hover:bg-[#6b6e82]  transition-all`}>
-                                            <button onClick={() => {setSelectedChat(index1)}} className={` ${changeNameState ? "hidden" : "static"} w-[80%] h-full`}>{chatsName[index1]}</button>
+                                            <button onClick={() => {setSelectedChat(index1)}} className={` ${(changeNameState && index1 === nameChangeIndex) ? "hidden" : "static"} w-[80%] h-full`}>{chatsName[index1]}</button>
                                             <input 
                                                 key={index1}
                                                 value={newName}
                                                 onChange={handleNameChange}
                                                 onKeyDown={(e) => {
                                                     if (e.key === 'Enter') {
-                                                        setChatsNames(prevChatsName => prevChatsName.filter((prevChatName, index2) => (index2 === index1) ? (newName,console.log("jep")) : prevChatName ));
+                                                        setChatsNames(prevChatsName => prevChatsName.map((prevChatName, index2) => (index2 === index1) ?  newName : prevChatName));
                                                         setChangeNameState(false);
                                                         setNewName("");
                                                     }   
                                                 }}
-                                                className={`${changeNameState ? "static" : "hidden"} w-[80%] h-[60%] bg-transparent focus:outline-none`}></input>
+                                                className={`${(changeNameState && index1 === nameChangeIndex) ? "static" : "hidden"} w-[80%] h-[60%] bg-transparent focus:outline-none`}></input>
                                             
                                             <div className='flex justify-between items-center w-[20%] h-[80%]'>
-                                                <button onClick={() => {setChangeNameState(true)}}>E</button>
+                                                <button onClick={() => {setChangeNameState(true); setChangeNameIndex(index1)}}>E</button>
 
                                                 <button onClick={() => {
                                                     if(selectedChat > 0){
