@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import LoadingDots from '../LoadingDots/LoadingDots';
@@ -6,6 +6,9 @@ import { languages } from '../../constants/languages';
 
 const Translator = () => {
     const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
+
+    const excludedDivRef1 = useRef(null);
+    const excludedDivRef2 = useRef(null);
 
     const [selectLanguageFrom, setSelectLanguageFrom] = useState(false);
     const [selectLanguageTo, setSelectLanguageTo] = useState(false);
@@ -104,6 +107,30 @@ const Translator = () => {
             setLoading(false);
         }
     };
+
+        
+    useEffect(() => {
+        // Event listener for clicks outside of the excluded div
+        function handleClickOutside(event) {
+            if(excludedDivRef1.current && !excludedDivRef1.current.contains(event.target) ) {
+                setSelectLanguageFrom(false);
+            }
+            if(excludedDivRef2.current && !excludedDivRef2.current.contains(event.target)){
+                setSelectLanguageTo(false);
+            }
+        }
+    
+        // Add event listener when component mounts
+        if (selectLanguageFrom || selectLanguageTo) {
+          window.addEventListener("click", handleClickOutside);
+        }
+    
+        // Remove event listener when component unmounts
+        return () => {
+          window.removeEventListener("click", handleClickOutside);
+        };
+      }, [selectLanguageFrom, selectLanguageTo]);
+
   return (
     <LazyMotion features={domAnimation}> 
       <m.div  
@@ -119,7 +146,7 @@ const Translator = () => {
             {
                 (selectLanguageFrom === true) ? (
                     <div className='h-full'>
-                        <input className='w-full h-[10%] text-center sm:h-[20%]' placeholder='Search' onChange={ handleSearchLanguageFrom }></input>
+                        <input ref={excludedDivRef1} className='w-full h-[10%] text-center sm:h-[20%]' placeholder='Search' onChange={ handleSearchLanguageFrom }></input>
                         <div className='overflow-y-scroll h-[80%]'>
                             {
                                 languageFromOptions.map((language, index) => (
@@ -131,7 +158,7 @@ const Translator = () => {
                 ) : (
                         <>
                             <div className='w-full h-[10%] sm:h-[20%]'>
-                                <button onClick={ switchStateFrom } className='w-full h-full border'>{languageFrom.language}</button>
+                                <button onMouseUp={ switchStateFrom } className='w-full h-full border'>{languageFrom.language}</button>
                             </div>
 
                             <div className='w-full h-[80%]'> 
@@ -148,7 +175,7 @@ const Translator = () => {
             {
                 (selectLanguageTo === true) ? (
                     <div className='h-full'>
-                        <input className='w-full h-[10%] text-center sm:h-[20%]' placeholder='Search' onChange={handleSearchLanguageTo}></input>
+                        <input ref={excludedDivRef2} className='w-full h-[10%] text-center sm:h-[20%]' placeholder='Search' onChange={handleSearchLanguageTo}></input>
                         <div className='overflow-y-scroll h-[80%]'>
                             {
                                 languageToOptions.map((language, index) => (
@@ -160,7 +187,7 @@ const Translator = () => {
                 ) : (
                         <>
                             <div className='w-full h-[10%] sm:h-[20%]'>
-                                <button onClick={ switchStateTo } className='w-full h-full border'>{languageTo.language}</button>
+                                <button onMouseUp={ switchStateTo } className='w-full h-full border'>{languageTo.language}</button>
                             </div>
 
                             <div className='w-full h-[80%]'> 

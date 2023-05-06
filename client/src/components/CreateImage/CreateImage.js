@@ -87,9 +87,9 @@ const CreateForm = () => {
               <div className='mb-3'>
                 <p>Resolution</p>
                 <div className='w-fit flex rounded-md border-2 border-black'>
-                  <button onClick={(e) => {e.preventDefault(); setResolution(256) }} className={`px-5 py-3 ${(resolution === 256) && "bg-[rgb(109,84,210)] text-white"}`}>256</button> 
-                  <button onClick={(e) => {e.preventDefault(); setResolution(512) }} className={`px-5 py-3 border-x-2 border-black ${(resolution === 512) && "bg-[rgb(109,84,210)] text-white"}`}>512</button>
-                  <button onClick={(e) => {e.preventDefault(); setResolution(1024)}} className={`px-5 py-3 ${(resolution === 1024) && "bg-[rgb(109,84,210)] text-white"}`}>1024</button>
+                  <button onClick={(e) => {e.preventDefault(); setResolution(256) }} className={`px-5 py-3 ${(resolution === 256) && "bg-[rgb(109,84,210)] text-white"}`}>256x256</button> 
+                  <button onClick={(e) => {e.preventDefault(); setResolution(512) }} className={`px-5 py-3 border-x-2 border-black ${(resolution === 512) && "bg-[rgb(109,84,210)] text-white"}`}>512x512</button>
+                  <button onClick={(e) => {e.preventDefault(); setResolution(1024)}} className={`px-5 py-3 ${(resolution === 1024) && "bg-[rgb(109,84,210)] text-white"}`}>1024x1024</button>
                 </div>
               </div>
 

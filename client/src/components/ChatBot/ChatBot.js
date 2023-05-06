@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
@@ -8,6 +8,8 @@ import LoadingDots from '../LoadingDots/LoadingDots';
 const ChatBot = () => {
     const userInfo = useSelector(state => state?.user?.userInfo);
     const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
+
+    const excludedDivRef = useRef();
 
     const [loading, setLoading] = useState(false);
 
@@ -92,13 +94,35 @@ const ChatBot = () => {
             setNewName("");
         }        
     };
+
+    useEffect(() => {
+        // Event listener for clicks outside of the excluded div
+        function handleClickOutside(event) {
+            if(excludedDivRef.current && !excludedDivRef.current.contains(event.target) ) {
+                setChangeNameState(false);
+                console.log("cat");
+            }
+        }
+
+        excludedDivRef?.current?.focus();
+    
+        // Add event listener when component mounts
+        if (changeNameState) {
+          window.addEventListener("mousedown", handleClickOutside);
+        }
+    
+        // Remove event listener when component unmounts
+        return () => {
+          window.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, [changeNameState]);
   return (
     <LazyMotion features={domAnimation}> 
       <m.div  
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }} 
-        className='h-[calc(100vh-73px)] w-full flex bg-slate-50 sm:h-[calc(100vh-150px)]'>
+        className='h-[calc(100vh-73px)] w-full flex bg-slate-50 sm:h-[calc(100vh-180px)]'>
         <div className='float-left bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
@@ -110,6 +134,7 @@ const ChatBot = () => {
                                         <div key={index1} className={`flex items-center w-full h-12 mb-1 px-2 rounded-lg ${(selectedChat===index1 ) && "bg-[#454757]" } hover:bg-[#6b6e82]  transition-all`}>
                                             <button onClick={() => {setSelectedChat(index1)}} className={` ${(changeNameState && index1 === nameChangeIndex) ? "hidden" : "static"} w-[80%] h-full`}>{chatsName[index1]}</button>
                                             <input 
+                                                ref={(index1 === nameChangeIndex) ? excludedDivRef : null}
                                                 key={index1}
                                                 value={newName}
                                                 onChange={handleNameChange}
@@ -117,13 +142,12 @@ const ChatBot = () => {
                                                     if (e.key === 'Enter') {
                                                         setChatsNames(prevChatsName => prevChatsName.map((prevChatName, index2) => (index2 === index1) ?  ((newName === "") ? prevChatName : newName) : prevChatName));
                                                         setChangeNameState(false);
-                                                        setNewName("");
                                                     }   
                                                 }}
                                                 className={`${(changeNameState && index1 === nameChangeIndex) ? "static" : "hidden"} w-[80%] h-[60%] bg-transparent focus:outline-none`}></input>
                                             
                                             <div className='flex justify-between items-center w-[20%] h-[80%]'>
-                                                <button onClick={() => {setChangeNameState(true); setChangeNameIndex(index1)}}>
+                                                <button onMouseUp={() => {setChangeNameState(true); setChangeNameIndex(index1); setNewName(chatsName.filter((prevChatName, index2) => (index2 === index1) && prevChatName)[0])}}>
                                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="rgb(200,200,200)" xmlns="http://www.w3.org/2000/svg" className=' hover:fill-[rgb(240,240,240)] transition-all ease-in-out'>
                                                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                                                         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
