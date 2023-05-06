@@ -114,7 +114,7 @@ const ChatBot = () => {
                                                 onChange={handleNameChange}
                                                 onKeyDown={(e) => {
                                                     if (e.key === 'Enter') {
-                                                        setChatsNames(prevChatsName => prevChatsName.map((prevChatName, index2) => (index2 === index1) ?  newName : prevChatName));
+                                                        setChatsNames(prevChatsName => prevChatsName.map((prevChatName, index2) => (index2 === index1) ?  ((newName === "") ? prevChatName : newName) : prevChatName));
                                                         setChangeNameState(false);
                                                         setNewName("");
                                                     }   
@@ -122,8 +122,17 @@ const ChatBot = () => {
                                                 className={`${(changeNameState && index1 === nameChangeIndex) ? "static" : "hidden"} w-[80%] h-[60%] bg-transparent focus:outline-none`}></input>
                                             
                                             <div className='flex justify-between items-center w-[20%] h-[80%]'>
-                                                <button onClick={() => {setChangeNameState(true); setChangeNameIndex(index1)}}>E</button>
-
+                                                <button onClick={() => {setChangeNameState(true); setChangeNameIndex(index1)}}>
+                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="rgb(200,200,200)" xmlns="http://www.w3.org/2000/svg" className=' hover:fill-[rgb(240,240,240)] transition-all ease-in-out'>
+                                                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                                                        <g id="SVGRepo_iconCarrier"> 
+                                                            <g id="Edit / Edit_Pencil_Line_02"> 
+                                                                <path id="Vector" d="M4 20.0001H20M4 20.0001V16.0001L14.8686 5.13146L14.8704 5.12976C15.2652 4.73488 15.463 4.53709 15.691 4.46301C15.8919 4.39775 16.1082 4.39775 16.3091 4.46301C16.5369 4.53704 16.7345 4.7346 17.1288 5.12892L18.8686 6.86872C19.2646 7.26474 19.4627 7.46284 19.5369 7.69117C19.6022 7.89201 19.6021 8.10835 19.5369 8.3092C19.4628 8.53736 19.265 8.73516 18.8695 9.13061L18.8686 9.13146L8 20.0001L4 20.0001Z" sstrokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> 
+                                                            </g> 
+                                                        </g>
+                                                    </svg>
+                                                </button>
                                                 <button onClick={() => {
                                                     if(selectedChat > 0){
                                                         setSelectedChat(prevSelectedChat => prevSelectedChat - 1)
@@ -136,7 +145,25 @@ const ChatBot = () => {
                                                         setChatsNames(prevChatsNames => prevChatsNames.filter((_, index2) => index2 !== index1));
                                                     }
                                                 }} 
-                                                className={`relative z-20 w-fit h-fit`}>D</button>
+                                                className={`relative z-20 w-fit h-fit`}>
+                                                    <svg width="15px" height="15px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="white"  className=' hover:fill-red-500 transition-all ease-in-out'>
+                                                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                                                        <g id="SVGRepo_iconCarrier"> 
+                                                            <title>delete [#1487]</title> 
+                                                            <desc>Created with Sketch.</desc> 
+                                                            <defs> </defs> 
+                                                            <g id="Page-1" stroke="none" strokewidth="1"fillRule="evenodd"> 
+                                                                <g id="Dribbble-Light-Preview" transform="translate(-179.000000, -360.000000)"> 
+                                                                    <g id="icons" transform="translate(56.000000, 160.000000)"> 
+                                                                        <path d="M130.35,216 L132.45,216 L132.45,208 L130.35,208 L130.35,216 Z M134.55,216 L136.65,216 L136.65,208 L134.55,208 L134.55,216 Z M128.25,218 L138.75,218 L138.75,206 L128.25,206 L128.25,218 Z M130.35,204 L136.65,204 L136.65,202 L130.35,202 L130.35,204 Z M138.75,204 L138.75,200 L128.25,200 L128.25,204 L123,204 L123,206 L126.15,206 L126.15,220 L140.85,220 L140.85,206 L144,206 L144,204 L138.75,204 Z" id="delete-[#1487]"> 
+                                                                        </path> 
+                                                                    </g> 
+                                                                </g> 
+                                                            </g> 
+                                                        </g>
+                                                    </svg>
+                                                </button>
                                             </div>
                                         </div>
                                     ))
