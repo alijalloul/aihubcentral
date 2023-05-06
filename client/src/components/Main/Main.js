@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import LoadingDots from '../LoadingDots/LoadingDots';
 import CodeEditor from '../CodeEditor/CodeEditor';
@@ -230,7 +231,11 @@ const Main = () => {
       }, [expandFunctions]);
 
   return (
-    <div className='min-h-[calc(100vh-73x)] flex flex-col justify-center items-center mx-10'>
+    <motion.div 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }} 
+                exit={{ opacity: 0 }} 
+                className='min-h-[calc(100vh-73x)] flex flex-col justify-center items-center mx-10'>
         <div className='w-full h-[calc(100vh-90px)] px-48 sm:h-[calc(100vh-180px)] sm:px-0'>
              <div style={{scrollbarWidth: "none"}} className='w-full h-[80%] overflow-y-scroll'>
             {
@@ -357,7 +362,7 @@ const Main = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </motion.div>
   )
 }
 

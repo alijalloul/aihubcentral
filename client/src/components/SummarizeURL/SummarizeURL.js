@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { motion } from "framer-motion";
 
 import LoadingDots from "../LoadingDots/LoadingDots.js"
 
@@ -43,7 +44,10 @@ const SummarizeURL = () => {
   }
 
   return (
-    <div className='w-full h-fit min-h-[calc(100vh-73px)] flex justify-center'>
+    <motion.div 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }} 
+                exit={{ opacity: 0 }} className='w-full h-fit min-h-[calc(100vh-73px)] flex justify-center'>
       <div className='w-[40%] h-full mt-0 flex flex-col items-center mb-10 sm:w-[80%]'>
         <div className=''>
           <div className=' text-6xl mb-5 leading-[5rem]'><span className='bg-[rgb(255,132,0)] bg-[linear-gradient(45deg,rgba(255,132,0,1)_0%,rgba(255,215,0,1)_100%)] bg-clip-text text-transparent'>Summarize</span> any <span className='bg-[rgb(16,120,252)] bg-[linear-gradient(45deg,rgba(16,120,252,1)_0%,rgba(149,0,255,1)_100%)] bg-clip-text text-transparent'>Article</span> from a URL using <span className='text-[#1abb98]'>CHAT-GPT</span></div>
@@ -83,7 +87,7 @@ const SummarizeURL = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
