@@ -64,6 +64,7 @@ const Main = () => {
             try {
                 setLoading(true);
 
+                console.log(message)
                 const res = await fetch(`${BASE_URL}/api/openai/dalle`, {
                   method: "POST",
                   headers: {
@@ -73,7 +74,9 @@ const Main = () => {
                 });
                 
                 const data = await res.json();
-                        
+        
+                console.log(data.images[0])
+                
                 setChatResponses([...chatResponses, data.images[0]]);
                 chat[chat.length - 1].content = `[Create Image]: ${chat[chat.length - 1].content}`;
 
@@ -157,6 +160,7 @@ const Main = () => {
             }
         }
 
+        console.log(message)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[chat]);
 
@@ -177,6 +181,7 @@ const Main = () => {
         function handleClickOutside(event) {
             if (excludedDivRef.current && !excludedDivRef.current.contains(event.target)) {
                 setExpandFunctions(false);
+                console.log("cat")
             }
         }
     
@@ -191,18 +196,18 @@ const Main = () => {
         };
       }, [expandFunctions]);
   return (
-    <div className='min-h-[calc(100vh-100px)] flex flex-col justify-center items-center mx-10'>
-        <div className='w-full h-[calc(100vh-90px)] px-48 sm:h-[calc(100vh-120px)] sm:px-0'>
+    <div className='min-h-[calc(100vh-73x)] flex flex-col justify-center items-center mx-10'>
+        <div className='w-full h-[calc(100vh-90px)] px-48 sm:h-[calc(100vh-180px)] sm:px-0'>
              <div style={{scrollbarWidth: "none"}} className='w-full h-[80%] overflow-y-scroll'>
             {
                     (chat.length > 0) && (
                         chat.map((message, index1) => (
                             <div className='w-full h-fit' key={index1} >
-                                <div className='userMessages px-48 bg-white w-full py-8 border-b-2 border-gray-200 sm:px-10'>
+                                <div className='userMessages px-48 bg-white w-full py-8 border-b-2 border-gray-200 sm:px-0 sm:py-5'>
                                     {message.content}
                                 </div>
 
-                                <div style={{background: "linear-gradient(90deg, rgba(255,255,255,25%) 10%, rgba(240,240,240,1) 50%, rgba(255,255,255,0) 90%)" }} className='gptMessages font-semibold px-48 text-black w-full py-8 sm:px-10'>
+                                <div className='gptMessages font-semibold px-48 text-black w-full py-8 sm:px-0 sm:py-5'>
                                     {
                                         (!chatResponses[index1]) ? (
                                             <div className=' text-3xl tracking-widest'>

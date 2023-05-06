@@ -45,6 +45,8 @@ export const dalle = async (req, res) => {
 
 export const chatGPT = async (req, res) => {
     const {chat} = req.body;
+    console.log("chat",chat);
+    
 
     try {
         const gptRes = await openai.createChatCompletion({
@@ -53,8 +55,8 @@ export const chatGPT = async (req, res) => {
         });
 
         const chatResponse = gptRes.data.choices[0].message.content;
-        console.log(chatResponse);
 
+        console.log("response",chatResponse)
         res.status(200).json({ chatResponse: chatResponse });
     } catch (error) {
         console.log(error.message);

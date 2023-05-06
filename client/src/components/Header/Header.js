@@ -26,7 +26,7 @@ const Header = () => {
     const translateBtnRef = useRef(null);
     const loginBtnRef = useRef(null);
 
-
+    const excludedDivRef = useRef(null);
     useEffect(() => {
         const token = user?.token;
         if(token){
@@ -76,6 +76,43 @@ const Header = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[location]);
 
+    useEffect(() => {
+      function handleResize() {
+        const subDomain = window.location.pathname.substring(1);
+        if(subDomain === ""){
+          setLeftPosition(0); 
+          setTopPosition(48*0);
+          setButtonWidth(homeBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "createImage"){
+          setLeftPosition(createImageBtnRef.current.offsetLeft); 
+          setTopPosition(48*1)
+          setButtonWidth(createImageBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "chatBot"){
+          setLeftPosition(chatBtnRef.current.offsetLeft); 
+          setTopPosition(48*2)
+          setButtonWidth(chatBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "TSST"){
+          setLeftPosition(tsstBtnRef.current.offsetLeft); 
+          setTopPosition(48*3)
+          setButtonWidth(tsstBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "summarizeURL"){
+          setLeftPosition(summarizeBtnRef.current.offsetLeft); 
+          setTopPosition(48*4)
+          setButtonWidth(summarizeBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "translator"){
+          setLeftPosition(translateBtnRef.current.offsetLeft); 
+          setTopPosition(48*5)
+          setButtonWidth(translateBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "auth"){
+          setLeftPosition(loginBtnRef.current.offsetLeft);
+          setTopPosition(48*6) 
+          setButtonWidth(loginBtnRef.current.getBoundingClientRect().width);
+        }
+      }
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const handleLogout = () => {
         logout(Headerigate, dispatch);
         setUser(null);
@@ -86,8 +123,28 @@ const Header = () => {
       if(showNav){setShowNav(false)}
       else{setShowNav(true)}
     }
+
+    useEffect(() => {
+      // Event listener for clicks outside of the excluded div
+      function handleClickOutside(event) {
+          if (excludedDivRef.current && !excludedDivRef.current.contains(event.target)) {
+              setShowNav(false);
+              console.log("cat");
+          }
+      }
+  
+      // Add event listener when component mounts
+      if (showNav) {
+        window.addEventListener("click", handleClickOutside);
+      }
+  
+      // Remove event listener when component unmounts
+      return () => {
+        window.removeEventListener("click", handleClickOutside);
+      };
+    }, [showNav]);
   return (
-    <header className='w-full h-fit min-h-[120px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[120px] sm:px-5'>
+    <header className='w-full h-fit min-h-[73px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[120px] sm:px-5'>
         <div className='w-full h-fit px-4 py-4 flex justify-between items-center   sm:px-2'>
           <div className='flex justify-center items-center sm:flex-col'>
             <h1 className=' font-bold text-3xl mr-5 sm:mr-0 sm:mb-2 sm:w-min'>AI Hub Central</h1>
@@ -109,7 +166,7 @@ const Header = () => {
           <div className='relative w-fit flex justify-center items-center rounded-lg sm:hidden'>
             <div style={{left: leftPosition, width: buttonWidth}} className={`absolute bg-black h-full rounded-lg transition-all ease-in-out duration-500`}></div>
             <Link to="/"              ref={homeBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "")              && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Home</Link>
-            <Link to="/createImage"   ref={createImageBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "createImage")   && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Create</Link>
+            <Link to="/createImage"   ref={createImageBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "createImage")   && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Create Image</Link>
             <Link to="/chatBot"       ref={chatBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "chatBot")       && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Chat</Link>
             <Link to="/TSST"          ref={tsstBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "TSST")          && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>TSST</Link>
             <Link to="/summarizeURL"  ref={summarizeBtnRef}   onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "summarizeURL")  && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Summarize</Link>
@@ -126,8 +183,8 @@ const Header = () => {
             }
           </div>
 
-          <div className='hidden sm:visible sm:block '>
-            <button onClick={ handleNavSwitchState } className='relative z-20 flex flex-col justify-evenly items-center aspect-square w-14 border-4 border-black'>
+          <div ref={excludedDivRef}  className='hidden sm:visible sm:block'>
+            <button onMouseUp={ handleNavSwitchState } className='relative z-20 flex flex-col justify-evenly items-center aspect-square w-14 border-4 border-black'>
                 <div className={` w-[80%] h-1 bg-black rounded-lg transition-all ease-in-out duration-200 ${showNav ? ("transform rotate-[45deg] translate-x-[0] translate-y-[13px]") : ("transform translate-x-0 opacity-1")}`}></div>              
                 <div className={` w-[80%] h-1 bg-black rounded-lg transition-all ease-in-out duration-200 ${showNav ? ("transform translate-x-[-50%] opacity-0") : ("transform translate-x-0 opacity-1")}`}></div>              
                 <div className={` w-[80%] h-1 bg-black rounded-lg transition-all ease-in-out duration-200 ${showNav ? ("transform rotate-[-45deg] translate-x-[0] translate-y-[-13px]") : ("transform translate-x-0 opacity-1")}`}></div>              
@@ -135,14 +192,14 @@ const Header = () => {
 
             <div className={`${showNav ? "w-[50%]" : " w-0"} fixed flex justify-center items-center overflow-hidden item z-10 top-[50vh] transform translate-y-[-50%] h-[100vh] right-0 bg-slate-300 transition-all ease-in-out duration-200`}>
               <div className='relative flex justify-center items-center w-full h-max'>
-                <div style={{top: topPosition, width: "100%"}} id="ttt" className={`absolute bg-black h-[14%] transition-all ease-in-out duration-500`}></div>
+                <div style={{top: topPosition, width: "100%"}} className={`absolute bg-black h-[14%] transition-all ease-in-out duration-500`}></div>
                   <div className='w-full flex flex-col justify-center items-center '>
-                    <Link to="/"               onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "")              && ("text-white")} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out`}>Home</Link>
-                    <Link to="/createImage"    onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "createImage")   && ("text-white")} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out`}>Create</Link>
-                    <Link to="/chatBot"        onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "chatBot")       && ("text-white")} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out`}>Chat</Link>
-                    <Link to="/TSST"           onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "TSST")          && ("text-white")} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out`}>TSST</Link>
-                    <Link to="/summarizeURL"   onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "summarizeURL")  && ("text-white")} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out`}>Summarize</Link>
-                    <Link to="/translator"     onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "translator")    && ("text-white")} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out`}>Translate</Link>
+                    <Link to="/"               onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "")              && ("text-white")} ${showNav ? "left-0" : "left-[100px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[100ms]`}>Home</Link>
+                    <Link to="/createImage"    onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "createImage")   && ("text-white")} ${showNav ? "left-0" : "left-[200px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[200ms]`}>Create Image</Link>
+                    <Link to="/chatBot"        onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "chatBot")       && ("text-white")} ${showNav ? "left-0" : "left-[300px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[300ms]`}>Chat</Link>
+                    <Link to="/TSST"           onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "TSST")          && ("text-white")} ${showNav ? "left-0" : "left-[400px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[400ms]`}>TSST</Link>
+                    <Link to="/summarizeURL"   onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "summarizeURL")  && ("text-white")} ${showNav ? "left-0" : "left-[500px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[500ms]`}>Summarize</Link>
+                    <Link to="/translator"     onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "translator")    && ("text-white")} ${showNav ? "left-0" : "left-[600px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[600ms]`}>Translate</Link>
                     {
                       (user) ? (
                         <div className="flex">
@@ -150,7 +207,7 @@ const Header = () => {
                             <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
                         </div>
                       ) : (
-                        <Link to="/auth" onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "auth")    && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Login</Link>
+                        <Link to="/auth" onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "auth") && ("text-white")} ${showNav ? "left-0" : "left-[400px]"} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out duration-[700ms]`}>Login</Link>
                       )
                     }
                   </div>

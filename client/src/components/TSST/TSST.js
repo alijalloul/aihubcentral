@@ -90,7 +90,7 @@ const TSST = () => {
   }
 
     return (
-      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+      <div className="h-[calc(100vh-73px)] flex justify-center items-center">
         <div className="w-[40%] flex justify-between items-center">
           <div className="flex flex-col">
             <Microphone startFunction={ handleStartRecording } stopFunction={ handleStopRecording } />

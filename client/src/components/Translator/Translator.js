@@ -104,7 +104,7 @@ const Translator = () => {
         }
     };
   return (
-    <div className='w-full h-fit min-h-[calc(100vh-100px)] mb-10 flex flex-col items-center'>
+    <div className='w-full h-fit min-h-[calc(100vh-73px)] mb-10 flex flex-col items-center'>
         <div className='w-[50%] mt-5 mb-10 text-6xl leading-[5rem] sm:w-[80%] sm:text-5xl sm:mb-5'><span className='bg-[rgb(255,50,0)] bg-[linear-gradient(45deg,rgba(255,50,0,1)_0%,rgba(255,132,0,1)_100%)] bg-clip-text text-transparent'>Translate</span> Text from any LANGUAGE using <span className='text-[#1abb98]'>CHAT-GPT</span></div>
 
         <div className='w-[80%] h-[50vh] flex justify-center items-center sm:flex-col sm:h-[95vh]'>

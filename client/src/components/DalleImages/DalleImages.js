@@ -34,7 +34,7 @@ const Posts = () => {
 
     return(
         loading ? (
-            <div className='w-full h-[calc(100vh-100px)] flex justify-center items-center'>
+            <div className='w-full h-[calc(100vh-73px)] flex justify-center items-center'>
                 <div className='flex flex-col justify-center items-center'>
                     <Loader />
                     <h2 className='mt-5'>Fetching Data...</h2>
@@ -49,7 +49,7 @@ const Posts = () => {
                     animate={{ opacity: 1 }} 
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.75}}
-                    className='h-fit min-h-[calc(100vh-100px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
+                    className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
 
                     <div className='mt-10 grid grid-cols-[repeat(5,19%)] gap-y-5 gap-x-5'>
                     {

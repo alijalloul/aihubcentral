@@ -71,7 +71,7 @@ const CreateForm = () => {
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
                 exit={{ opacity: 0 }}
-                className='h-fit min-h-[calc(100vh-100px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
+                className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
       <div className='pl-10 flex flex-col justify-center sm:pl-0'>
         <div className='h-fit'>
           <h2 className='relative z-[1] text-4xl font-bold text-white' style={{WebkitTextStroke: "2px black", textShadow: "4px 4px black"}}>Draw Your Imagination</h2>
