@@ -13,7 +13,7 @@ const Header = () => {
     const[subdomain, setSubdomain] = useState("");
     const[leftPosition, setLeftPosition] = useState(0)
     const[topPosition, setTopPosition] = useState(0)
-    const [buttonWidth, setButtonWidth] = useState(80);
+    const [buttonWidth, setButtonWidth] = useState(0);
     const[showWarning, setShowWarning] = useState(false);
     const[showNav, setShowNav] = useState(false);
     const [ user, setUser ] = useState((typeof window !== 'undefined') && JSON.parse(localStorage.getItem('profile')));
@@ -144,10 +144,10 @@ const Header = () => {
       };
     }, [showNav]);
   return (
-    <header className='w-full h-fit min-h-[73px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[120px] sm:px-5'>
-        <div className='w-full h-fit px-4 py-4 flex justify-between items-center   sm:px-2'>
-          <div className='flex justify-center items-center sm:flex-col'>
-            <h1 className=' font-bold text-3xl mr-5 sm:mr-0 sm:mb-2 sm:w-min'>AI Hub Central</h1>
+    <header className='w-full h-fit min-h-[73px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[100px] sm:px-5'>
+        <div className='w-full h-fit px-4 py-4 flex justify-between items-center sm:px-2'>
+          <div className='flex justify-center items-center'>
+            <h1 className=' font-bold text-3xl mr-5 sm:w-min'>AI Hub Central</h1>
             <Link to="/" onClick={() => {setLeftPosition(0); setTopPosition(0);setButtonWidth(homeBtnRef.current.getBoundingClientRect().width); }}> 
               <svg fill="#000000" viewBox="0 0 24 24" className='w-[40px] aspect-square'>
                   <g id="SVGRepo_bgCarrier" strokeWidth="0">
