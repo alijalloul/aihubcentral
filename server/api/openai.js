@@ -104,12 +104,12 @@ export const summarize = async (req, res) => {
     }
 
     let chat;
-    if((url.includes("wikipedia.org") || url.includes("openai.com")) && url.includes("http")){
-        chat = [{role: "user", content: `Summarize: "${url}"`}]
-    } else if(url.includes("http")) {
-        chat = [{role: "user", content: `Summarize: "${await fetchTextContentFromUrl(url)}" in the same language`}]
+    if((url.trim().split(" ")[0].includes("wikipedia.org") || url.trim().split(" ")[0].includes("openai.com")) && (url.trim().split(" ")[0].includes("http")) && (url.trim().split(" ").length === 1)){
+        chat = [{role: "user", content: `Summarize: "${url}" and then translate the summary to its original language. Only give me the original language summarization`}]
+    } else if(url.trim().split(" ")[0].includes("http")) {
+        chat = [{role: "user", content: `Summarize: "${await fetchTextContentFromUrl(url)}" and then translate the summary to its original language. Only give me the original language summarization`}]
     } else {
-        chat = [{role: "user", content: `Summarize: "${url}" in the same language`}]
+        chat = [{role: "user", content: `Summarize: "${url}" and then translate the summary to its original language. Only give me the original language summarization`}]
     }
 
     try {

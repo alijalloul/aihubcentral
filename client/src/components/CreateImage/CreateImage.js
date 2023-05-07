@@ -75,9 +75,16 @@ const CreateForm = () => {
         exit={{ opacity: 0 }}
         className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
         <div className='pl-10 flex flex-col justify-center sm:pl-0'>
-          <div className='h-fit'>
-            <h2 className='relative z-[1] text-4xl font-bold text-white' style={{WebkitTextStroke: "2px black", textShadow: "4px 4px black"}}>Draw Your Imagination</h2>
-            <p className='py-10 px-3 mb-10 bg-[rgb(109,84,210)] text-gray-100 transform skew-y-3'>Create an imaginative and stunning image from prompts using DALLE-E2 AI!</p>
+          <div className='h-fit w-[80%]'>
+            <p className='w-full my-2 text-black text-6xl mb-5 leading-[4rem] sm:text-4xl'>
+              <span className="inline-block" style={{"background":"linear-gradient(45deg, rgba(255,0,224,1) 0%, rgba(0,1,255,1) 100%)","backgroundClip":"text","color":"transparent", "font-weight": "bold"}}>Create&nbsp;</span> 
+              <span className='inline-block'>Stunning&nbsp;</span> 
+              <span className='inline-block'>And&nbsp;</span> 
+              <span className='inline-block'>Creative&nbsp;</span>
+              <span className='inline-block' style={{"background":"linear-gradient(45deg, rgba(0,255,248,1) 0%, rgba(255,0,202,1) 100%)","backgroundClip":"text","color":"transparent", "font-weight": "bold"}}>Images&nbsp;</span> 
+              <span className='inline-block'> From Prompts Using &nbsp;</span>
+              <span className='inline-block' style={{"background":"linear-gradient(45deg, rgba(239,0,255,1) 0%, rgba(255,0,0,1) 100%)","backgroundClip":"text","color":"transparent", "font-weight": "bold"}}>DALLE-2 AI!&nbsp;</span>
+            </p>
             <form className="mb-3">
               <div>
                 <p>Your Name</p>
@@ -87,9 +94,9 @@ const CreateForm = () => {
               <div className='mb-3'>
                 <p>Resolution</p>
                 <div className='w-fit flex rounded-md border-2 border-black'>
-                  <button onClick={(e) => {e.preventDefault(); setResolution(256) }} className={`px-5 py-3 ${(resolution === 256) && "bg-[rgb(109,84,210)] text-white"}`}>256x256</button> 
-                  <button onClick={(e) => {e.preventDefault(); setResolution(512) }} className={`px-5 py-3 border-x-2 border-black ${(resolution === 512) && "bg-[rgb(109,84,210)] text-white"}`}>512x512</button>
-                  <button onClick={(e) => {e.preventDefault(); setResolution(1024)}} className={`px-5 py-3 ${(resolution === 1024) && "bg-[rgb(109,84,210)] text-white"}`}>1024x1024</button>
+                  <button onClick={(e) => {e.preventDefault(); setResolution(256) }} className={`px-5 py-3 ${(resolution === 256) && "bg-black text-white"} transition-all ease-in-out`}>256x256</button> 
+                  <button onClick={(e) => {e.preventDefault(); setResolution(512) }} className={`px-5 py-3 border-x-2 border-black ${(resolution === 512) && "bg-black text-white"} transition-all ease-in-out`}>512x512</button>
+                  <button onClick={(e) => {e.preventDefault(); setResolution(1024)}} className={`px-5 py-3 ${(resolution === 1024) && "bg-black text-white"} transition-all ease-in-out`}>1024x1024</button>
                 </div>
               </div>
 
@@ -106,7 +113,7 @@ const CreateForm = () => {
               </div>
             </form>
 
-            <button onClick={handleGenerate} className="mb-2 py-2 w-full bg-yellow-500 rounded-md text-white hover:bg-yellow-600 transition ease-in-out duration-200">Generate</button>
+            <button onClick={handleGenerate} className="mb-2 py-2 w-full bg-black rounded-md text-white hover:bg-yellow-600 transition ease-in-out duration-200">Generate</button>
           </div>
         </div>
         

@@ -11,6 +11,7 @@ const SummarizeURL = () => {
   const [summary, setSummary] = useState("");
   const [words, setWords] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [rows, setRows] = useState(1);
 
   const handleChange = (e) => {
     setUrl(e.target.value);
@@ -50,15 +51,25 @@ const SummarizeURL = () => {
                 animate={{ opacity: 1 }} 
                 exit={{ opacity: 0 }} className='w-full h-fit min-h-[calc(100vh-73px)] flex justify-center'>
       <div className='w-[40%] h-full mt-0 flex flex-col items-center mb-10 sm:w-[80%]'>
-        <div className=''>
-          <div className=' text-6xl mb-5 leading-[5rem]'><span className='bg-[rgb(255,132,0)] bg-[linear-gradient(45deg,rgba(255,132,0,1)_0%,rgba(255,215,0,1)_100%)] bg-clip-text text-transparent'>Summarize</span> any <span className='bg-[rgb(16,120,252)] bg-[linear-gradient(45deg,rgba(16,120,252,1)_0%,rgba(149,0,255,1)_100%)] bg-clip-text text-transparent'>Article</span> from a URL using <span className='text-[#1abb98]'>CHAT-GPT</span></div>
+        <div className='w-full'>
+          <div style={{textOverflow: "word-break"}} className=' text-6xl mb-5 leading-[5rem] sm:text-5xl'> 
+            <span className='inline-block bg-[rgb(255,132,0)] bg-[linear-gradient(45deg,rgba(255,132,0,1)_0%,rgba(255,215,0,1)_100%)] bg-clip-text text-transparent font-bold'>Summarize &nbsp; </span> 
+            <span className='inline-block'>any &nbsp; </span>
+            <span className='bg-[rgb(16,120,252)] bg-[linear-gradient(45deg,rgba(16,120,252,1)_0%,rgba(149,0,255,1)_100%)] bg-clip-text text-transparent font-bold'>Article &nbsp; </span> 
+            <span className='inline-block'>from &nbsp; </span> 
+            <span className='inline-block'>a &nbsp; </span>
+            <span className='inline-block'>URL &nbsp; </span>
+            <span className='inline-block'>using &nbsp; </span>
+            <span className='inline-block text-[#1abb98] font-bold'>CHAT-GPT &nbsp; </span>
+          </div>
           <div className='flex'>
             <div className=' relative w-[80%] mr-5 py-2 px-2 rounded-md border-2 border-gray-300 items-center'>
               <textarea 
                   rows="1"
                   placeholder='e.g. https://en.wikipedia.org/wiki/Deer'
-                  onChange={ (e) => {handleChange(e); (e.target.rows = 1); (e.target.rows = (e.target.scrollHeight)/24 ); (console.log(e.target.scrollHeight))} }
-                  className='w-[80%] h-auto ml-5 mb-5 overflow-hidden whitespace-pre-wrap border-none outline-none resize-none '></textarea>
+                  onChange={ (e) => {handleChange(e); (e.target.rows = 1); (e.target.rows = rows ); setRows(((e.target.scrollHeight)/24 > 6) ? 6 : (e.target.scrollHeight)/24);}}
+                  style={{scrollbarWidth: "thin "}}
+                  className={`${(rows === 6) ? "overflow-y-scroll" : "overflow-hidden"} w-[80%] h-auto ml-5 mb-5 overflow-hidden whitespace-pre-wrap border-none outline-none resize-none `}></textarea>
                 <div className='absolute bottom-0 right-0 mr-2 mb-2 opacity-50'>{words}/{MAX_WORDS}</div>
             </div>
             <div onClick={ handleSummarize } className=' relative w-fit h-full px-4 py-3 rounded-md font-bold text-gray-50 overflow-hidden flex justify-center items-center cursor-pointer'>

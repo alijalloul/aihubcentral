@@ -131,21 +131,29 @@ const ChatBot = () => {
                             <div className='w-full flex flex-col'>
                                 {
                                     chats.map((_, index1) => (
-                                        <div key={index1} className={`flex items-center w-full h-12 mb-1 px-2 rounded-lg ${(selectedChat===index1 ) && "bg-[#454757]" } hover:bg-[#6b6e82]  transition-all`}>
-                                            <button onClick={() => {setSelectedChat(index1)}} className={` ${(changeNameState && index1 === nameChangeIndex) ? "hidden" : "static"} w-[80%] h-full`}>{chatsName[index1]}</button>
-                                            <input 
-                                                ref={(index1 === nameChangeIndex) ? excludedDivRef : null}
-                                                key={index1}
-                                                value={newName}
-                                                onChange={handleNameChange}
-                                                onKeyDown={(e) => {
-                                                    if (e.key === 'Enter') {
-                                                        setChatsNames(prevChatsName => prevChatsName.map((prevChatName, index2) => (index2 === index1) ?  ((newName === "") ? prevChatName : newName) : prevChatName));
-                                                        setChangeNameState(false);
-                                                    }   
-                                                }}
-                                                className={`${(changeNameState && index1 === nameChangeIndex) ? "static" : "hidden"} w-[80%] h-[60%] bg-transparent focus:outline-none`}></input>
+                                        <div key={index1} className={`flex justify-end items-center w-full h-12 mb-1 px-2 rounded-lg ${(selectedChat===index1 ) && "bg-[#454757]" } hover:bg-[#6b6e82]  transition-all`}>
                                             
+                                            
+                                            {
+                                                (changeNameState && index1 === nameChangeIndex) ? (
+                                                    <div className='relative w-[80%] h-[60%]'>
+                                                        <input 
+                                                        ref={(index1 === nameChangeIndex) ? excludedDivRef : null}
+                                                        key={index1}
+                                                        value={newName}
+                                                        onChange={handleNameChange}
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === 'Enter') {
+                                                                setChatsNames(prevChatsName => prevChatsName.map((prevChatName, index2) => (index2 === index1) ?  ((newName === "") ? prevChatName : newName) : prevChatName));
+                                                                setChangeNameState(false);
+                                                            }   
+                                                        }}
+                                                        className={`w-full h-full bg-transparent focus:outline-none transition-all ease-in-out duration-200`}></input>
+                                                    </div>
+                                                ) : (
+                                                    <button onClick={() => {setSelectedChat(index1)}} className={` w-[80%] h-full`}>{chatsName[index1]}</button>
+                                                )
+                                            }
                                             <div className='flex justify-between items-center w-[20%] h-[80%]'>
                                                 <button onMouseUp={() => {setChangeNameState(true); setChangeNameIndex(index1); setNewName(chatsName.filter((prevChatName, index2) => (index2 === index1) && prevChatName)[0])}}>
                                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="rgb(200,200,200)" xmlns="http://www.w3.org/2000/svg" className=' hover:fill-[rgb(240,240,240)] transition-all ease-in-out'>
