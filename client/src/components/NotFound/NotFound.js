@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const NotFound = () => {
     const [isHovered, setIsHovered] = useState(false)
   return (
-    <div className='h-[calc(100vh-73px)] sm:h-[calc(100vh-100px)] w-full flex justify-center items-center bg-black text-white'>
+    <div className='h-[calc(100vh-73px)] sm:h-[calc(100vh-180px)] w-full flex justify-center items-center bg-black text-white'>
         <div className="relative w-[60%] flex flex-col justify-center items-center text-center sm:w-[90%]">
             <h3 className={`text-8xl pb-5 mb-5 border-b-2 border-white ${isHovered ? "opacity-0" : "opacity-1"} transition-all ease-in-out duration-500 sm:text-5xl`}>There Is Nothing To Be Seen Here</h3>
             <h3 className={`text-7xl mb-5 ${isHovered ? "opacity-0" : "opacity-1"} transition-all ease-in-out duration-500 sm:text-4xl`}>BEGONE!!!</h3>

@@ -22,7 +22,7 @@ const App = () => {
     <>
         <Header />
         <AnimatePresence>
-          <Suspense fallback={<div className="h-[calc(100vh-73px)] sm:h-[calc(100vh-100px)]"></div>}>
+          <Suspense fallback={<div className="h-[calc(100vh-73px)] sm:h-[calc(100vh-180px)]"></div>}>
             <Routes location={location} key={location.pathname}> 
               <Route path="/" element={ <Main />} />
               <Route path="/createImage" element={ <CreateImage />} />

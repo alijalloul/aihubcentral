@@ -144,7 +144,7 @@ const Header = () => {
       };
     }, [showNav]);
   return (
-    <header className='w-full h-fit min-h-[73px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[100px] sm:px-5'>
+    <header className='w-full h-fit min-h-[73px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[180px] sm:px-5'>
         <div className='w-full h-fit px-4 py-4 flex justify-between items-center sm:px-2'>
           <div className='flex justify-center items-center'>
             <h1 className=' font-bold text-3xl mr-5 sm:w-min'>AI Hub Central</h1>
@@ -194,7 +194,7 @@ const Header = () => {
               <div className='relative flex justify-center items-center w-full h-max'>
                 <div style={{top: topPosition, width: "100%"}} className={`absolute bg-black h-[14%] transition-all ease-in-out duration-500`}></div>
                   <div className='w-full flex flex-col justify-center items-center '>
-                    <Link to="/"               onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "")              && ("text-white")} ${showNav ? "left-0" : "left-[100px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[100ms]`}>Home</Link>
+                    <Link to="/"               onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "")              && ("text-white")} ${showNav ? "left-0" : "left-[180px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[100ms]`}>Home</Link>
                     <Link to="/createImage"    onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "createImage")   && ("text-white")} ${showNav ? "left-0" : "left-[200px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[200ms]`}>Create Image</Link>
                     <Link to="/chatBot"        onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "chatBot")       && ("text-white")} ${showNav ? "left-0" : "left-[300px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[300ms]`}>Chat</Link>
                     <Link to="/TSST"           onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "TSST")          && ("text-white")} ${showNav ? "left-0" : "left-[400px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[400ms]`}>TSST</Link>

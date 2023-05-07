@@ -295,7 +295,7 @@ const Main = () => {
                 <input onChange={ handleChange } onKeyDown={handleKeyDown} value={message.content}  disabled={loading} className='w-[75%] h-full px-3 py-3 shadow-lg shadow-gray-400 border-2 bg-gray-50 rounded-lg focus:outline-none sm:w-[60%]'></input>
             </div> 
         </div>
-        <div className='min-h-[calc(100vh-100px)] flex flex-col justify-center items-center mx-10'>
+        <div className='min-h-[calc(100vh-180px)] flex flex-col justify-center items-center mx-10'>
             <div ref={chatRef} className={`${isChatVisible ? "opacity-1" : "opacity-0"} relative h-fit min-h-[100vh] border-black my-10 py-10 sm:flex-col sm:w-fit transition-all ease-in-out duration-[1200ms] sm:min-h-fit`}>
                 <div className='w-[60%] sm:w-full sm:mb-16'>
                     <h2 className=' text-9xl sm:text-6xl'>Create Images From Prompts With DALLE-E</h2>
