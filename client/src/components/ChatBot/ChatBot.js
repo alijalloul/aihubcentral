@@ -122,7 +122,7 @@ const ChatBot = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }} 
-        className='h-[calc(100vh-73px)] w-full flex bg-slate-50 sm:h-[calc(100vh-180px)]'>
+        className='h-[calc(100vh-73px)] w-full flex bg-slate-50 sm:h-[calc(100vh-120px)]'>
         <div className='float-left bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
