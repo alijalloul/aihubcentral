@@ -13,6 +13,8 @@ const SummarizeURL = lazy(() => import("./components/SummarizeURL/SummarizeURL.j
 const Translator = lazy(() => import("./components/Translator/Translator.js"));
 const Auth = lazy(() => import("./components/Auth/Auth.js"));
 
+const NotFound = lazy(() => import("./components/NotFound/NotFound.js"));;
+
 const App = () => {
   const location = useLocation();
 
@@ -29,6 +31,9 @@ const App = () => {
               <Route path="/summarizeURL" element={<SummarizeURL />} />
               <Route path="/translator" element={<Translator />} /> 
               <Route path="/auth" element={<Auth />} />
+
+
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </AnimatePresence>
