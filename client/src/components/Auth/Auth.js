@@ -121,20 +121,20 @@ const Auth = () => {
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
         className="formContainerContainer h-fit min-h-[calc(100vh-73px)]">
-        <div className="formContainer sm:h-fit sm:min-h-[80vh] sm:shadow-none">
-            <h2 className="authFormHeader sm:text-2xl">{ isSignup ? "Sign Up" : "Log In"}</h2>
+        <div className="formContainer md:h-fit md:min-h-[80vh] md:shadow-none">
+            <h2 className="authFormHeader md:text-2xl">{ isSignup ? "Sign Up" : "Log In"}</h2>
             <form>
                 {
                     isSignup && (<div className="flName">
                                     <div className='inputError' style={{width: "45%"}}>
                                         <input type="text" name="firstName" className="firstName" onChange={ handleChange }></input>
-                                        <h5 className="lableInput sm:text-[12px]">First Name</h5>
+                                        <h5 className="lableInput md:text-[12px]">First Name</h5>
                                         {formErrors.firstNameError && (<div className="error">{formErrors.firstNameError}</div>)}
                                     </div>
                                     
                                     <div className='inputError' style={{width: "45%"}}>
                                         <input type="text" name="lastName" className="lastName" onChange={ handleChange }></input>
-                                        <h5 className="lableInput sm:text-[12px]">Last Name</h5>
+                                        <h5 className="lableInput md:text-[12px]">Last Name</h5>
                                         {formErrors.lastNameError && (<div className="error">{formErrors.lastNameError}</div>)}
                                     </div>
                                 </div>)
@@ -143,7 +143,7 @@ const Auth = () => {
                 
                 <div className='inputError'>
                     <input type="email" name="email" className="email" onChange={ handleChange }></input>
-                    <h5 className="lableInput sm:text-[12px]">E-Mail</h5>
+                    <h5 className="lableInput md:text-[12px]">E-Mail</h5>
                     {
                         formErrors.emailError ? (
                             <div className="error">{formErrors.emailError}</div>
@@ -158,7 +158,7 @@ const Auth = () => {
                 <div className='inputError'>
                     <div className="passwordContainer"> 
                         <input type={ passVisible ? "text" : "password" } name="password" className="password" onChange={ handleChange }></input>
-                        <h5 className="lableInput sm:text-[12px]">Password</h5>
+                        <h5 className="lableInput md:text-[12px]">Password</h5>
                         <button style={{backgroundColor: "transparent", border: "none"}} onClick={ handlePassVisible }>{passVisible ? <HideSVG /> : <ShowSVG />}</button>
                     </div>
 
@@ -169,7 +169,7 @@ const Auth = () => {
                         
                         <div className='inputError'>
                             <input type="password" name="repassword" className="repassword" onChange={ handleChange }></input>
-                            <h5 className="lableInput sm:text-[12px]">Re-Enter Password</h5>
+                            <h5 className="lableInput md:text-[12px]">Re-Enter Password</h5>
                             {formErrors.repasswordError && (<div className="error">{formErrors.repasswordError}</div>)}
                         </div>
                     )

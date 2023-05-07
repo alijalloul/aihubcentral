@@ -144,10 +144,10 @@ const Header = () => {
       };
     }, [showNav]);
   return (
-    <header className='w-full h-fit min-h-[73px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] sm:min-h-[100px] sm:px-5'>
-        <div className='w-full h-fit px-4 py-4 flex justify-between items-center sm:px-2'>
+    <header className='w-full h-fit min-h-[73px] flex justify-center items-center flex-col bg-white border-b border-b-[#e6ebf4] md:min-h-[100px] md:px-5'>
+        <div className='w-full h-fit px-4 py-4 flex justify-between items-center md:px-2'>
           <div className='flex justify-center items-center'>
-            <h1 className=' font-bold text-3xl mr-5 sm:w-min'>AI Hub Central</h1>
+            <h1 className=' font-bold text-3xl mr-5 md:w-min'>AI Hub Central</h1>
             <Link to="/" onClick={() => {setLeftPosition(0); setTopPosition(0);setButtonWidth(homeBtnRef.current.getBoundingClientRect().width); }}> 
               <svg fill="#000000" viewBox="0 0 24 24" className='w-[40px] aspect-square'>
                   <g id="SVGRepo_bgCarrier" strokeWidth="0">
@@ -163,7 +163,7 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className='relative w-fit flex justify-center items-center rounded-lg sm:hidden'>
+          <div className='relative w-fit flex justify-center items-center rounded-lg md:hidden'>
             <div style={{left: leftPosition, width: buttonWidth}} className={`absolute bg-black h-full rounded-lg transition-all ease-in-out duration-500`}></div>
             <Link to="/"              ref={homeBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "")              && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Home</Link>
             <Link to="/createImage"   ref={createImageBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "createImage")   && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Create Image</Link>
@@ -183,7 +183,7 @@ const Header = () => {
             }
           </div>
 
-          <div ref={excludedDivRef}  className='hidden sm:visible sm:block'>
+          <div ref={excludedDivRef}  className='hidden md:visible md:block'>
             <button onMouseUp={ handleNavSwitchState } className='relative z-20 flex flex-col justify-evenly items-center aspect-square w-14 border-4 border-black'>
                 <div className={` w-[80%] h-1 bg-black rounded-lg transition-all ease-in-out duration-200 ${showNav ? ("transform rotate-[45deg] translate-x-[0] translate-y-[13px]") : ("transform translate-x-0 opacity-1")}`}></div>              
                 <div className={` w-[80%] h-1 bg-black rounded-lg transition-all ease-in-out duration-200 ${showNav ? ("transform translate-x-[-50%] opacity-0") : ("transform translate-x-0 opacity-1")}`}></div>              
@@ -216,7 +216,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className='relative w-ful px-40 bg-yellow-100 sm:px-10 sm:py-2' style={{display: showWarning ? "static" : "none"}}>
+        <div className='relative w-ful px-40 bg-yellow-100 md:px-10 md:py-2' style={{display: showWarning ? "static" : "none"}}>
             <button onClick={ () => setShowWarning(false) } className='absolute right-0 mr-5'>x</button>
             <p className=' opacity-75'>Hello and welcome to aihubcentral.org. Thanks for taking interest in this project. This website utilizes the free tier of the openAI API and the Render server deployment, therefore you might expreience some prolonged loading screens because of the limited API requests available as of now. Please try again at a later time. Thanks.</p>
         </div>

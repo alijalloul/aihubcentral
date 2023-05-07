@@ -122,8 +122,8 @@ const ChatBot = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }} 
-        className='h-[calc(100vh-73px)] w-full flex bg-slate-50 sm:h-[calc(100vh-120px)]'>
-        <div className='float-left bg-[#202123] w-[20vw] shadow-xl shadow-black relative z-1 sm:hidden'>
+        className='h-[calc(100vh-73px)] w-full flex bg-slate-50 md:h-[calc(100vh-120px)]'>
+        <div className='float-left bg-[#202123] w-[20vw] md:w-[32vw] shadow-xl shadow-black relative z-1 sm:hidden'>
             {
                 (userInfo) ? (
                     <div className='h-full px-5 flex justify-between items-center text-white'>
@@ -136,7 +136,7 @@ const ChatBot = () => {
                                             
                                             {
                                                 (changeNameState && index1 === nameChangeIndex) ? (
-                                                    <div className='relative w-[80%] h-[60%]'>
+                                                    <div className='relative w-[80%] md:w-[60%] h-[60%]'>
                                                         <input 
                                                         ref={(index1 === nameChangeIndex) ? excludedDivRef : null}
                                                         key={index1}
@@ -154,7 +154,7 @@ const ChatBot = () => {
                                                     <button onClick={() => {setSelectedChat(index1)}} className={` w-[80%] h-full`}>{chatsName[index1]}</button>
                                                 )
                                             }
-                                            <div className='flex justify-between items-center w-[20%] h-[80%]'>
+                                            <div className='flex justify-between items-center w-[20%]  md:w-[40%] h-[80%]'>
                                                 <button onMouseUp={() => {setChangeNameState(true); setChangeNameIndex(index1); setNewName(chatsName.filter((prevChatName, index2) => (index2 === index1) && prevChatName)[0])}}>
                                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="rgb(200,200,200)" xmlns="http://www.w3.org/2000/svg" className=' hover:fill-[rgb(240,240,240)] transition-all ease-in-out'>
                                                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -250,11 +250,11 @@ const ChatBot = () => {
                     (chats[selectedChat].length > 0) && (
                         chats[selectedChat].map((message, index1) => (
                             <div className='w-full h-fit' key={index1} >
-                                <div className='userMessages px-48 bg-white w-full py-8 border-y-2 border-gray-300 sm:px-10'>
+                                <div className='userMessages px-48 bg-white w-full py-8 border-y-2 border-gray-300 md:px-10'>
                                     {message.content}
                                 </div>
 
-                                <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 sm:px-10'>
+                                <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 md:px-10'>
                                     {
                                         (!chatsResponses[selectedChat][index1] && loading) ? (
                                             <div className=' text-3xl tracking-widest'>
@@ -290,7 +290,7 @@ const ChatBot = () => {
                     value={message.content} 
                     onChange={ handleMessageChange } 
                     onKeyDown={ handleMessageKeyDown } 
-                    className='w-[60%] h-fit px-5 py-3 rounded-lg outline-none border-1 border-gray-300 text-black shadow-[rgba(0,0,0,0.05)_0_0_10px_10px] transition-all duration-300 sm:w-[80%]'></input>
+                    className='w-[60%] h-fit px-5 py-3 rounded-lg outline-none border-1 border-gray-300 text-black shadow-[rgba(0,0,0,0.05)_0_0_10px_10px] transition-all duration-300 md:w-[80%]'></input>
             </div>
         </div>
         </m.div >

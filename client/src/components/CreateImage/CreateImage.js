@@ -73,10 +73,10 @@ const CreateForm = () => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }}
-        className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between sm:flex-col'>
-        <div className='pl-10 flex flex-col justify-center sm:pl-0'>
-          <div className='h-fit w-[80%] sm:w-full'>
-            <p className='w-full my-2 text-black text-6xl mb-5 leading-[4rem] sm:text-4xl'>
+        className='h-fit min-h-[calc(100vh-73px)] w-full px-10 flex bg-slate-50 justify-between md:flex-col'>
+        <div className='pl-10 flex flex-col justify-center md:pl-0'>
+          <div className='h-fit w-[80%] md:w-full'>
+            <p className='w-full my-2 text-black text-6xl mb-5 leading-[4rem] md:text-4xl'>
               <span className="inline-block" style={{"background":"linear-gradient(45deg, rgba(255,0,224,1) 0%, rgba(0,1,255,1) 100%)","backgroundClip":"text","color":"transparent", "font-weight": "bold"}}>Create&nbsp;</span> 
               <span className='inline-block'>Stunning&nbsp;</span> 
               <span className='inline-block'>And&nbsp;</span> 
@@ -119,11 +119,11 @@ const CreateForm = () => {
           </div>
         </div>
         
-        <div className='relative  w-[50vw] flex justify-center items-center sm:my-10 sm:w-full sm:h-[35vh]'>
-          <button onClick={() => setImagePos((imagePos > 0) &&imagePos - 1)} className='h-[35vw] w-10 rounded-l-lg flex items-center justify-center bg-gray-500 hover:bg-gray-400 active:bg-gray-300 transition-all ease-in-out duration-200 sm:h-full text-white'>&lt;</button>
+        <div className='relative  w-[50vw] flex justify-center items-center md:my-10 md:w-full md:h-[80vh] sm:h-[35vh]'>
+          <button onClick={() => setImagePos((imagePos > 0) &&imagePos - 1)} className='h-[35vw] w-10 rounded-l-lg flex items-center justify-center bg-gray-500 hover:bg-gray-400 active:bg-gray-300 transition-all ease-in-out duration-200 md:h-full text-white'>&lt;</button>
           
-          <div className=' sm:h-[35vh] sm:aspect-square'>
-            <div className='relative h-[35vw] aspect-square overflow-hidden sm:h-full'>
+          <div className='md:h-[80vh]  sm:h-[35vh] md:aspect-square'>
+            <div className='relative h-[35vw] aspect-square overflow-hidden md:h-full'>
               {
                 loading && (
                   <Loader stylingT="absolute aspect-square absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
@@ -143,7 +143,7 @@ const CreateForm = () => {
             </div>  
           </div>
 
-          <button onClick={ () => {(imagePos < (dalleForm?.generatedImages?.length - 1)) && setImagePos(imagePos + 1); console.log(imagePos,":",`left-[-${imagePos*100}%]`)}} className='h-[35vw] w-10 rounded-r-lg flex items-center justify-center bg-gray-500 hover:bg-gray-400 active:bg-gray-300 transition-all ease-in-out duration-200 sm:h-full text-white'>&gt;</button>
+          <button onClick={ () => {(imagePos < (dalleForm?.generatedImages?.length - 1)) && setImagePos(imagePos + 1); console.log(imagePos,":",`left-[-${imagePos*100}%]`)}} className='h-[35vw] w-10 rounded-r-lg flex items-center justify-center bg-gray-500 hover:bg-gray-400 active:bg-gray-300 transition-all ease-in-out duration-200 md:h-full text-white'>&gt;</button>
         </div>
       </m.div >
     </LazyMotion>

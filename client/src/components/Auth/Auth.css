@@ -159,7 +159,7 @@
 
 
 
-@media only screen and (max-width: 639px) {   
+@media only screen and (max-width: 767px) {   
     .inputError input:focus ~ .lableInput{
         z-index: 1;
         top: 0;
