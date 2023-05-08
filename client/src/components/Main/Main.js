@@ -256,11 +256,11 @@ const Main = () => {
             <h2 className='text-6xl mt-5 md:text-5xl leading-[1.2] sm:text-4xl'>{headerText}</h2>
         </div>
 
-        <div className='w-full h-fit min-h-[calc(100vh-120px)] flex px-5 md:h-fit md:min-h-[calc(100vh-120px)] md:px-0 md:flex-col'>
+        <div className='w-full h-fit min-h-[calc(80vh)] flex px-5 md:h-fit md:min-h-[calc(100vh)] md:px-0 md:flex-col'>
             <div className='w-[30%] h-full mr-10 md:w-full'>
                 <h2 className='text-5xl md:text-4xl md:mb-5 sm:3xl'>You can explore all the AI tools here:</h2>
             </div>
-            <div className='w-[70%] aspect-square border-4 border-black shadow-xl shadow-gray-300 md:w-full md:h-[70vh] sm:border-none sm:shadow-none'>
+            <div className='w-[70%] border-4 border-black shadow-xl shadow-gray-300 md:w-full md:h-[80vh] sm:border-none sm:shadow-none'>
                 <div style={{scrollbarWidth: "none"}} className='w-full h-[85%] overflow-y-scroll'>
                 {
                         (chat.length > 0) && (
