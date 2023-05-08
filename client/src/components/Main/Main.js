@@ -54,6 +54,23 @@ const Main = () => {
 
     const [loading, setLoading] = useState(false);
 
+    const [headerText, setHeaderText] = useState("");
+    const text = "AI Hub Central is a website that brings together multiple AI technologies, making it easy for users to explore and implement AI in their projects for free and without the need to login.";
+
+    useEffect(() => {
+        let i = 0;
+        const interval = setInterval(() => {
+            setHeaderText(text.slice(0, i));
+            i++;
+
+            if (i > text.length){
+                clearInterval(interval)
+            };
+        }, 3000 / text.length);
+    
+        return () => clearInterval(interval);
+      }, [text]);
+
     const handleChange = (e) => {
         setMessage({role:"user", content:e.target.value});
     }
@@ -81,7 +98,7 @@ const Main = () => {
 
                 setChatResponses([...chatResponses, data.chatResponse]);
                 
-                chat[chat.length - 1].content = `[Chat]: ${chat[chat.length - 1].content}`;
+                //chat[chat.length - 1].content = `[Chat]: ${chat[chat.length - 1].content}`;
 
                 setLoading(false);
             } catch (error) {
@@ -110,7 +127,7 @@ const Main = () => {
                 console.log(data.images[0])
                 
                 setChatResponses([...chatResponses, data.images[0]]);
-                chat[chat.length - 1].content = `[Create Image]: ${chat[chat.length - 1].content}`;
+                //chat[chat.length - 1].content = `[Create Image]: ${chat[chat.length - 1].content}`;
 
                 setLoading(false);
               } catch (error) {
@@ -136,7 +153,7 @@ const Main = () => {
           
                 setChatResponses([...chatResponses, data]);
           
-                chat[chat.length - 1].content = `[Summarize]: ${chat[chat.length - 1].content}`;
+                //chat[chat.length - 1].content = `[Summarize]: ${chat[chat.length - 1].content}`;
                 setLoading(false);
               } catch (error) {
                 console.log(error);
@@ -163,7 +180,7 @@ const Main = () => {
 
                 setChatResponses([...chatResponses, data.chatResponse]);
                 
-                chat[chat.length - 1].content = `[Translate]: ${chat[chat.length - 1].content.substr(chat[chat.length - 1].content.indexOf(" ") + 1)}`;
+                //chat[chat.length - 1].content = `[Translate]: ${chat[chat.length - 1].content.substr(chat[chat.length - 1].content.indexOf(" ") + 1)}`;
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -213,7 +230,6 @@ const Main = () => {
         function handleClickOutside(event) {
             if (excludedDivRef.current && !excludedDivRef.current.contains(event.target)) {
                 setExpandFunctions(false);
-                console.log("cat")
             }
         }
     
@@ -235,65 +251,75 @@ const Main = () => {
                 animate={{ opacity: 1 }} 
                 exit={{ opacity: 0 }} 
                 className='min-h-[calc(100vh-73x)] flex flex-col justify-center items-center mx-10'>
-        <div className='w-full h-[calc(100vh-90px)] px-48 md:h-[calc(100vh-120px)] md:px-0'>
-             <div style={{scrollbarWidth: "none"}} className='w-full h-[80%] overflow-y-scroll'>
-            {
-                    (chat.length > 0) && (
-                        chat.map((message, index1) => (
-                            <div className='w-full h-fit' key={index1} >
-                                <div className='userMessages px-48 bg-white w-full py-8 border-b-2 border-gray-200 md:px-0 md:py-5'>
-                                    {message.content}
-                                </div>
+        <div className='w-full h-fit mb-5 min-h-[calc(100vh)] px-28 md:min-h-[calc(80vh)] sm:min-h-[calc(110vh)] md:px-0'>
+            <h2 className='text-8xl mt-5 md:text-6xl sm:text-6xl font-bold mb-10 '>Welcome to AI Hub Central </h2>
+            <h2 className='text-6xl mt-5 md:text-5xl leading-[1.2] sm:text-4xl'>{headerText}</h2>
+        </div>
 
-                                <div className='gptMessages font-semibold px-48 text-black w-full py-8 md:px-0 md:py-5'>
-                                    {
-                                        (!chatResponses[index1]) ? (
-                                            <div className=' text-3xl tracking-widest'>
-                                                <LoadingDots />
-                                            </div>
-                                        ) : (
-                                            (chatResponses[index1].includes("data:image/jpeg;base64") && chatResponses[index1].length > 200) ? (
-                                                <img src={chatResponses[index1]} />
-                                            ) : (
-                                                chatResponses[index1].includes('```') ? (
-                                                    chatResponses[index1].split('```').map((e, index2) => (
-                                                        (index2 % 2 === 0) ? (
-                                                            {e}
-                                                        ) : (
-                                                            <CodeEditor code={e} language="javascript"  />   
-                                                        )
-                                                    ))
-                                                ) : (
-                                                    chatResponses[index1]
-                                                )
-                                            )
-                                            
-                                        )
-                                        //chatResponses[index1]
-                                    }
-                                </div>
-                            </div>
-                        ))
-                    )   
-                }
+        <div className='w-full h-fit min-h-[calc(100vh-120px)] flex px-5 md:h-fit md:min-h-[calc(100vh-120px)] md:px-0 md:flex-col'>
+            <div className='w-[30%] h-full mr-10 md:w-full'>
+                <h2 className='text-5xl md:text-4xl md:mb-5 sm:3xl'>You can explore all the AI tools here:</h2>
             </div>
+            <div className='w-[70%] aspect-square border-4 border-black shadow-xl shadow-gray-300 md:w-full md:h-[70vh] sm:border-none sm:shadow-none'>
+                <div style={{scrollbarWidth: "none"}} className='w-full h-[85%] overflow-y-scroll'>
+                {
+                        (chat.length > 0) && (
+                            chat.map((message, index1) => (
+                                <div className='w-full h-fit' key={index1} >
+                                    <div className='userMessages px-48 bg-white w-full py-8 border-b-2 border-gray-200 md:px-10 sm:px-0 md:py-5'>
+                                        {message.content}
+                                    </div>
 
-            <div className='w-full h-12 flex justify-center items-center md:absolute md:w-[90%] md:left-[50%] md:transform md:translate-x-[-50%]'>
-                <div ref={excludedDivRef} className='relative w-[20%] h-full mr-5 md:w-[40%]'>
-                    <div className='absolute border-2  w-full flex flex-col justify-center items-center bottom-0 overflow-hidden rounded-xl'>
-                        <div ref={selectionRef} style={{height: expandFunctions ? `${selectionHeight}px` : "0px"}} className={`w-full transition-height ease-in-out duration-200`}>
-                                    {
-                                aiFunctions.map((func, index) => (
-                                    <button key={index} value={func} onClick={ handleChooseFunction } className='w-full px-5 py-2  bg-gray-50 mr-2 border-b-2 hover:bg-gray-100 transition-all ease-in-out'>{func}</button>
-                                ))
-                            }
-                        </div>
-                        <button onMouseUp={ handleExpandFunctions } className='h-full w-full px-5 py-2 bg-gray-100 rounded-b-lg hover:bg-gray-200 transition-all ease-in-out'>{selectedFunction}</button>
-                    </div>
+                                    <div className='gptMessages font-semibold px-48 border-b-2 border-gray-200 text-black w-full py-8 md:px-10 sm:px-0 md:py-5'>
+                                        {
+                                            (!chatResponses[index1]) ? (
+                                                <div className=' text-3xl tracking-widest'>
+                                                    <LoadingDots />
+                                                </div>
+                                            ) : (
+                                                (chatResponses[index1].includes("data:image/jpeg;base64") && chatResponses[index1].length > 200) ? (
+                                                    <img src={chatResponses[index1]} />
+                                                ) : (
+                                                    chatResponses[index1].includes('```') ? (
+                                                        chatResponses[index1].split('```').map((e, index2) => (
+                                                            (index2 % 2 === 0) ? (
+                                                                {e}
+                                                            ) : (
+                                                                <CodeEditor code={e} language="javascript"  />   
+                                                            )
+                                                        ))
+                                                    ) : (
+                                                        chatResponses[index1]
+                                                    )
+                                                )
+                                                
+                                            )
+                                            //chatResponses[index1]
+                                        }
+                                    </div>
+                                </div>
+                            ))
+                        )   
+                    }
                 </div>
 
-                <input onChange={ handleChange } onKeyDown={handleKeyDown} value={message.content}  disabled={loading} className='w-[75%] h-full px-3 py-3 shadow-lg shadow-gray-400 border-2 bg-gray-50 rounded-lg focus:outline-none md-[60%]'></input>
-            </div> 
+                <div className='w-full h-12 flex justify-center items-center md:absolute md:w-[80%] md:left-[50%] md:transform md:translate-x-[-50%]'>
+                    <div ref={excludedDivRef} className='relative w-[20%] h-full mr-5 md:w-[40%]'>
+                        <div className='absolute border-2  w-full flex flex-col justify-center items-center bottom-0 overflow-hidden rounded-xl'>
+                            <div ref={selectionRef} style={{height: expandFunctions ? `${selectionHeight}px` : "0px"}} className={`w-full transition-height ease-in-out duration-200`}>
+                                        {
+                                    aiFunctions.map((func, index) => (
+                                        <button key={index} value={func} onClick={ handleChooseFunction } className='w-full px-5 py-2  bg-gray-50 mr-2 border-b-2 hover:bg-gray-100 transition-all ease-in-out'>{func}</button>
+                                    ))
+                                }
+                            </div>
+                            <button onMouseUp={ handleExpandFunctions } className='h-full w-full px-5 py-2 bg-gray-100 rounded-b-lg hover:bg-gray-200 transition-all ease-in-out'>{selectedFunction}</button>
+                        </div>
+                    </div>
+
+                    <input onChange={ handleChange } onKeyDown={handleKeyDown} value={message.content}  disabled={loading} className='w-[75%] h-full px-3 py-3 shadow-lg shadow-gray-400 border-2 bg-gray-50 rounded-lg focus:outline-none md-[60%]'></input>
+                </div> 
+            </div>
         </div>
         <div className='min-h-[calc(100vh-100px)] flex flex-col justify-center items-center mx-10'>
             <div ref={chatRef} className={`${isChatVisible ? "opacity-1" : "opacity-0"} relative h-fit min-h-[100vh] border-black my-10 py-10 md:flex-col md:w-fit transition-all ease-in-out duration-[1200ms] md:min-h-fit`}>
