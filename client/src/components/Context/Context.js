@@ -53,7 +53,7 @@ const Context = () => {
                 <span>URL/Text: </span>
                 <textarea 
                     rows="1"
-                    placeholder='e.g. https://en.wikipedia.org/wiki/Deer'
+                    placeholder='e.g. https://www.foodnetwork.com/recipes/food-network-kitchen/basic-vanilla-cake-recipe-2043654'
                     onChange={ (e) => {setUrl(e.target.value)}}
                     style={{scrollbarWidth: "thin "}}
                     className={`w-[80%] rounded-lg px-5 py-2 border-2 border-gray-300`}></textarea>
@@ -62,7 +62,7 @@ const Context = () => {
               <span>Question: </span>
               <textarea 
                   rows="1"
-                  placeholder='e.g. https://en.wikipedia.org/wiki/Deer'
+                  placeholder='e.g. Give me the ingrediests for this recipe and turn them into metric'
                   onChange={ (e) => {setQuestion(e.target.value)}}
                   style={{scrollbarWidth: "thin "}}
                   className={`w-[80%] rounded-lg px-5 py-2 border-2 border-gray-300 `}></textarea>
