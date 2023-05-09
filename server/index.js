@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import https from 'https';
 
-import { dalle, chatGPT, summarize, translate, transcribe } from "./api/openai.js";
+import { dalle, chatGPT, summarize, context, translate, transcribe } from "./api/openai.js";
 import { getImages, postImage } from "./api/imageShowcase.js";
 import { login, signup } from "./api/user.js";
 
@@ -43,6 +43,7 @@ app.get("/", async (req, res) => {
 app.post("/api/openai/dalle", (req, res) => dalle(req, res));
 app.post("/api/openai/chatGPT", (req, res) => chatGPT(req, res));
 app.post("/api/openai/summarize", (req, res) => summarize(req, res));
+app.post("/api/openai/context", (req, res) => context(req, res));
 app.post("/api/openai/translator", (req, res) => translate(req, res));
 app.post("/api/openai/transcriber",(req, res) => transcribe(req, res));
 

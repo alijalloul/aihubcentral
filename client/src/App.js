@@ -12,6 +12,7 @@ const TSST = lazy(() => import("./components/TSST/TSST.js"));
 const SummarizeURL = lazy(() => import("./components/SummarizeURL/SummarizeURL.js"));
 const Translator = lazy(() => import("./components/Translator/Translator.js"));
 const Auth = lazy(() => import("./components/Auth/Auth.js"));
+const Context = lazy(() => import("./components/Context/Context.js"));
 
 const NotFound = lazy(() => import("./components/NotFound/NotFound.js"));;
 
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="/summarizeURL" element={<SummarizeURL />} />
               <Route path="/translator" element={<Translator />} /> 
               <Route path="/auth" element={<Auth />} />
+              <Route path="context" element={<Context />} />
 
 
               <Route path="*" element={<NotFound />} />

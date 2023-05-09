@@ -25,6 +25,7 @@ const Header = () => {
     const summarizeBtnRef = useRef(null);
     const translateBtnRef = useRef(null);
     const loginBtnRef = useRef(null);
+    const contextBtnRef = useRef(null);
 
     const excludedDivRef = useRef(null);
     useEffect(() => {
@@ -68,8 +69,11 @@ const Header = () => {
           setLeftPosition(loginBtnRef.current.offsetLeft);
           setTopPosition(48*6) 
           setButtonWidth(loginBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "context"){
+          setLeftPosition(contextBtnRef.current.offsetLeft);
+          setTopPosition(48*7) 
+          setButtonWidth(contextBtnRef.current.getBoundingClientRect().width);
         }
-
 
         setSubdomain(subDomain);
 
@@ -107,6 +111,10 @@ const Header = () => {
           setLeftPosition(loginBtnRef.current.offsetLeft);
           setTopPosition(48*6) 
           setButtonWidth(loginBtnRef.current.getBoundingClientRect().width);
+        }else if(subDomain === "context"){
+          setLeftPosition(contextBtnRef.current.offsetLeft);
+          setTopPosition(48*7) 
+          setButtonWidth(contextBtnRef.current.getBoundingClientRect().width);
         }
       }
       window.addEventListener('resize', handleResize);
@@ -166,21 +174,22 @@ const Header = () => {
           <div className='relative w-fit flex justify-center items-center rounded-lg md:hidden'>
             <div style={{left: leftPosition, width: buttonWidth}} className={`absolute bg-black h-full rounded-lg transition-all ease-in-out duration-500`}></div>
             <Link to="/"              ref={homeBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "")              && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Home</Link>
-            <Link to="/createImage"   ref={createImageBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "createImage")   && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Create Image</Link>
             <Link to="/chatBot"       ref={chatBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "chatBot")       && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Chat</Link>
-            <Link to="/TSST"          ref={tsstBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "TSST")          && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>TSST</Link>
+            <Link to="/createImage"   ref={createImageBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "createImage")   && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Create Image</Link>
             <Link to="/summarizeURL"  ref={summarizeBtnRef}   onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "summarizeURL")  && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Summarize</Link>
             <Link to="/translator"    ref={translateBtnRef}   onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "translator")    && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Translate</Link>
+            <Link to="/TSST"          ref={tsstBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "TSST")          && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>TSST</Link>
             {
-              (user) ? (
-                <div className="flex">
-                    <button onClick={ handleLogout } className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md mr-2"></button>
-                    <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
-                </div>
-              ) : (
-                <Link to="/auth" ref={loginBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); setButtonWidth(e.target.getBoundingClientRect().width); }} className={`${(subdomain === "auth")    && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Login</Link>
-              )
+              // (user) ? (
+              //   <div className="flex">
+              //       <button onClick={ handleLogout } className="font-medium bg-[rgb(217,217,217)] text-black px-4 py-2 rounded-md mr-2"></button>
+              //       <img src={user?.result?.picture} alt={user?.result?.name} className=" rounded-full w-10"/> 
+              //   </div>
+              // ) : (
+              //   <Link to="/auth" ref={loginBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); setButtonWidth(e.target.getBoundingClientRect().width); }} className={`${(subdomain === "auth")    && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Login</Link>
+              // )
             }
+            <Link to="/context" ref={contextBtnRef} onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "context") && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Ask From Context</Link>
           </div>
 
           <div ref={excludedDivRef}  className='hidden md:visible md:block'>
@@ -195,11 +204,11 @@ const Header = () => {
                 <div style={{top: topPosition, width: "100%"}} className={`absolute bg-black h-[14%] transition-all ease-in-out duration-500`}></div>
                   <div className='w-full flex flex-col justify-center items-center '>
                     <Link to="/"               onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "")              && ("text-white")} ${showNav ? "left-0" : "left-[100px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[100ms]`}>Home</Link>
-                    <Link to="/createImage"    onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "createImage")   && ("text-white")} ${showNav ? "left-0" : "left-[200px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[200ms]`}>Create Image</Link>
                     <Link to="/chatBot"        onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "chatBot")       && ("text-white")} ${showNav ? "left-0" : "left-[300px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[300ms]`}>Chat</Link>
-                    <Link to="/TSST"           onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "TSST")          && ("text-white")} ${showNav ? "left-0" : "left-[400px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[400ms]`}>TSST</Link>
+                    <Link to="/createImage"    onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "createImage")   && ("text-white")} ${showNav ? "left-0" : "left-[200px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[200ms]`}>Create Image</Link>
                     <Link to="/summarizeURL"   onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "summarizeURL")  && ("text-white")} ${showNav ? "left-0" : "left-[500px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[500ms]`}>Summarize</Link>
-                    <Link to="/translator"     onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "translator")    && ("text-white")} ${showNav ? "left-0" : "left-[600px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[600ms]`}>Translate</Link>
+                    <Link to="/translator"     onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "translator")    && ("text-white")} ${showNav ? "left-0" : "left-[600px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[600ms]`}>Translate</Link>                   
+                    <Link to="/TSST"           onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "TSST")          && ("text-white")} ${showNav ? "left-0" : "left-[400px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[400ms]`}>TSST</Link>
                     {
                       (user) ? (
                         <div className="flex">

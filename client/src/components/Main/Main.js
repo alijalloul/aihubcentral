@@ -55,7 +55,7 @@ const Main = () => {
     const [loading, setLoading] = useState(false);
 
     const [headerText, setHeaderText] = useState("");
-    const text = "AI Hub Central is a website that brings together multiple AI technologies, making it easy for users to explore and implement AI in their projects for free and without the need to login.";
+    const text = "AI Hub Central is a platform   that brings together multiple AI technologies, making it easy for users to explore and implement AI in their projects for free and without the need to login.";
 
     useEffect(() => {
         let i = 0;
@@ -303,7 +303,7 @@ const Main = () => {
                     }
                 </div>
 
-                <div className='w-full h-12 flex justify-center items-center md:absolute md:w-[80%] md:left-[50%] md:transform md:translate-x-[-50%]'>
+                <div className='w-full h-12 flex justify-center items-center md:absolute md:w-[80%] sm:w-[95%] md:left-[50%] md:transform md:translate-x-[-50%]'>
                     <div ref={excludedDivRef} className='relative w-[20%] h-full mr-5 md:w-[40%]'>
                         <div className='absolute border-2  w-full flex flex-col justify-center items-center bottom-0 overflow-hidden rounded-xl'>
                             <div ref={selectionRef} style={{height: expandFunctions ? `${selectionHeight}px` : "0px"}} className={`w-full transition-height ease-in-out duration-200`}>
