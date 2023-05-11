@@ -77,15 +77,15 @@ const CreateForm = () => {
         <div className='pl-10 flex flex-col justify-center md:pl-0'>
           <div className='h-fit w-[80%] md:w-full'>
             <p className='w-full my-2 text-black text-6xl mb-5 leading-[4rem] md:text-4xl'>
-              <span className="inline-block" style={{"background":"linear-gradient(45deg, rgba(255,0,224,1) 0%, rgba(0,1,255,1) 100%)","backgroundClip":"text","color":"transparent", "font-weight": "bold"}}>Create&nbsp;</span> 
+              <span className="inline-block bg-clip-text font-bold bg-gradient-to-r from-pink-500 to-indigo-900 text-transparent">Create&nbsp;</span> 
               <span className='inline-block'>Stunning&nbsp;</span> 
               <span className='inline-block'>And&nbsp;</span> 
               <span className='inline-block'>Creative&nbsp;</span>
-              <span className='inline-block' style={{"background":"linear-gradient(45deg, rgba(0,255,248,1) 0%, rgba(255,0,202,1) 100%)","backgroundClip":"text","color":"transparent", "font-weight": "bold"}}>Images&nbsp;</span> 
+              <span className='inline-block bg-clip-text font-bold bg-gradient-to-r from-cyan-400 to-pink-500 text-transparent'>Images&nbsp;</span> 
               <span className='inline-block'>From &nbsp;</span>
               <span className='inline-block'>Prompts &nbsp;</span>
               <span className='inline-block'>Using &nbsp;</span>
-              <span className='inline-block' style={{"background":"linear-gradient(45deg, rgba(239,0,255,1) 0%, rgba(255,0,0,1) 100%)","backgroundClip":"text","color":"transparent", "font-weight": "bold"}}>DALLE-2 AI!&nbsp;</span>
+              <span className='inline-block bg-clip-text font-bold bg-gradient-to-r from-purple-600 to-red-600 text-transparent' >DALLE-2 AI!&nbsp;</span>
             </p>
             <form className="mb-3">
               <div>
