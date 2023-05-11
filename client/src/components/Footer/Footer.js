@@ -11,7 +11,7 @@ const Footer = () => {
           </div>
           <div className="md:w-1/2 md:h-full">
             <h3 className="text-2xl font-bold text-white mb-2">Contact Us</h3>
-            <ul className="text-gray-400">
+            <ul className="text-gray-400 break-words">
               <li>Email: business.ali.z.jalloul@gmail.com</li>
               <li><a href="https://github.com/alijalloul" target='_blank' rel="noreferrer">Github: @alijalloul</a></li>
               <li><a href="https://twitter.com/Jack_OA_Trade" target='_blank' rel="noreferrer">Twitter: @Jack_OA_Trade</a></li>
