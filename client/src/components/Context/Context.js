@@ -50,22 +50,22 @@ const Context = () => {
           </div>
           <div className='flex flex-col'>
             <div className='flex justify-between items-center w-full mb-5 '>
-                <span>URL/Text: </span>
+                <span className='mr-5'>URL/Text: </span>
                 <textarea 
-                    rows="1"
-                    placeholder='e.g. https://www.foodnetwork.com/recipes/food-network-kitchen/basic-vanilla-cake-recipe-2043654'
+                    rows="3"
+                    placeholder='e.g. https://www.allrecipes.com/recipe/17481/simple-white-cake'
                     onChange={ (e) => {setUrl(e.target.value)}}
                     style={{scrollbarWidth: "thin "}}
-                    className={`w-[80%] rounded-lg px-5 py-2 border-2 border-gray-300`}></textarea>
+                    className={`w-[80%] rounded-lg px-5 py-2 border-2 border-gray-300 row-auto break-words`}></textarea>
             </div>
             <div className='flex justify-between items-center w-full mb-5'>
-              <span>Question: </span>
+              <span className='mr-5'>Question: </span>
               <textarea 
-                  rows="1"
-                  placeholder='e.g. Give me the ingrediests for this recipe and turn them into metric'
+                  rows="3"
+                  placeholder='e.g. Give me the ingredients for this recipe and turn them into metric'
                   onChange={ (e) => {setQuestion(e.target.value)}}
                   style={{scrollbarWidth: "thin "}}
-                  className={`w-[80%] rounded-lg px-5 py-2 border-2 border-gray-300 `}></textarea>
+                  className={`w-[80%] rounded-lg px-5 py-2 border-2 border-gray-300 break-words`}></textarea>
             </div>
             <div onClick={ handleContextualizedQuestion } className=' relative w-full h-full px-4 py-3 rounded-md font-bold text-gray-50 overflow-hidden flex justify-center items-center cursor-pointer'>
               <h2 className='relative z-[1] pointer-events-none'>Ask</h2>
