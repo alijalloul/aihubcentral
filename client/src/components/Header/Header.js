@@ -162,7 +162,6 @@ const Header = () => {
             <Link to="/summarizeURL"  ref={summarizeBtnRef}   onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "summarizeURL")  && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Summarize</Link>
             <Link to="/translator"    ref={translateBtnRef}   onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "translator")    && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Translate</Link>
             <Link to="/context"       ref={contextBtnRef}     onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "context")       && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>Ask From Context</Link>
-            <Link to="/TSST"          ref={tsstBtnRef}        onClick={(e) => {setLeftPosition(e.target.offsetLeft); }} className={`${(subdomain === "TSST")          && ("text-white")} px-5 py-3 relative z-10 h-fit mr-5 rounded-lg font-medium text-center transition-all ease-in-out`}>TSST</Link>
             {
               // (user) ? (
               //   <div className="flex">
@@ -192,7 +191,6 @@ const Header = () => {
                     <Link to="/summarizeURL"   onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "summarizeURL")  && ("text-white")} ${showNav ? "left-0" : "left-[400px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[400ms]`}>Summarize</Link>
                     <Link to="/translator"     onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "translator")    && ("text-white")} ${showNav ? "left-0" : "left-[500px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[500ms]`}>Translate</Link>                   
                     <Link to="/context"        onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "context")       && ("text-white")} ${showNav ? "left-0" : "left-[600px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[600ms]`}>Context</Link>
-                    <Link to="/TSST"           onClick={(e) => {setTopPosition(e.target.offsetTop); }} className={`${(subdomain === "TSST")          && ("text-white")} ${showNav ? "left-0" : "left-[700px]"} w-full py-3 relative z-10 h-fit rounded-lg font-medium text-center transition-all ease-in-out duration-[700ms]`}>TSST</Link>
 
                     {
                       // (user) ? (
