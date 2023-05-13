@@ -34,8 +34,9 @@ const ChatBot = () => {
     const [newName, setNewName] = useState("");
     const [nameChangeIndex, setChangeNameIndex] = useState(null);
 
-    const [chats, setChats] = useState([[]]);
+    const [chatsMessages, setChatsMessages] = useState([[]]);
     const [chatsResponses, setChatsResponses]= useState([[]]);
+    const [chats, setChats]= useState([[]]);
     const [message, setMessage] = useState({
         role: "",
         content: ""
@@ -55,7 +56,7 @@ const ChatBot = () => {
 
             if (data !== undefined && data.chatResponse !== undefined) {
                 const updatedResponses = await Promise.resolve(chatsResponses[selectedChatProp]).then((prevChatResponses) =>
-                  [...prevChatResponses, data.chatResponse]
+                  [...prevChatResponses, {role: "assistant", content:data.chatResponse}]
                 );
                 setChatsResponses((prevChatsResponses) =>
                 prevChatsResponses.map((prevChatResponses, index) =>
@@ -70,7 +71,6 @@ const ChatBot = () => {
 
             setLoading(false);
         } finally{
-            console.log("finally");
             setLoading(false);
         }
     }
@@ -80,32 +80,58 @@ const ChatBot = () => {
     }
     const handleMessageKeyDown = async (e) => {
         if (e.key === 'Enter') {
-            setChats(prevChats => {
-                const newChats = prevChats.map((prevChat, index) => {
+            setChatsMessages(prevChats => {
+                const newChatsMessanges = prevChats.map((prevChat, index) => {
                     if (index === selectedChat) {
                         return [...prevChat, message];
                     } else {
                         return prevChat;
                     }
                 });
-                sendChat(selectedChat, newChats);
-                return newChats;
+
+                return newChatsMessanges;
             });
+
             setMessage({role:"", content:""});
             setLoading(true);
         }        
-    };
+    }
+
+    useEffect(() => {console.log("chatsMessages", chatsMessages); console.log("chatsResponses", chatsResponses)}, [chatsResponses])
+    useEffect(() => {if(chatsMessages[selectedChat].length > chatsResponses[selectedChat].length){console.log(chats); sendChat(selectedChat, chats)}}, [chats])
+
+    useEffect(() => {
+        // create a new array to hold the updated chats
+        const updatedChats = [];
+      
+        // loop through each chat
+        for (let i = 0; i < chatsMessages.length; i++) {
+          const chat = [];
+      
+          // loop through each message and response pair
+          for (let j = 0; j < Math.max(chatsMessages[i].length, chatsResponses[i].length); j++) {
+            // add the message to the chat if it exists
+            if (chatsMessages[i][j]) {
+              chat.push(chatsMessages[i][j]);
+            }
+            // add the response to the chat if it exists
+            if (chatsResponses[i][j]) {
+              chat.push(chatsResponses[i][j]);
+            }
+          }
+      
+          // add the chat to the updated chats array
+          updatedChats.push(chat);
+        }
+      
+        console.log(updatedChats)
+        // update the chats state with the updated chats array
+        setChats(updatedChats);
+      }, [chatsMessages, chatsResponses]);
+
     const handleNameChange = (e) => {
         setNewName(e.target.value);
     }
-    const handleNameKeyDown = async (e) => {
-        if (e.key === 'Enter') {
-            console.log("newname", e.target)
-            setChatsNames(prevChatsName => prevChatsName.filter((prevChatName, index) => (index === e.target.key) ? newName : prevChatName ));
-            setChangeNameState(false);
-            setNewName("");
-        }        
-    };
     
     const handleFileUpload = (event) => {
         const reader = new FileReader();
@@ -114,37 +140,29 @@ const ChatBot = () => {
             JSON.parse(event.target.result).map((e1,index) => {
                 setChatsNames(prevTitle => [...prevTitle, e1.title])
 
-                if(index === 0 && chats[chats.length-1].length === 0){
-                    setChats(prevF1 => [...prevF1, []]);
+                if(index === 0 && chatsMessages[chatsMessages.length-1].length === 0){
+                    setChatsMessages(prevF1 => [...prevF1, []]);
                 }
                 if(index === 0 && chatsResponses[chatsResponses.length-1].length === 0){
                     setChatsResponses(prevF2 => [...prevF2, []]);
                 }
 
-                let counter = 0;
                 for (let key in e1.mapping) {
                     if(e1.mapping[key]?.message?.content?.parts[0] !== "" && e1.mapping[key].message !== null){
-                        if(counter%2===0){ 
-                            setChats(prevF1 =>  [...prevF1.slice(0, -1), [...prevF1[prevF1.length -1], {role:"user", content: e1.mapping[key]?.message?.content?.parts[0]}]])
-                        }else{
-                            setChatsResponses(prevF2 =>  [...prevF2.slice(0, -1), [...prevF2[prevF2.length -1], e1.mapping[key]?.message?.content?.parts[0]]])
+                        if(e1.mapping[key]?.message?.author.role === "user"){ 
+                            setChatsMessages(prevF1 =>  [...prevF1.slice(0, -1), [...prevF1[prevF1.length -1], {role:"user", content: e1.mapping[key]?.message?.content?.parts[0]}]])
+                        }else if(e1.mapping[key]?.message?.author.role === "assistant"){
+                            setChatsResponses(prevF2 =>  [...prevF2.slice(0, -1), [...prevF2[prevF2.length -1], {role: "assistant", content: e1.mapping[key]?.message?.content?.parts[0]}]])
                         }
-                        counter++;
                     }
                 }
                 if(index + 1 !== JSON.parse(event.target.result).length){
-                    setChats(prevF1 => [...prevF1, []]);
+                    setChatsMessages(prevF1 => [...prevF1, []]);
                     setChatsResponses(prevF2 => [...prevF2, []]);
                 }
             })
         };
     }
-
-    useEffect(() => {
-        console.log("F1",  chats);
-        console.log("F2", chatsResponses);
-        console.log("TITLE", chatsName);
-    }, [chats])
 
     useEffect(() => {
         // Event listener for clicks outside of the excluded div
@@ -176,11 +194,11 @@ const ChatBot = () => {
             exit={{ opacity: 0 }} 
             className='h-[calc(100vh-73px)] w-full bg-slate-50 md:h-[calc(100vh-120px)]'>
         
-                <div ref={excludedDivRef2} style={{boxShadow: "15px 15px 20px rgba(0,0,0,0.8)"}} className={`${showImportInfo ? "px-10 py-10 absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] rounded-lg bg-white w-[40vw] aspect-square z-10 overflow-y-scroll" : "hidden"}`}>
+                <div ref={excludedDivRef2} style={{boxShadow: "15px 15px 20px rgba(0,0,0,0.8)"}} className={`absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] rounded-lg bg-white aspect-square z-10 overflow-y-scroll ${showImportInfo ? "w-[40vw] px-10 py-10 " : "w-[0px]"} transition-all ease-in-out`}>
                     <div className='relative w-full'>
                         <button onClick={() => setShowImportInfo(false)} className=' absolute right-0 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 transition-all ease-in-out duration-200'>x</button>
                     </div>
-                     <p className='mb-2'>To import your chats from chatGPT:</p>
+                     <p className='mb-2'>To import your chatsMessages from chatGPT:</p>
                      <div className='px-3'>
                         <p className='mb-2'>Go to https://chat.openai.com/ and login with your account:</p>
                         <img src={image1} className='rounded-lg mb-2'/>
@@ -203,7 +221,7 @@ const ChatBot = () => {
                         <p className='mb-2'>You should get an email from openAI containing a "download data export" button:</p>
                         <img src={image7} className='rounded-lg mb-2'/>
 
-                        <p className='mb-2'>This will download a zip folder containing a “conversations.json”. ONLY upload this file and then you should have your chats uploaded accordingly</p>
+                        <p className='mb-2'>This will download a zip folder containing a “conversations.json”. ONLY upload this file and then you should have your chatsMessages uploaded accordingly</p>
                         <img src={image8} className='rounded-lg mb-2'/>
                      </div>
                 </div>
@@ -213,7 +231,7 @@ const ChatBot = () => {
                         <div className='w-full h-[90%] flex items-center flex-col justify-between'>
                             <div style={{scrollbarWidth: "thin"}} className='w-full inline-block items-center overflow-hidden px-2 overflow-y-scroll'>
                                 {
-                                    chats.map((_, index1) => (
+                                    chatsMessages.map((_, index1) => (
                                         <div key={index1} className={`flex justify-end items-center w-full h-12 mb-1 px-2 rounded-lg ${(selectedChat===index1 ) && "bg-[#454757]" } hover:bg-[#6b6e82]  transition-all`}>
                                             
                                             
@@ -255,9 +273,10 @@ const ChatBot = () => {
                                                     }else{
                                                         setSelectedChat(0)
                                                     } 
-                                                    if(chats.length > 1){
-                                                        setChats(prevChats => prevChats.filter((_, index2) => index2 !== index1)); 
+                                                    if(chatsMessages.length > 1){
+                                                        setChatsMessages(prevChatsMessages => prevChatsMessages.filter((_, index2) => index2 !== index1)); 
                                                         setChatsResponses(prevChatsResponses => prevChatsResponses.filter((_, index2) => index2 !== index1));
+                                                        setChats(prevChats => prevChats.filter((_, index2) => index2 !== index1));
                                                         setChatsNames(prevChatsNames => prevChatsNames.filter((_, index2) => index2 !== index1));
                                                     }
                                                 }} 
@@ -288,7 +307,7 @@ const ChatBot = () => {
 
                             <div className='w-full flex flex-col px-4'>
                                 <div className='w-full mb-5'>
-                                    <p>Import your chats from ChatGPT</p>
+                                    <p>Import your chatsMessages from ChatGPT</p>
                                     <div className='w-full flex justify-center items-center'>
                                         <label for="chat-file" className='mr-1 block w-[90%] text-black text-center bg-gray-100 rounded-lg border-1 hover:bg-gray-300 transition-all duration-200 ease-in-out hover:cursor-pointer'>Browse</label>
                                         <button onClick={() => {setShowImportInfo(true)}} className='flex justify-center items-center aspect-square rounded-full p-2 text-white border-2 border-white hover:bg-[rgba(255,255,255,0.3)] hover:cursor-pointer transition-all ease-in-out duration-200'>?</button>
@@ -297,34 +316,37 @@ const ChatBot = () => {
                                 </div>
 
                                 <button onClick={() => {
-                                        setChats([...chats, []]); 
+                                        setChatsMessages([...chatsMessages, []]); 
                                         setChatsResponses([...chatsResponses, []]);
+                                        setChats([...chats, []]);
                                         setChatsNames([...chatsName, `Chat ${chatsCounter + 1}`])
                                         setChatsCounter(prevCounter => prevCounter + 1);
                                         console.log(chatsName)
                                     }
-                                } className='w-full mb-3 text-black border-2 bg-green-300 border-green-500 py-3 rounded-lg hover:bg-green-400 hover:bg-opacity-30 transition-all'>Create New chats</button>
+                                } className='w-full mb-3 text-black border-2 bg-green-300 border-green-500 py-3 rounded-lg hover:bg-green-400 hover:bg-opacity-30 transition-all'>Create New chatsMessages</button>
                                 <button onClick={() => {
                                     if(selectedChat > 0){
                                         setSelectedChat(prevSelectedChat => prevSelectedChat - 1)
                                     }else{
                                         setSelectedChat(0)
                                     } 
-                                    if(chats.length > 1){
-                                        setChats(prevChats => prevChats.filter((_, index) => index !== selectedChat)); 
+                                    if(chatsMessages.length > 1){
+                                        setChatsMessages(prevChatsMessages => prevChatsMessages.filter((_, index) => index !== selectedChat)); 
                                         setChatsResponses(prevChatsResponses => prevChatsResponses.filter((_, index) => index !== selectedChat));
+                                        setChats(prevChats => prevChats.filter((_, index) => index !== selectedChat)); 
                                         setChatsNames(prevChatsNames => prevChatsNames.filter((_, index) => index !== selectedChat));
                                     }}
                                 } 
-                                className='w-full mb-3 text-black border-2 bg-red-300 border-red-500 py-3 rounded-lg hover:bg-red-400 hover:bg-opacity-30 transition-all'>Delete This chats</button>
+                                className='w-full mb-3 text-black border-2 bg-red-300 border-red-500 py-3 rounded-lg hover:bg-red-400 hover:bg-opacity-30 transition-all'>Delete This chatsMessages</button>
                                 
                                 <button onClick={() => {
-                                        setChats([[]]); 
+                                        setChatsMessages([[]]); 
                                         setChatsResponses([[]])
+                                        setChats([[]]);
                                         setChatsNames(["Chat 1"]);
                                         setChatsCounter(1);
                                     }
-                                } className='w-full mb-3 text-black border-2 bg-yellow-300 border-yellow-500 py-3 rounded-lg hover:bg-yellow-400 hover:bg-opacity-30 transition-all'>Delete All chats</button>
+                                } className='w-full mb-3 text-black border-2 bg-yellow-300 border-yellow-500 py-3 rounded-lg hover:bg-yellow-400 hover:bg-opacity-30 transition-all'>Delete All chatsMessages</button>
                             </div>
                         </div>
                     </div>
@@ -333,8 +355,8 @@ const ChatBot = () => {
                 <div className='w-full'>
                     <div className='w-full h-[80%] flex flex-col overflow-y-scroll' style={{scrollbarWidth: "thin"}}>
                     {
-                        (chats[selectedChat].length > 0) && (
-                            chats[selectedChat].map((message, index1) => (
+                        (chatsMessages[selectedChat].length > 0) && (
+                            chatsMessages[selectedChat].map((message, index1) => (
                                 <div className='w-full h-fit' key={index1} >
                                     <div className='userMessages px-48 bg-white w-full py-8 border-y-2 border-gray-300 md:px-10'>
                                         {message.content}
@@ -358,10 +380,14 @@ const ChatBot = () => {
                                                 // ) : (
                                                 //     chatsResponses[selectedChat][index1]
                                                 // )
-                                                chatsResponses[selectedChat][index1]
-
+                                                (chatsResponses[selectedChat][index1]) ? (
+                                                    chatsResponses[selectedChat][index1].content
+                                                ): (
+                                                    null
+                                                )
                                             )
                                         }
+                                        
                                     </div>
                                 </div>
                             ))
