@@ -5,7 +5,8 @@ const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
 const chatsSlice = createSlice({
     name: "chats",
     initialState: {
-        chatsInfo: [],
+        chatsInfo: [[]],
+        chatsNames: ["Chats 1"],
         pending: false,
         error: false
     },
@@ -13,9 +14,13 @@ const chatsSlice = createSlice({
         startAPI: (state) => {
             state.pending = true;
         },
-        fetchSuccess: (state, action) => {
+        setChatsStateSuccess: (state, action) => {
             state.pending = false;
             state.chatsInfo = action.payload;
+        },
+        setChatsNamesSuccess: (state, action) => {
+            state.pending = false;
+            state.chatsNames = action.payload;
         },
         errorAPI: (state) => {
             state.pending = null;
@@ -28,7 +33,18 @@ export const setChatsState = (chats, dispatch) => {
     dispatch(chatsSlice.actions.startAPI());
 
     try {    
-        dispatch(chatsSlice.actions.fetchSuccess(chats))
+        dispatch(chatsSlice.actions.setChatsStateSuccess(chats))
+    } catch (error) {
+        dispatch(chatsSlice.actions.errorAPI());
+        console.log("error: ", error);
+    }
+}
+
+export const setChatsNamesState = (chatsNames, dispatch) => {
+    dispatch(chatsSlice.actions.startAPI());
+
+    try {    
+        dispatch(chatsSlice.actions.setChatsNamesSuccess(chatsNames))
     } catch (error) {
         dispatch(chatsSlice.actions.errorAPI());
         console.log("error: ", error);

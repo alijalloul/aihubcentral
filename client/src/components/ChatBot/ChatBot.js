@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
-import { setChatsState } from '../../redux/Chats';
+import { setChatsState, setChatsNamesState } from '../../redux/Chats';
 
 import CodeEditor from '../CodeEditor/CodeEditor';
 import LoadingDots from '../LoadingDots/LoadingDots';
@@ -19,6 +19,7 @@ import image8 from "../../img/8.png"
 const ChatBot = () => {
     const dispatch = useDispatch();
     const chatsInfo = useSelector(state => state?.chats?.chatsInfo);
+    const chatsNamesState = useSelector(state => state?.chats?.chatsNames);
 
     const userInfo = useSelector(state => state?.user?.userInfo);
     const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5000";
@@ -94,13 +95,6 @@ const ChatBot = () => {
             setLoading(true);
         }        
     }
-
-    useEffect(() => {
-        if(chats[0].length > 0){
-            setChatsState(chats, dispatch);
-        }
-    }, [chats])
-
     useEffect(() => {
         if(chats[selectedChat].length > 0 && chats[selectedChat][chats[selectedChat].length - 1].role === "user"){ 
             sendChat(selectedChat, chats)
@@ -108,40 +102,50 @@ const ChatBot = () => {
         console.log(chats)
     }, [chats])
 
-    useEffect(() => {console.log(chatsInfo)},[chatsInfo])
+    useEffect(() => {
+        if(chats[0].length > 0 ){
+            setChatsState(chats , dispatch);
+        }
+    }, [chats])
+    useEffect(() => {
+        if(chatsName.length > 1 ){
+            setChatsNamesState(chatsName , dispatch);
+        }
+    }, [chatsName])
+
+    
+    useEffect(() => {console.log("chatsInfo: ",chatsInfo); console.log("chatsNamesState: ", chatsNamesState)},[chatsInfo, chatsNamesState])
     const handleNameChange = (e) => {
         setNewName(e.target.value);
     }
     
     const handleFileUpload = (event) => {
-        // const reader = new FileReader();
-        // reader.readAsText(event.target.files[0]);
-        // reader.onload = function(event) {            
-        //     JSON.parse(event.target.result).map((e1,index) => {
-        //         setChatsNames(prevTitle => [...prevTitle, e1.title])
-
-        //         if(index === 0 && chatsMessages[chatsMessages.length-1].length === 0){
-        //             setChats(prevF1 => [...prevF1, []]);
-        //         }
-        //         if(index === 0 && chatsResponses[chatsResponses.length-1].length === 0){
-        //             setChats(prevF2 => [...prevF2, []]);
-        //         }
-
-        //         for (let key in e1.mapping) {
-        //             if(e1.mapping[key]?.message?.content?.parts[0] !== "" && e1.mapping[key].message !== null){
-        //                 if(e1.mapping[key]?.message?.author.role === "user"){ 
-        //                     setChats(prevF1 =>  [...prevF1.slice(0, -1), [...prevF1[prevF1.length -1], {role:"user", content: e1.mapping[key]?.message?.content?.parts[0]}]])
-        //                 }else if(e1.mapping[key]?.message?.author.role === "assistant"){
-        //                     setChats(prevF2 =>  [...prevF2.slice(0, -1), [...prevF2[prevF2.length -1], {role: "assistant", content: e1.mapping[key]?.message?.content?.parts[0]}]])
-        //                 }
-        //             }
-        //         }
-        //         if(index + 1 !== JSON.parse(event.target.result).length){
-        //             setChats(prevF1 => [...prevF1, []]);
-        //         }
-        //     })
-        // };
-    }
+        const reader = new FileReader();
+        reader.readAsText(event.target.files[0]);
+        reader.onload = function(event) {
+          const fileData = JSON.parse(event.target.result);
+          fileData.forEach((e1, index) => {
+            setChatsNames(prevTitle => [...prevTitle, e1.title]);
+      
+            if (index !== 0 && chats[chats.length - 1].length !== 0) {
+              setChats(prevF1 => [...prevF1, []]);
+            }
+      
+            const newChat = [];
+            for (let key in e1.mapping) {
+              if (e1.mapping[key]?.message?.content?.parts[0] !== "" && e1.mapping[key].message !== null) {
+                if (e1.mapping[key]?.message?.author.role === "user") {
+                  newChat.push({ role: "user", content: e1.mapping[key]?.message?.content?.parts[0] });
+                } else if (e1.mapping[key]?.message?.author.role === "assistant") {
+                  newChat.push({ role: "assistant", content: e1.mapping[key]?.message?.content?.parts[0] });
+                }
+              }
+            }
+            setChats(prevF1 => [...prevF1, newChat]);
+          });
+        };
+      };
+      
 
     useEffect(() => {
         // Event listener for clicks outside of the excluded div
@@ -211,8 +215,6 @@ const ChatBot = () => {
                                 {
                                     chatsInfo.map((_, index1) => (
                                         <div key={index1} className={`flex justify-end items-center w-full h-12 mb-1 px-2 rounded-lg ${(selectedChat===index1 ) && "bg-[#454757]" } hover:bg-[#6b6e82]  transition-all`}>
-                                            
-                                            
                                             {
                                                 (changeNameState && index1 === nameChangeIndex) ? (
                                                     <div className=' w-[80%] h-full md:w-[60%]'>
@@ -230,7 +232,7 @@ const ChatBot = () => {
                                                         className={`w-full h-full bg-transparent focus:outline-none transition-all ease-in-out duration-200`}></input>
                                                     </div>
                                                 ) : (
-                                                    <button onClick={() => {setSelectedChat(index1)}} className={`w-[80%] flex justify-start items-center h-full overflow-hidden whitespace-nowrap`}>{chatsName[index1]}</button>
+                                                    <button onClick={() => {setSelectedChat(index1)}} className={`w-[80%] flex justify-start items-center h-full overflow-hidden whitespace-nowrap`}>{chatsNamesState[index1]}</button>
                                                 )
                                             }
                                             <div className='flex justify-between items-center w-[20%]  md:w-[40%] h-[80%]'>
@@ -295,7 +297,6 @@ const ChatBot = () => {
                                         setChats([...chats, []]);
                                         setChatsNames([...chatsName, `Chat ${chatsCounter + 1}`])
                                         setChatsCounter(prevCounter => prevCounter + 1);
-                                        console.log(chatsName)
                                     }
                                 } className='w-full mb-3 text-black border-2 bg-green-300 border-green-500 py-3 rounded-lg hover:bg-green-400 hover:bg-opacity-30 transition-all'>Create New Chat</button>
                                 <button onClick={() => {
@@ -336,14 +337,18 @@ const ChatBot = () => {
                                         ) : (
                                             <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 md:px-10'>
                                             {
-                                                (!message && loading) ? (
-                                                    <div className=' text-3xl tracking-widest'>
-                                                        <LoadingDots />
-                                                    </div>
-                                                ) : (
-                                                    message.content
-                                                )
+                                                message.content
                                             }
+                                            </div>
+                                        )
+                                    }
+
+                                    {
+                                        (loading && (index1 === (chatsInfo[selectedChat].length - 1))) && (
+                                            <div className='gptMessages font-semibold px-48 bg-gray-100 text-black w-full py-8 md:px-10'>
+                                                <div className=' text-3xl tracking-widest'>
+                                                    <LoadingDots />
+                                                </div>
                                             </div>
                                         )
                                     }
