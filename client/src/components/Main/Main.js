@@ -27,12 +27,6 @@ const Main = () => {
     useIsVisible(translateRef, setisTranslateVisible);
     useIsVisible(textToSpeechRef, setIsTextToSpeechVisible);
 
-    console.log("isChatVisible: ", isChatVisible)
-    console.log("isCreateImageVisible: ", isCreateImageVisible)
-    console.log("isSummarizeVisible: ", isSummarizeVisible)
-    console.log("isTranslateVisible: ", isTranslateVisible)
-    console.log("isTextToSpeechVisible: ", isTextToSpeechVisible)
-
     const excludedDivRef = useRef(null);
     const selectionRef = useRef(null);
 
@@ -113,7 +107,6 @@ const Main = () => {
             try {
                 setLoading(true);
 
-                console.log(message)
                 const res = await fetch(`${BASE_URL}/api/openai/dalle`, {
                   method: "POST",
                   headers: {
@@ -123,9 +116,7 @@ const Main = () => {
                 });
                 
                 const data = await res.json();
-        
-                console.log(data.images[0])
-                
+                        
                 setChatResponses([...chatResponses, data.images[0]]);
                 //chat[chat.length - 1].content = `[Create Image]: ${chat[chat.length - 1].content}`;
 
@@ -209,15 +200,16 @@ const Main = () => {
             }
         }
 
-        console.log(message)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[chat]);
 
     const handleExpandFunctions = () => {
-        if(expandFunctions){setExpandFunctions(false);}
-        else{setExpandFunctions(true);setSelectionHeight(selectionRef.current.scrollHeight);}
-
-        console.log(selectionRef.current.style.height);
+        if(expandFunctions){
+            setExpandFunctions(false);
+        }else{
+            setExpandFunctions(true);
+            setSelectionHeight(selectionRef.current.scrollHeight);
+        }
     }
 
     const handleChooseFunction = (e) => {
