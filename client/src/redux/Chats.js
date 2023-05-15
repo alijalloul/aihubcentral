@@ -17,6 +17,7 @@ const chatsSlice = createSlice({
         setChatsStateSuccess: (state, action) => {
             state.pending = false;
             state.chatsInfo = action.payload;
+            console.log("payload: ", action.payload)
         },
         setChatsNamesSuccess: (state, action) => {
             state.pending = false;

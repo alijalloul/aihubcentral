@@ -103,9 +103,10 @@ const ChatBot = () => {
     }, [chats])
 
     useEffect(() => {
-        if(chats[0].length > 0 ){
+        if(chats[0].length > 0 || chats.length > 1){
             setChatsState(chats , dispatch);
         }
+        console.log("hi")
     }, [chats])
     useEffect(() => {
         if(chatsName.length > 1 ){
@@ -124,16 +125,15 @@ const ChatBot = () => {
         reader.readAsText(event.target.files[0]);
         reader.onload = function(event) {
           const fileData = JSON.parse(event.target.result);
-          fileData.forEach((e1, index) => {
-            setChatsNames(prevTitle => [...prevTitle, e1.title]);
+          let newChats = [];
       
-            if (index !== 0 && chats[chats.length - 1].length !== 0) {
-              setChats(prevF1 => [...prevF1, []]);
-            }
-      
+          fileData.forEach((e1) => {
             const newChat = [];
             for (let key in e1.mapping) {
-              if (e1.mapping[key]?.message?.content?.parts[0] !== "" && e1.mapping[key].message !== null) {
+              if (
+                e1.mapping[key]?.message?.content?.parts[0] !== "" &&
+                e1.mapping[key].message !== null
+              ) {
                 if (e1.mapping[key]?.message?.author.role === "user") {
                   newChat.push({ role: "user", content: e1.mapping[key]?.message?.content?.parts[0] });
                 } else if (e1.mapping[key]?.message?.author.role === "assistant") {
@@ -141,10 +141,16 @@ const ChatBot = () => {
                 }
               }
             }
-            setChats(prevF1 => [...prevF1, newChat]);
+            if (newChat.length > 0) {
+              newChats.push(newChat);
+            }
           });
+      
+          setChatsNames(prevTitle => [...prevTitle, ...fileData.map(e1 => e1.title)]);
+          setChats(prevF1 => [...prevF1, ...newChats]);
         };
       };
+      
       
 
     useEffect(() => {
