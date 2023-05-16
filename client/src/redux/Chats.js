@@ -6,7 +6,7 @@ const chatsSlice = createSlice({
     name: "chats",
     initialState: {
         chatsInfo: [[]],
-        chatsNames: ["Chats 1"],
+        chatsNames: ["Chat 1"],
         pending: false,
         error: false
     },

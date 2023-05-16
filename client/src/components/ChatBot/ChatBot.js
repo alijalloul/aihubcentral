@@ -35,12 +35,12 @@ const ChatBot = () => {
 
     const [selectedChat, setSelectedChat] = useState(0);
 
-    const [chatsName, setChatsNames] = useState(["Chat 1"]);
+    const [chatsName, setChatsNames] = useState(chatsNamesState);
     const [changeNameState, setChangeNameState] = useState(false);
     const [newName, setNewName] = useState("");
     const [nameChangeIndex, setChangeNameIndex] = useState(null);
 
-    const [chats, setChats]= useState([[]]);
+    const [chats, setChats]= useState(chatsInfo);
     const [message, setMessage] = useState({
         role: "",
         content: ""
@@ -96,26 +96,23 @@ const ChatBot = () => {
         }        
     }
     useEffect(() => {
-        if(chats[selectedChat].length > 0 && chats[selectedChat][chats[selectedChat].length - 1].role === "user"){ 
+        if(chats[selectedChat] && chats[selectedChat].length > 0 && chats[selectedChat][chats[selectedChat].length - 1].role === "user"){ 
+            console.log("sending information...")
             sendChat(selectedChat, chats)
         }
-        console.log(chats)
     }, [chats])
 
     useEffect(() => {
-        if(chats[0].length > 0 || chats.length > 1){
-            setChatsState(chats , dispatch);
-        }
-        console.log("hi")
-    }, [chats])
+        setChatsState(chats , dispatch);
+
+    }, [chats, chats[selectedChat]])
     useEffect(() => {
-        if(chatsName.length > 1 ){
-            setChatsNamesState(chatsName , dispatch);
-        }
+        setChatsNamesState(chatsName , dispatch);
+
     }, [chatsName])
 
     
-    useEffect(() => {console.log("chatsInfo: ",chatsInfo); console.log("chatsNamesState: ", chatsNamesState)},[chatsInfo, chatsNamesState])
+    //useEffect(() => {console.log("chatsInfo: ",chatsInfo); console.log("chatsNamesState: ", chatsNamesState)},[chatsInfo, chatsNamesState])
     const handleNameChange = (e) => {
         setNewName(e.target.value);
     }
