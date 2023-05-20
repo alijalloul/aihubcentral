@@ -180,49 +180,29 @@ export const translate = async (req, res) => {
 }
 
 export const transcribe = async (req, res) => {
-    const { audioBuffer, lang} = req.body;
+    const { audioData } = req.body;
 
-    const fileName = "recording.wav"
-    const folderPath = "./audio";
-    const filePath = `${folderPath}/${fileName}`;
-
-    const audioBufferBase64 = Buffer.from(audioBuffer, 'base64');
-
-    const writableStream = fs.createWriteStream(filePath);
-    writableStream.write(audioBufferBase64);
-    writableStream.end();
-
-    writableStream.on('finish', async () => {
-
-        fs.readFile('./audio/recording.wav', (err, data) => {
-            if (err) {
-              console.error('Error occurred while reading file:', err);
-            } else {
-              // Process data with CT() function
-              console.log(data);
-            }
-          });
-
-        const readStream = fs.createReadStream(filePath);
-
-        // console.log(fs.createReadStream("./audio/test.wav"));
-        // console.log("\n\n NEXT STREAM \n\n");
-        // console.log(readStream);
-
-        try {
-            const whisperRes = await openai.createTranscription(
-                readStream,
-                "whisper-1",
-            )
+    // Decode the base64 audio data
+    const audioBuffer = Buffer.from(audioData, 'base64');
     
-            console.log(whisperRes);
-            const chatResponse = whisperRes.data.text;
-            console.log(chatResponse)
-    
-            res.status(200).json({ chatResponse: chatResponse });            
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: error });
-        }
-    });
-}
+    try {
+      // Create a transcription using the Whisper API
+      const transcriptionRequest = {
+        audio: audioBuffer.toString('base64'),
+        model: 'whisper-1'
+    };
+  
+      const transcriptionResponse = await openai.createTranscription(transcriptionRequest);
+      
+      // Retrieve the transcription result
+      const { id } = transcriptionResponse.data;
+      console.log(transcriptionResponse.data)
+      const transcriptionResult = await openai.getTranscription(id);
+      const transcription = transcriptionResult.data;
+  
+      res.json({ transcription });
+    } catch (error) {
+      console.error('Error transcribing audio:', error);
+      res.status(500).json({ error: 'An error occurred while transcribing the audio.' });
+    }
+  }
