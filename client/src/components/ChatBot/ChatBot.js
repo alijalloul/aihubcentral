@@ -153,8 +153,11 @@ const ChatBot = () => {
     useEffect(() => {
         // Event listener for clicks outside of the excluded div
         function handleClickOutside(event) {
-            if((excludedDivRef.current && !excludedDivRef.current.contains(event.target)) || (excludedDivRef2.current && !excludedDivRef2.current.contains(event.target)) ) {
+            if((excludedDivRef.current && !excludedDivRef.current.contains(event.target)) ) {
                 setChangeNameState(false);
+            }
+            
+            if( (excludedDivRef2.current && !excludedDivRef2.current.contains(event.target))){
                 setShowImportInfo(false);
             }
         }
